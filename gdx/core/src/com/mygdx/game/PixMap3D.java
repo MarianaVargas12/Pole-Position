@@ -13,6 +13,7 @@ public class PixMap3D extends Pixmap {
     private int horizon;
     public double angle;
     private Pixmap grass; //informacion del pasto en un arreglo 2D
+    private Pixmap track;
     public Vector3 pos;
     public Vector3 scale;
 
@@ -22,7 +23,8 @@ public class PixMap3D extends Pixmap {
 
         pixmapTexture = new Texture(this,getFormat(),true);
         horizon = 30;//distancia en pixeles a partir de la parte superior de la pantalla
-        grass = new Pixmap(new FileHandle("C:\\Users\\Mario\\Desktop\\gdx\\core\\assets\\pasto.png"));
+        grass = new Pixmap(new FileHandle("core\\assets\\pasto.jpg"));
+        track = new Pixmap(new FileHandle("core\\assets\\track.png"));
         pos = new Vector3(903,768,16);//posicion teorica (x,y,altura respecto al suelo)
         scale = new Vector3(300,300,0);
         angle = 2;//angulo en radianes
@@ -53,6 +55,10 @@ public class PixMap3D extends Pixmap {
             for(int screenx = 0 ; screenx < getWidth(); screenx++){
                 setColor(grass.getPixel(((int)Math.abs(spaceX % grass.getWidth())),(int)Math.abs(spaceY%grass.getHeight())));
                 drawPixel(screenx,screeny);
+
+                setColor(track.getPixel((int) spaceX,(int) spaceY));
+                drawPixel(screenx,screeny);
+
                 spaceX += deltax;
                 spaceY += deltay;
             }
