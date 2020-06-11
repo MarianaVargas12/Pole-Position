@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -12,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class GameScreen extends ScreenAdapter {
     public static final int GAME_HEIGHT = 224;
     public static final int GAME_WIDTH = 256;
+    public static final double TURN_ANGLE =0.02;
 
     private Game game;
     private SpriteBatch batch;
@@ -39,15 +41,34 @@ public class GameScreen extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.setProjectionMatrix(camera.combined);
-        handleInput();//maneja los botones presionados
+        handleInput(delta);//maneja los botones presionados
         camera.update();//actualiza la camara
 
         batch.begin();
         pixmap.render(batch);//renderiza todo lo que haya en el pixmap
         batch.end();
     }
-    private void handleInput(){
-
+    //manejo de teclas
+    private void handleInput(float delta){
+        if(Gdx.input.isKeyPressed(Input.Keys.UP)){
+            pixmap.pos.x += 1* Math.cos(pixmap.angle);
+            pixmap.pos.y += 1* Math.sin(pixmap.angle);
+        } else if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+            pixmap.pos.x += 1* Math.cos(pixmap.angle - 1.5);
+            pixmap.pos.y += 1* Math.sin(pixmap.angle - 1.5);
+        } else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+            pixmap.pos.x += 1* Math.cos(pixmap.angle + 1.5);
+            pixmap.pos.y += 1* Math.sin(pixmap.angle + 1.5);
+        }if(Gdx.input.isKeyPressed(Input.Keys.A)){
+            pixmap.angle -= TURN_ANGLE;
+        }else if(Gdx.input.isKeyPressed(Input.Keys.D)){
+            pixmap.angle += TURN_ANGLE;
+            // quitar estoooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+        }if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
+            pixmap.pos.z +=1;
+        }else if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
+            pixmap.pos.z -= 1;
+        }
     }
 
     @Override
