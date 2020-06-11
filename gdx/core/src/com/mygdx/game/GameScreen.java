@@ -53,22 +53,37 @@ public class GameScreen extends ScreenAdapter {
         if(Gdx.input.isKeyPressed(Input.Keys.UP)){
             pixmap.pos.x += 1* Math.cos(pixmap.angle);
             pixmap.pos.y += 1* Math.sin(pixmap.angle);
+
         } else if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
             pixmap.pos.x += 1* Math.cos(pixmap.angle - 1.5);
             pixmap.pos.y += 1* Math.sin(pixmap.angle - 1.5);
+
         } else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
             pixmap.pos.x += 1* Math.cos(pixmap.angle + 1.5);
             pixmap.pos.y += 1* Math.sin(pixmap.angle + 1.5);
+
         }if(Gdx.input.isKeyPressed(Input.Keys.A)){
             pixmap.angle -= TURN_ANGLE;
+            pixmap.backgroundPos += 0.5f;
+            if(pixmap.backgroundPos >= 0){//acomoda la imagen del fondo
+                pixmap.backgroundPos = -256;
+            }
+
         }else if(Gdx.input.isKeyPressed(Input.Keys.D)){
             pixmap.angle += TURN_ANGLE;
-            // quitar estoooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+            pixmap.backgroundPos -= 0.5f;
+            if(pixmap.backgroundPos <= -512){//acomoda la imagen del fondo
+                pixmap.backgroundPos = -256;
+            }
+
+
         }if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
-            pixmap.pos.z +=1;
-        }else if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
+            pixmap.pos.z += 1;
+
+        }else if(Gdx.input.isKeyPressed(Input.Keys.C)){
             pixmap.pos.z -= 1;
         }
+
     }
 
     @Override
