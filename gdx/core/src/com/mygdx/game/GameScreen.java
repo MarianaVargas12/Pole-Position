@@ -51,20 +51,27 @@ public class GameScreen extends ScreenAdapter {
     //manejo de teclas
     private void handleInput(float delta){
         if(Gdx.input.isKeyPressed(Input.Keys.UP)){
-            pixmap.pos.x += 1* Math.cos(pixmap.angle);
-            pixmap.pos.y += 1* Math.sin(pixmap.angle);
+            pixmap.pos.x += 2* Math.cos(pixmap.angle);
+            pixmap.pos.y += 2* Math.sin(pixmap.angle);
 
-        } else if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-            pixmap.pos.x += 1* Math.cos(pixmap.angle - 1.5);
-            pixmap.pos.y += 1* Math.sin(pixmap.angle - 1.5);
+        }
+        else if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+            pixmap.pos.x -= 2 * Math.cos(pixmap.angle);
+            pixmap.pos.y -= 2 * Math.sin(pixmap.angle);
+        }
+        else if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+            pixmap.pos.x += 2* Math.cos(pixmap.angle - 1.5);
+            pixmap.pos.y += 2* Math.sin(pixmap.angle - 1.5);
 
         } else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-            pixmap.pos.x += 1* Math.cos(pixmap.angle + 1.5);
-            pixmap.pos.y += 1* Math.sin(pixmap.angle + 1.5);
+            pixmap.pos.x += 2* Math.cos(pixmap.angle + 1.5);
+            pixmap.pos.y += 2* Math.sin(pixmap.angle + 1.5);
 
-        }if(Gdx.input.isKeyPressed(Input.Keys.A)){
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.A)){
             pixmap.angle -= TURN_ANGLE;
             pixmap.backgroundPos += 0.5f;
+
             if(pixmap.backgroundPos >= 0){//acomoda la imagen del fondo
                 pixmap.backgroundPos = -256;
             }
@@ -75,7 +82,6 @@ public class GameScreen extends ScreenAdapter {
             if(pixmap.backgroundPos <= -512){//acomoda la imagen del fondo
                 pixmap.backgroundPos = -256;
             }
-
 
         }if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
             pixmap.pos.z += 1;

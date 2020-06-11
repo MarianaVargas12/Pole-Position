@@ -14,7 +14,7 @@ public class Sprite3D implements Comparable<Sprite3D> {
         this.pixmap = pixmap;
         screen = new Vector2();
         size = new Vector2();
-        position = new Vector2(0,0);
+        position = new Vector2(520,996);//posicion inicial del carro
     }
 
     @Override

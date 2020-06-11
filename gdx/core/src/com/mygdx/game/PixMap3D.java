@@ -8,7 +8,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 
 public class PixMap3D extends Pixmap {
@@ -31,7 +30,7 @@ public class PixMap3D extends Pixmap {
 
 
         pixmapTexture = new Texture(this,getFormat(),true);
-        horizon = 50;//distancia en pixeles a partir de la parte superior de la pantalla
+        horizon = 40;//distancia en pixeles a partir de la parte superior de la pantalla
         grass = new Pixmap(new FileHandle("core\\assets\\zacate.png"));
         track = new Pixmap(new FileHandle("core\\assets\\pista.png"));
         pos = new Vector3(903,768,16);//posicion teorica (x,y,altura respecto al suelo)
@@ -40,8 +39,8 @@ public class PixMap3D extends Pixmap {
         background = new Texture("core\\assets\\fondo.png");
         backgroundPos = -256;
         entities = new ArrayList<Sprite3D>();
-        entScale = new Vector2(0.20f,0.20f);
-        entities.add(new Sprite3D(new Pixmap(new FileHandle("core\\assets\\carroAmarillo.png"))));
+        entScale = new Vector2(0.05f,0.05f);
+        entities.add(new Sprite3D(new Pixmap(new FileHandle("core\\assets\\carroVerde.png"))));
 
 
     }
