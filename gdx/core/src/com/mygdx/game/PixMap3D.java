@@ -8,6 +8,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 public class PixMap3D extends Pixmap {
     private Texture background;
@@ -19,9 +21,9 @@ public class PixMap3D extends Pixmap {
     private Pixmap track;
     public Vector3 pos;
     public Vector3 scale;
-    public Vector2 escalaEntidad;
 
-    public ArrayList<Sprite3D> entidades;
+    public ArrayList<Sprite3D> entities;
+    public Vector2 entScale;
 
     public PixMap3D (int width, int height, Format format){
         super(width,height,format);
@@ -37,15 +39,16 @@ public class PixMap3D extends Pixmap {
         angle = 2;//angulo en radianes
         background = new Texture("core\\assets\\fondo.png");
         backgroundPos = -256;
-        entidades = new ArrayList<Sprite3D>();
-        escalaEntidad = new Vector2(0.20f,0.20f);
-        entidades.add(new Sprite3D(new Pixmap(new FileHandle("core\\assets\\carroAmarillo.png"))));
+        entities = new ArrayList<Sprite3D>();
+        entScale = new Vector2(0.20f,0.20f);
+        entities.add(new Sprite3D(new Pixmap(new FileHandle("core\\assets\\carroAmarillo.png"))));
 
 
     }
 
     public void render(SpriteBatch batch){
         drawGround();
+        drawEntities(batch);
         pixmapTexture.draw(this,0,0);//se dibuja el pixmap en la textura
         batch.draw(pixmapTexture,0,0);//se dibuja la textura en pantalla
         batch.draw(background,backgroundPos,GameScreen.GAME_HEIGHT-40);//dibujar el horizonte
@@ -78,5 +81,50 @@ public class PixMap3D extends Pixmap {
                 spaceY += deltay;
             }
         }
+    }
+    private void drawEntities(SpriteBatch batch){
+        double dirx= Math.cos(angle);
+        double diry= Math.sin(angle);
+
+        ArrayList<Sprite3D> entitiesSorted = new ArrayList<Sprite3D>();
+        for(Sprite3D entity: entities)
+        {
+            double differenceBetweenPlayerPosAndSpritePosX = entity.position.x -pos.x;
+            double differenceBetweenPlayerPosAndSpritePosY = entity.position.y -pos.y;
+
+            double rotx = differenceBetweenPlayerPosAndSpritePosX* dirx + differenceBetweenPlayerPosAndSpritePosY *diry;
+            double roty = differenceBetweenPlayerPosAndSpritePosY* dirx - differenceBetweenPlayerPosAndSpritePosX *diry;
+
+            int w = entity.pixmap.getWidth();
+            int h = entity.pixmap.getHeight();
+            int projectedKarWidth = (int) (w * scale.x/ rotx* entScale.x);
+            int projectedKarHeight = (int) (w * scale.y/ rotx* entScale.y);
+
+            if (projectedKarHeight< 1 || projectedKarWidth<1){
+                continue;
+            }
+
+            int spriteScreenX = (int) (scale.x/ rotx*roty)+ getWidth()/2;
+            int spriteScreenY = (int) ((pos.z* scale.y)/rotx +horizon);
+
+            entity.screen.x = spriteScreenX - projectedKarWidth/2;
+            entity.screen.y = spriteScreenY - projectedKarHeight;
+            entity.size.x = projectedKarWidth;
+            entity.sort = spriteScreenY;
+        }
+        Collections.sort(entitiesSorted);
+
+        for(Sprite3D Kart : entitiesSorted){
+            int sw= Kart.pixmap.getWidth();
+            int sh = Kart.pixmap.getHeight();
+            int x = (int) Kart.screen.x;
+            int y = (int) Kart.screen.y;
+            int w = (int) Kart.size.x;
+            int h = (int) Kart.size.y;
+
+            drawPixmap(Kart.pixmap,0,0,sw,sh,x,y,w,h);
+
+        }
+
     }
 }

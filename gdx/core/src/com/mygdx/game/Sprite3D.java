@@ -9,11 +9,9 @@ public class Sprite3D implements Comparable<Sprite3D> {
     public Vector2 screen;
     public Vector2 size;
     public Vector2 position;
-    public boolean isJumping;
 
     public Sprite3D(Pixmap pixmap){
         this.pixmap = pixmap;
-        isJumping = false;
         screen = new Vector2();
         size = new Vector2();
         position = new Vector2(0,0);
