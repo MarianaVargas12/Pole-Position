@@ -48,7 +48,7 @@ public class PixMap3D extends Pixmap {
 
     public void render(SpriteBatch batch){
         drawGround();
-        drawEntities(batch);
+        drawEntities(batch);//dibuja entidades en el pixmap
         pixmapTexture.draw(this,0,0);//se dibuja el pixmap en la textura
         batch.draw(pixmapTexture,0,0);//se dibuja la textura en pantalla
         batch.draw(background,backgroundPos,GameScreen.GAME_HEIGHT-40);//dibujar el horizonte
@@ -87,42 +87,50 @@ public class PixMap3D extends Pixmap {
         double diry= Math.sin(angle);
 
         ArrayList<Sprite3D> entitiesSorted = new ArrayList<Sprite3D>();
-        for(Sprite3D entity: entities)
+
+        for(Sprite3D entity : entities)
         {
+
             double differenceBetweenPlayerPosAndSpritePosX = entity.position.x -pos.x;
             double differenceBetweenPlayerPosAndSpritePosY = entity.position.y -pos.y;
 
-            double rotx = differenceBetweenPlayerPosAndSpritePosX* dirx + differenceBetweenPlayerPosAndSpritePosY *diry;
-            double roty = differenceBetweenPlayerPosAndSpritePosY* dirx - differenceBetweenPlayerPosAndSpritePosX *diry;
+            double rotx = differenceBetweenPlayerPosAndSpritePosX * dirx + differenceBetweenPlayerPosAndSpritePosY *diry;
+            double roty = differenceBetweenPlayerPosAndSpritePosY * dirx - differenceBetweenPlayerPosAndSpritePosX *diry;
 
             int w = entity.pixmap.getWidth();
             int h = entity.pixmap.getHeight();
-            int projectedKarWidth = (int) (w * scale.x/ rotx* entScale.x);
-            int projectedKarHeight = (int) (w * scale.y/ rotx* entScale.y);
+            int entityWidth = (int) (w * scale.x/ rotx* entScale.x);
+            int entityHeight = (int) (h * scale.y/ rotx* entScale.y);
 
-            if (projectedKarHeight< 1 || projectedKarWidth<1){
+            //verifica que el sprite que se quiere dibujar este en pantalla
+            if (entityHeight < 1 || entityWidth < 1){
                 continue;
             }
 
+            //obtiene la ubicacion del jugador en el mapa
             int spriteScreenX = (int) (scale.x/ rotx*roty)+ getWidth()/2;
-            int spriteScreenY = (int) ((pos.z* scale.y)/rotx +horizon);
+            int spriteScreenY = (int) ((pos.z * scale.y) / rotx + horizon);
 
-            entity.screen.x = spriteScreenX - projectedKarWidth/2;
-            entity.screen.y = spriteScreenY - projectedKarHeight;
-            entity.size.x = projectedKarWidth;
+            entity.screen.x = spriteScreenX - entityWidth/2;
+            entity.screen.y = spriteScreenY - entityHeight;
+            entity.size.x = entityWidth;
+            entity.size.y = entityHeight;
             entity.sort = spriteScreenY;
+
+            entitiesSorted.add(entity);//agrega la entidad a la lista de sprites que se van a dibujar
         }
+        //acomoda los carros segun su posY para dibujar uno detras de otro
         Collections.sort(entitiesSorted);
 
         for(Sprite3D Kart : entitiesSorted){
-            int sw= Kart.pixmap.getWidth();
-            int sh = Kart.pixmap.getHeight();
+            int spriteWidth= Kart.pixmap.getWidth();
+            int spriteHeight = Kart.pixmap.getHeight();
             int x = (int) Kart.screen.x;
             int y = (int) Kart.screen.y;
             int w = (int) Kart.size.x;
             int h = (int) Kart.size.y;
 
-            drawPixmap(Kart.pixmap,0,0,sw,sh,x,y,w,h);
+            drawPixmap(Kart.pixmap,0,0,spriteWidth,spriteHeight,x,y,w,h);
 
         }
 

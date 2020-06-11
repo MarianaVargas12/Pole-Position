@@ -6,9 +6,9 @@ import com.badlogic.gdx.math.Vector2;
 public class Sprite3D implements Comparable<Sprite3D> {
     public Pixmap pixmap;
     public int sort;
-    public Vector2 screen;
-    public Vector2 size;
-    public Vector2 position;
+    public Vector2 screen;//posicion en la pantalla
+    public Vector2 size;//tamano en el juego
+    public Vector2 position;//posicion en el juego
 
     public Sprite3D(Pixmap pixmap){
         this.pixmap = pixmap;
@@ -16,6 +16,7 @@ public class Sprite3D implements Comparable<Sprite3D> {
         size = new Vector2();
         position = new Vector2(0,0);
     }
+
     @Override
     public int compareTo(Sprite3D other){
         return Integer.compare(sort,other.sort);
