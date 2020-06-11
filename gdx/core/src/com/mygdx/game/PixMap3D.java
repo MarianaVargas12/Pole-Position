@@ -23,7 +23,7 @@ public class PixMap3D extends Pixmap {
 
         pixmapTexture = new Texture(this,getFormat(),true);
         horizon = 30;//distancia en pixeles a partir de la parte superior de la pantalla
-        grass = new Pixmap(new FileHandle("core\\assets\\pasto.jpg"));
+        grass = new Pixmap(new FileHandle("core\\assets\\pasto.png"));
         track = new Pixmap(new FileHandle("core\\assets\\track.png"));
         pos = new Vector3(903,768,16);//posicion teorica (x,y,altura respecto al suelo)
         scale = new Vector3(300,300,0);
