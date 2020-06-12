@@ -13,7 +13,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class GameScreen extends ScreenAdapter {
     public static final int GAME_HEIGHT = 224;
     public static final int GAME_WIDTH = 256;
-    public static final double TURN_ANGLE =0.02;
+    public static final double TURN_ANGLE = 0.02;
 
     private Game game;
     private SpriteBatch batch;
@@ -30,7 +30,6 @@ public class GameScreen extends ScreenAdapter {
         camera = new OrthographicCamera(GAME_WIDTH,GAME_HEIGHT);//tamano de la camara
         camera.position.set(GAME_WIDTH/2,GAME_HEIGHT/2,0);//posicion de la camara en la mitad de la pantalla
         camera.update();
-
         pixmap = new PixMap3D(GAME_WIDTH,GAME_HEIGHT, Pixmap.Format.RGB565);//crea el efecto de baja resolucion
     }
 
@@ -50,28 +49,38 @@ public class GameScreen extends ScreenAdapter {
     }
     //manejo de teclas
     private void handleInput(float delta){
-        if(Gdx.input.isKeyPressed(Input.Keys.UP)){
+        if(Gdx.input.isKeyPressed(Input.Keys.W)){
             pixmap.pos.x += 2* Math.cos(pixmap.angle);
             pixmap.pos.y += 2* Math.sin(pixmap.angle);
-
+            pixmap.entities.get(0).position.x += 2* Math.cos(pixmap.angle);
+            pixmap.entities.get(0).position.y += 2* Math.sin(pixmap.angle);
         }
-        else if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+
+        if(Gdx.input.isKeyPressed(Input.Keys.S)) {
             pixmap.pos.x -= 2 * Math.cos(pixmap.angle);
             pixmap.pos.y -= 2 * Math.sin(pixmap.angle);
+            pixmap.entities.get(0).position.x -= 2 * Math.cos(pixmap.angle);
+            pixmap.entities.get(0).position.y -= 2 * Math.sin(pixmap.angle);
         }
-        else if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+
+        if(Gdx.input.isKeyPressed(Input.Keys.Q)){
             pixmap.pos.x += 2* Math.cos(pixmap.angle - 1.5);
             pixmap.pos.y += 2* Math.sin(pixmap.angle - 1.5);
-
-        } else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-            pixmap.pos.x += 2* Math.cos(pixmap.angle + 1.5);
-            pixmap.pos.y += 2* Math.sin(pixmap.angle + 1.5);
+            pixmap.entities.get(0).position.x += 2* Math.cos(pixmap.angle - 1.5);
+            pixmap.entities.get(0).position.y += 2* Math.sin(pixmap.angle - 1.5);
 
         }
+
+        if(Gdx.input.isKeyPressed(Input.Keys.E)){
+            pixmap.pos.x += 2* Math.cos(pixmap.angle + 1.5);
+            pixmap.pos.y += 2* Math.sin(pixmap.angle + 1.5);
+            pixmap.entities.get(0).position.x += 2* Math.cos(pixmap.angle + 1.5);
+            pixmap.entities.get(0).position.y += 2* Math.sin(pixmap.angle + 1.5);
+        }
+
         if(Gdx.input.isKeyPressed(Input.Keys.A)){
             pixmap.angle -= TURN_ANGLE;
             pixmap.backgroundPos += 0.5f;
-
             if(pixmap.backgroundPos >= 0){//acomoda la imagen del fondo
                 pixmap.backgroundPos = -256;
             }
@@ -79,6 +88,7 @@ public class GameScreen extends ScreenAdapter {
         }else if(Gdx.input.isKeyPressed(Input.Keys.D)){
             pixmap.angle += TURN_ANGLE;
             pixmap.backgroundPos -= 0.5f;
+
             if(pixmap.backgroundPos <= -512){//acomoda la imagen del fondo
                 pixmap.backgroundPos = -256;
             }

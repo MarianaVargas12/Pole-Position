@@ -15,11 +15,12 @@ public class PixMap3D extends Pixmap {
     public float backgroundPos;
     private Texture pixmapTexture;
     private int horizon;
-    public double angle;
+    public double angle;//angulo de la camara inicial
     private Pixmap grass; //informacion del pasto en un arreglo 2D
     private Pixmap track;
     public Vector3 pos;
     public Vector3 scale;
+
 
     public ArrayList<Sprite3D> entities;
     public Vector2 entScale;
@@ -33,9 +34,9 @@ public class PixMap3D extends Pixmap {
         horizon = 40;//distancia en pixeles a partir de la parte superior de la pantalla
         grass = new Pixmap(new FileHandle("core\\assets\\zacate.png"));
         track = new Pixmap(new FileHandle("core\\assets\\pista.png"));
-        pos = new Vector3(903,768,16);//posicion teorica (x,y,altura respecto al suelo)
+        pos = new Vector3(520,1068,25);//posicion teorica (x,y,altura respecto al suelo)
         scale = new Vector3(300,300,0);
-        angle = 2;//angulo en radianes
+        angle = 4.75;//angulo en radianes
         background = new Texture("core\\assets\\fondo.png");
         backgroundPos = -256;
         entities = new ArrayList<Sprite3D>();

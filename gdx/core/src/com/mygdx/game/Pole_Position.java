@@ -1,6 +1,5 @@
 package com.mygdx.game;
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Pole_Position extends Game {
