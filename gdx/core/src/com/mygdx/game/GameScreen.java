@@ -48,58 +48,70 @@ public class GameScreen extends ScreenAdapter {
         batch.end();
     }
     //manejo de teclas
-    private void handleInput(float delta){
-        if(Gdx.input.isKeyPressed(Input.Keys.W)){
-            pixmap.pos.x += 2* Math.cos(pixmap.angle);
-            pixmap.pos.y += 2* Math.sin(pixmap.angle);
-            pixmap.entities.get(0).position.x += 2* Math.cos(pixmap.angle);
-            pixmap.entities.get(0).position.y += 2* Math.sin(pixmap.angle);
+    private void handleInput(float delta) {
+        if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+            pixmap.pos.x += 2 * Math.cos(pixmap.angle);
+            pixmap.pos.y += 2 * Math.sin(pixmap.angle);
+            pixmap.entities.get(0).position.x += 2 * Math.cos(pixmap.angle);
+            pixmap.entities.get(0).position.y += 2 * Math.sin(pixmap.angle);
+
         }
 
-        if(Gdx.input.isKeyPressed(Input.Keys.S)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.S)) {
             pixmap.pos.x -= 2 * Math.cos(pixmap.angle);
             pixmap.pos.y -= 2 * Math.sin(pixmap.angle);
             pixmap.entities.get(0).position.x -= 2 * Math.cos(pixmap.angle);
             pixmap.entities.get(0).position.y -= 2 * Math.sin(pixmap.angle);
-        }
-
-        if(Gdx.input.isKeyPressed(Input.Keys.Q)){
-            pixmap.pos.x += 2* Math.cos(pixmap.angle - 1.5);
-            pixmap.pos.y += 2* Math.sin(pixmap.angle - 1.5);
-            pixmap.entities.get(0).position.x += 2* Math.cos(pixmap.angle - 1.5);
-            pixmap.entities.get(0).position.y += 2* Math.sin(pixmap.angle - 1.5);
 
         }
 
-        if(Gdx.input.isKeyPressed(Input.Keys.E)){
-            pixmap.pos.x += 2* Math.cos(pixmap.angle + 1.5);
-            pixmap.pos.y += 2* Math.sin(pixmap.angle + 1.5);
-            pixmap.entities.get(0).position.x += 2* Math.cos(pixmap.angle + 1.5);
-            pixmap.entities.get(0).position.y += 2* Math.sin(pixmap.angle + 1.5);
+        if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
+            pixmap.pos.x += 2 * Math.cos(pixmap.angle - 1.5);
+            pixmap.pos.y += 2 * Math.sin(pixmap.angle - 1.5);
+            pixmap.entities.get(0).position.x += 2 * Math.cos(pixmap.angle - 1.5);
+            pixmap.entities.get(0).position.y += 2 * Math.sin(pixmap.angle - 1.5);
+
         }
 
-        if(Gdx.input.isKeyPressed(Input.Keys.A)){
+        if (Gdx.input.isKeyPressed(Input.Keys.E)) {
+            pixmap.pos.x += 2 * Math.cos(pixmap.angle + 1.5);
+            pixmap.pos.y += 2 * Math.sin(pixmap.angle + 1.5);
+            pixmap.entities.get(0).position.x += 2 * Math.cos(pixmap.angle + 1.5);
+            pixmap.entities.get(0).position.y += 2 * Math.sin(pixmap.angle + 1.5);
+
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
             pixmap.angle -= TURN_ANGLE;
             pixmap.backgroundPos += 0.5f;
-            if(pixmap.backgroundPos >= 0){//acomoda la imagen del fondo
+            pixmap.entities.get(0).position.x = (float)(72*Math.cos(pixmap.angle)) + pixmap.pos.x;
+            pixmap.entities.get(0).position.y = (float)(72*Math.sin(pixmap.angle)) + pixmap.pos.y;
+            pixmap.pos.x += 2 * Math.cos(pixmap.angle + 1.5);
+            pixmap.pos.y += 2 * Math.sin(pixmap.angle + 1.5);
+            pixmap.entities.get(0).position.x += 2 * Math.cos(pixmap.angle + 1.5);
+            pixmap.entities.get(0).position.y += 2 * Math.sin(pixmap.angle + 1.5);
+
+            if (pixmap.backgroundPos >= 0) {//acomoda la imagen del fondo
                 pixmap.backgroundPos = -256;
             }
 
-        }else if(Gdx.input.isKeyPressed(Input.Keys.D)){
-            pixmap.angle += TURN_ANGLE;
-            pixmap.backgroundPos -= 0.5f;
-
-            if(pixmap.backgroundPos <= -512){//acomoda la imagen del fondo
-                pixmap.backgroundPos = -256;
-            }
-
-        }if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
-            pixmap.pos.z += 1;
-
-        }else if(Gdx.input.isKeyPressed(Input.Keys.C)){
-            pixmap.pos.z -= 1;
         }
 
+        if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+            pixmap.angle += TURN_ANGLE;
+            pixmap.backgroundPos -= 0.5f;
+            pixmap.entities.get(0).position.x = (float) (72*Math.cos(pixmap.angle))+pixmap.pos.x;
+            pixmap.entities.get(0).position.y = (float)(72*Math.sin(pixmap.angle))+pixmap.pos.y;
+            pixmap.pos.x += 2 * Math.cos(pixmap.angle - 1.5);
+            pixmap.pos.y += 2 * Math.sin(pixmap.angle - 1.5);
+            pixmap.entities.get(0).position.x += 2 * Math.cos(pixmap.angle - 1.5);
+            pixmap.entities.get(0).position.y += 2 * Math.sin(pixmap.angle - 1.5);
+
+            if (pixmap.backgroundPos <= -512) {//acomoda la imagen del fondo
+                pixmap.backgroundPos = -256;
+            }
+
+        }
     }
 
     @Override
