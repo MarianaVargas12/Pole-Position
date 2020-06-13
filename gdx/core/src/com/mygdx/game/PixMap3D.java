@@ -18,12 +18,13 @@ public class PixMap3D extends Pixmap {
     public double angle;//angulo de la camara inicial
     private Pixmap grass; //informacion del pasto en un arreglo 2D
     private Pixmap track;
+    private Pixmap hole;
     public Vector3 pos;
     public Vector3 scale;
 
 
-    public ArrayList<Sprite3D> entities;
-    public Vector2 entScale;
+    public ArrayList<Sprite3D> cars;
+    public Vector2 carScale;
 
     public PixMap3D (int width, int height, Format format){
         super(width,height,format);
@@ -34,16 +35,17 @@ public class PixMap3D extends Pixmap {
         horizon = 40;//distancia en pixeles a partir de la parte superior de la pantalla
         grass = new Pixmap(new FileHandle("core\\assets\\zacate.png"));
         track = new Pixmap(new FileHandle("core\\assets\\pista.png"));
+        hole = new Pixmap(new FileHandle("core\\assets\\hueco.png"));
+
         pos = new Vector3(520,1068,25);//posicion teorica (x,y,altura respecto al suelo)
         scale = new Vector3(300,300,0);
         angle = 4.75;//angulo en radianes
         background = new Texture("core\\assets\\fondo.png");
         backgroundPos = -256;
-        entities = new ArrayList<Sprite3D>();
-        entScale = new Vector2(0.05f,0.05f);
-        entities.add(new Sprite3D(new Pixmap(new FileHandle("core\\assets\\carroVerde.png"))));
-
-
+        cars = new ArrayList<Sprite3D>();
+        carScale = new Vector2(0.05f,0.05f);
+        cars.add(new Sprite3D(new Pixmap(new FileHandle("core\\assets\\carroAmarillo.png"))));
+        cars.add(new Sprite3D(new Pixmap(new FileHandle("core\\assets\\carroVerde.png"))));
     }
 
     public void render(SpriteBatch batch){
@@ -53,6 +55,7 @@ public class PixMap3D extends Pixmap {
         batch.draw(pixmapTexture,0,0);//se dibuja la textura en pantalla
         batch.draw(background,backgroundPos,GameScreen.GAME_HEIGHT-40);//dibujar el horizonte
     }
+
     private void drawGround(){
         //direccion en x,y
         double dirx = Math.cos(angle);
@@ -60,6 +63,7 @@ public class PixMap3D extends Pixmap {
 
         //dibuja debajo del horizonte la pista
         for (int screeny = horizon; screeny < getHeight(); screeny++){
+
             //distancias para la perspectiva
             double distanceInWorldSpace = pos.z * scale.y/((double)screeny - horizon);
             double deltax = -diry * (distanceInWorldSpace/scale.x);
@@ -82,15 +86,17 @@ public class PixMap3D extends Pixmap {
             }
         }
     }
+    public void drawHoles(int x,int y){
+        setColor(hole.getPixel(x,y));
+        drawPixel(x,y);
+    }
+
     private void drawEntities(SpriteBatch batch){
-        double dirx= Math.cos(angle);
-        double diry= Math.sin(angle);
-
+        double dirx = Math.cos(angle);
+        double diry = Math.sin(angle);
         ArrayList<Sprite3D> entitiesSorted = new ArrayList<Sprite3D>();
-
-        for(Sprite3D entity : entities)
+        for(Sprite3D entity : cars)
         {
-
             double differenceBetweenPlayerPosAndSpritePosX = entity.position.x -pos.x;
             double differenceBetweenPlayerPosAndSpritePosY = entity.position.y -pos.y;
 
@@ -99,8 +105,8 @@ public class PixMap3D extends Pixmap {
 
             int w = entity.pixmap.getWidth();
             int h = entity.pixmap.getHeight();
-            int entityWidth = (int) (w * scale.x/ rotx* entScale.x);
-            int entityHeight = (int) (h * scale.y/ rotx* entScale.y);
+            int entityWidth = (int) (w * scale.x/ rotx* carScale.x);
+            int entityHeight = (int) (h * scale.y/ rotx* carScale.y);
 
             //verifica que el sprite que se quiere dibujar este en pantalla
             if (entityHeight < 1 || entityWidth < 1){
@@ -108,7 +114,7 @@ public class PixMap3D extends Pixmap {
             }
 
             //obtiene la ubicacion del jugador en el mapa
-            int spriteScreenX = (int) (scale.x/ rotx*roty)+ getWidth()/2;
+            int spriteScreenX = (int) (scale.x/ rotx*roty) + getWidth()/2;
             int spriteScreenY = (int) ((pos.z * scale.y) / rotx + horizon);
 
             entity.screen.x = spriteScreenX - entityWidth/2;
@@ -119,9 +125,9 @@ public class PixMap3D extends Pixmap {
 
             entitiesSorted.add(entity);//agrega la entidad a la lista de sprites que se van a dibujar
         }
+
         //acomoda los carros segun su posY para dibujar uno detras de otro
         Collections.sort(entitiesSorted);
-
         for(Sprite3D Kart : entitiesSorted){
             int spriteWidth= Kart.pixmap.getWidth();
             int spriteHeight = Kart.pixmap.getHeight();

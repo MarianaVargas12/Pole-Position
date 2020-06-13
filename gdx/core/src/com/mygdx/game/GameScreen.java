@@ -52,44 +52,44 @@ public class GameScreen extends ScreenAdapter {
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
             pixmap.pos.x += 2 * Math.cos(pixmap.angle);
             pixmap.pos.y += 2 * Math.sin(pixmap.angle);
-            pixmap.entities.get(0).position.x += 2 * Math.cos(pixmap.angle);
-            pixmap.entities.get(0).position.y += 2 * Math.sin(pixmap.angle);
+            pixmap.cars.get(0).position.x += 2 * Math.cos(pixmap.angle);
+            pixmap.cars.get(0).position.y += 2 * Math.sin(pixmap.angle);
 
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.S)) {
             pixmap.pos.x -= 2 * Math.cos(pixmap.angle);
             pixmap.pos.y -= 2 * Math.sin(pixmap.angle);
-            pixmap.entities.get(0).position.x -= 2 * Math.cos(pixmap.angle);
-            pixmap.entities.get(0).position.y -= 2 * Math.sin(pixmap.angle);
+            pixmap.cars.get(0).position.x -= 2 * Math.cos(pixmap.angle);
+            pixmap.cars.get(0).position.y -= 2 * Math.sin(pixmap.angle);
 
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
             pixmap.pos.x += 2 * Math.cos(pixmap.angle - 1.5);
             pixmap.pos.y += 2 * Math.sin(pixmap.angle - 1.5);
-            pixmap.entities.get(0).position.x += 2 * Math.cos(pixmap.angle - 1.5);
-            pixmap.entities.get(0).position.y += 2 * Math.sin(pixmap.angle - 1.5);
+            pixmap.cars.get(0).position.x += 2 * Math.cos(pixmap.angle - 1.5);
+            pixmap.cars.get(0).position.y += 2 * Math.sin(pixmap.angle - 1.5);
 
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.E)) {
             pixmap.pos.x += 2 * Math.cos(pixmap.angle + 1.5);
             pixmap.pos.y += 2 * Math.sin(pixmap.angle + 1.5);
-            pixmap.entities.get(0).position.x += 2 * Math.cos(pixmap.angle + 1.5);
-            pixmap.entities.get(0).position.y += 2 * Math.sin(pixmap.angle + 1.5);
+            pixmap.cars.get(0).position.x += 2 * Math.cos(pixmap.angle + 1.5);
+            pixmap.cars.get(0).position.y += 2 * Math.sin(pixmap.angle + 1.5);
 
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
             pixmap.angle -= TURN_ANGLE;
             pixmap.backgroundPos += 0.5f;
-            pixmap.entities.get(0).position.x = (float)(72*Math.cos(pixmap.angle)) + pixmap.pos.x;
-            pixmap.entities.get(0).position.y = (float)(72*Math.sin(pixmap.angle)) + pixmap.pos.y;
+            pixmap.cars.get(0).position.x = (float)(72*Math.cos(pixmap.angle)) + pixmap.pos.x;
+            pixmap.cars.get(0).position.y = (float)(72*Math.sin(pixmap.angle)) + pixmap.pos.y;
             pixmap.pos.x += 2 * Math.cos(pixmap.angle + 1.5);
             pixmap.pos.y += 2 * Math.sin(pixmap.angle + 1.5);
-            pixmap.entities.get(0).position.x += 2 * Math.cos(pixmap.angle + 1.5);
-            pixmap.entities.get(0).position.y += 2 * Math.sin(pixmap.angle + 1.5);
+            pixmap.cars.get(0).position.x += 2 * Math.cos(pixmap.angle + 1.5);
+            pixmap.cars.get(0).position.y += 2 * Math.sin(pixmap.angle + 1.5);
 
             if (pixmap.backgroundPos >= 0) {//acomoda la imagen del fondo
                 pixmap.backgroundPos = -256;
@@ -100,17 +100,22 @@ public class GameScreen extends ScreenAdapter {
         if (Gdx.input.isKeyPressed(Input.Keys.D)) {
             pixmap.angle += TURN_ANGLE;
             pixmap.backgroundPos -= 0.5f;
-            pixmap.entities.get(0).position.x = (float) (72*Math.cos(pixmap.angle))+pixmap.pos.x;
-            pixmap.entities.get(0).position.y = (float)(72*Math.sin(pixmap.angle))+pixmap.pos.y;
+            pixmap.cars.get(0).position.x = (float) (72*Math.cos(pixmap.angle))+pixmap.pos.x;
+            pixmap.cars.get(0).position.y = (float)(72*Math.sin(pixmap.angle))+pixmap.pos.y;
             pixmap.pos.x += 2 * Math.cos(pixmap.angle - 1.5);
             pixmap.pos.y += 2 * Math.sin(pixmap.angle - 1.5);
-            pixmap.entities.get(0).position.x += 2 * Math.cos(pixmap.angle - 1.5);
-            pixmap.entities.get(0).position.y += 2 * Math.sin(pixmap.angle - 1.5);
+            pixmap.cars.get(0).position.x += 2 * Math.cos(pixmap.angle - 1.5);
+            pixmap.cars.get(0).position.y += 2 * Math.sin(pixmap.angle - 1.5);
 
             if (pixmap.backgroundPos <= -512) {//acomoda la imagen del fondo
                 pixmap.backgroundPos = -256;
             }
 
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)){
+            int x = (int)pixmap.cars.get(0).position.x;
+            int y = (int)pixmap.cars.get(0).position.y + 100;
+            pixmap.drawHoles(x,y);
         }
     }
 
