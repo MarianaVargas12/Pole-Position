@@ -54,9 +54,7 @@ public class GameScreen extends ScreenAdapter {
             pixmap.pos.y += 2 * Math.sin(pixmap.angle);
             pixmap.cars.get(0).position.x += 2 * Math.cos(pixmap.angle);
             pixmap.cars.get(0).position.y += 2 * Math.sin(pixmap.angle);
-
         }
-
         if (Gdx.input.isKeyPressed(Input.Keys.S)) {
             pixmap.pos.x -= 2 * Math.cos(pixmap.angle);
             pixmap.pos.y -= 2 * Math.sin(pixmap.angle);
@@ -64,7 +62,6 @@ public class GameScreen extends ScreenAdapter {
             pixmap.cars.get(0).position.y -= 2 * Math.sin(pixmap.angle);
 
         }
-
         if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
             pixmap.pos.x += 2 * Math.cos(pixmap.angle - 1.5);
             pixmap.pos.y += 2 * Math.sin(pixmap.angle - 1.5);
@@ -72,7 +69,6 @@ public class GameScreen extends ScreenAdapter {
             pixmap.cars.get(0).position.y += 2 * Math.sin(pixmap.angle - 1.5);
 
         }
-
         if (Gdx.input.isKeyPressed(Input.Keys.E)) {
             pixmap.pos.x += 2 * Math.cos(pixmap.angle + 1.5);
             pixmap.pos.y += 2 * Math.sin(pixmap.angle + 1.5);
@@ -115,7 +111,7 @@ public class GameScreen extends ScreenAdapter {
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)){
             int x = (int)pixmap.cars.get(0).position.x;
             int y = (int)pixmap.cars.get(0).position.y + 100;
-            pixmap.drawHoles(x,y);
+           // pixmap.drawHoles(x,y);
         }
     }
 
