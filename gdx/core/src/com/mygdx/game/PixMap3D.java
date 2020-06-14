@@ -19,12 +19,11 @@ public class PixMap3D extends Pixmap {
     private Pixmap grass; //informacion del pasto en un arreglo 2D
     private Pixmap track;
     public Vector3 pos;
-    public Vector3 scale;
-    public ArrayList<Sprite3D> cars;
+    public Vector3 scale;//escala de la pantalla
+    public ArrayList<Sprite3D> objects;
     public ArrayList<Carro> carros;
-    public Vector2 carScale;
-
-    public Carro carroPrincipal;
+    public Vector2 entityScale;//escala de las entidades
+    public Carro carroPrincipal,carro2,carro3,carro4;
 
     public PixMap3D (int width, int height, Format format){
         super(width,height,format);
@@ -35,26 +34,38 @@ public class PixMap3D extends Pixmap {
         grass = new Pixmap(new FileHandle("core\\assets\\zacate.png"));
         track = new Pixmap(new FileHandle("core\\assets\\pista.png"));
 
+        //creacion de los carros
         carroPrincipal = new Carro(1);
+        carro2 = new Carro(2);
+        carro3 = new Carro(3);
+        carro4 = new Carro(4);
 
+        //asigna la camara al carro principal
         pos = carroPrincipal.camara;
         scale = new Vector3(300,300,0);
         angle = 4.75;//angulo en radianes
         background = new Texture("core\\assets\\fondo.png");
         backgroundPos = -256;
-        cars = new ArrayList<>();
+        objects = new ArrayList<>();
         carros = new ArrayList<>();
-        carScale = new Vector2(0.05f,0.05f);
+        entityScale = new Vector2(0.05f,0.05f);
 
+
+        //agrega los carros a la lista
         carros.add(carroPrincipal);
+        carros.add(carro2);
+        carros.add(carro3);
+        carros.add(carro4);
+        //agrega las sprites de los carros a una lista
         for(Carro auto : carros){
-            cars.add(auto.sprite);
+            objects.add(auto.sprite);
         }
     }
 
     public void render(SpriteBatch batch){
         drawGround();
         drawEntities(batch);//dibuja entidades en el pixmap
+        //drawHoles(batch);;
         pixmapTexture.draw(this,0,0);//se dibuja el pixmap en la textura
         batch.draw(pixmapTexture,0,0);//se dibuja la textura en pantalla
         batch.draw(background,backgroundPos,GameScreen.GAME_HEIGHT-40);//dibujar el horizonte
@@ -95,7 +106,7 @@ public class PixMap3D extends Pixmap {
         double dirx = Math.cos(angle);
         double diry = Math.sin(angle);
         ArrayList<Sprite3D> entitiesSorted = new ArrayList<Sprite3D>();
-        for(Sprite3D entity : cars)
+        for(Sprite3D entity : objects)
         {
             double differenceBetweenPlayerPosAndSpritePosX = entity.position.x -pos.x;
             double differenceBetweenPlayerPosAndSpritePosY = entity.position.y -pos.y;
@@ -105,8 +116,8 @@ public class PixMap3D extends Pixmap {
 
             int w = entity.pixmap.getWidth();
             int h = entity.pixmap.getHeight();
-            int entityWidth = (int) (w * scale.x/ rotx* carScale.x);
-            int entityHeight = (int) (h * scale.y/ rotx* carScale.y);
+            int entityWidth = (int) (w * scale.x/ rotx* entityScale.x);
+            int entityHeight = (int) (h * scale.y/ rotx* entityScale.y);
 
             //verifica que el sprite que se quiere dibujar este en pantalla
             if (entityHeight < 1 || entityWidth < 1){
@@ -139,6 +150,6 @@ public class PixMap3D extends Pixmap {
             drawPixmap(Kart.pixmap,0,0,spriteWidth,spriteHeight,x,y,w,h);
 
         }
-
     }
-}
+    }
+

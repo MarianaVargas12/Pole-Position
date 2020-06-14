@@ -32,6 +32,13 @@ public class Sprite3D implements Comparable<Sprite3D> {
         }
 
     }
+    //coloca sprite de los huecos
+    public Sprite3D(Pixmap pixmap,int x,int y){
+        this.pixmap = pixmap;
+        screen = new Vector2();
+        size = new Vector2();
+        position = new Vector2(x,y);
+    }
 
     @Override
     public int compareTo(Sprite3D other){

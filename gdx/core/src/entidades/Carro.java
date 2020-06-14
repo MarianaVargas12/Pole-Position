@@ -17,7 +17,7 @@ public class Carro {
     public Carro(int numeroCarro){
         this.salud = 3;
         this.puntos = 0;
-        this.velocidad = 2;
+        this.velocidad = 3;
 
         if(numeroCarro == 1){
             this.sprite = new Sprite3D(new Pixmap(new FileHandle(
@@ -39,6 +39,7 @@ public class Carro {
                     "core\\assets\\carroBlanco.png")),numeroCarro);
             this.camara = new Vector3(600,1230,25);
         }
+
         this.coordenadasCarro = new Vector2(sprite.position.x,sprite.position.y);
     }
 }
