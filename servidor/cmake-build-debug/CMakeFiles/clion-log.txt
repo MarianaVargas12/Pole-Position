@@ -1,0 +1,4 @@
+C:\Users\maria\AppData\Local\JetBrains\CLion2020.1\cygwin_cmake\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -DCMAKE_SH=CMAKE_SH-NOTFOUND -G "CodeBlocks - Unix Makefiles" "/cygdrive/c/Users/maria/OneDrive/Escritorio/Computadores/5 semestre/Lenguajes/Tercera tarea/Pole Position/servidor"
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /cygdrive/c/Users/maria/OneDrive/Escritorio/Computadores/5 semestre/Lenguajes/Tercera tarea/Pole Position/servidor/cmake-build-debug

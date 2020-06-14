@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/cygdrive/c/Users/maria/OneDrive/Escritorio/Computadores/5 semestre/Lenguajes/Tercera tarea/Pole Position/servidor/car.h
+stdio.h
+-
+string.h
+-
+
+/cygdrive/c/Users/maria/OneDrive/Escritorio/Computadores/5 semestre/Lenguajes/Tercera tarea/Pole Position/servidor/main.c
+stdio.h
+-
+string.h
+-
+stdlib.h
+-
+player.h
+/cygdrive/c/Users/maria/OneDrive/Escritorio/Computadores/5 semestre/Lenguajes/Tercera tarea/Pole Position/servidor/player.h
+
+/cygdrive/c/Users/maria/OneDrive/Escritorio/Computadores/5 semestre/Lenguajes/Tercera tarea/Pole Position/servidor/player.h
+car.h
+/cygdrive/c/Users/maria/OneDrive/Escritorio/Computadores/5 semestre/Lenguajes/Tercera tarea/Pole Position/servidor/car.h
+

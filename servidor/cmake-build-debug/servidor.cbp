@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="servidor"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/cygdrive/c/Users/maria/OneDrive/Escritorio/Computadores/5 semestre/Lenguajes/Tercera tarea/Pole Position/servidor/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/maria/OneDrive/Escritorio/Computadores/5\ semestre/Lenguajes/Tercera\ tarea/Pole\ Position/servidor/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/maria/OneDrive/Escritorio/Computadores/5\ semestre/Lenguajes/Tercera\ tarea/Pole\ Position/servidor/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/maria/OneDrive/Escritorio/Computadores/5\ semestre/Lenguajes/Tercera\ tarea/Pole\ Position/servidor/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/maria/OneDrive/Escritorio/Computadores/5\ semestre/Lenguajes/Tercera\ tarea/Pole\ Position/servidor/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/cygdrive/c/Users/maria/OneDrive/Escritorio/Computadores/5 semestre/Lenguajes/Tercera tarea/Pole Position/servidor/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/maria/OneDrive/Escritorio/Computadores/5\ semestre/Lenguajes/Tercera\ tarea/Pole\ Position/servidor/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/maria/OneDrive/Escritorio/Computadores/5\ semestre/Lenguajes/Tercera\ tarea/Pole\ Position/servidor/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/maria/OneDrive/Escritorio/Computadores/5\ semestre/Lenguajes/Tercera\ tarea/Pole\ Position/servidor/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/maria/OneDrive/Escritorio/Computadores/5\ semestre/Lenguajes/Tercera\ tarea/Pole\ Position/servidor/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="servidor">
+				<Option output="/cygdrive/c/Users/maria/OneDrive/Escritorio/Computadores/5 semestre/Lenguajes/Tercera tarea/Pole Position/servidor/cmake-build-debug/servidor.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/cygdrive/c/Users/maria/OneDrive/Escritorio/Computadores/5 semestre/Lenguajes/Tercera tarea/Pole Position/servidor/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/9.3.0/include"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/9.3.0/../../../../lib/../include/w32api"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/maria/OneDrive/Escritorio/Computadores/5\ semestre/Lenguajes/Tercera\ tarea/Pole\ Position/servidor/cmake-build-debug/Makefile&quot;  VERBOSE=1 servidor"/>
+					<CompileFile command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/maria/OneDrive/Escritorio/Computadores/5\ semestre/Lenguajes/Tercera\ tarea/Pole\ Position/servidor/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/maria/OneDrive/Escritorio/Computadores/5\ semestre/Lenguajes/Tercera\ tarea/Pole\ Position/servidor/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/maria/OneDrive/Escritorio/Computadores/5\ semestre/Lenguajes/Tercera\ tarea/Pole\ Position/servidor/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="servidor/fast">
+				<Option output="/cygdrive/c/Users/maria/OneDrive/Escritorio/Computadores/5 semestre/Lenguajes/Tercera tarea/Pole Position/servidor/cmake-build-debug/servidor.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/cygdrive/c/Users/maria/OneDrive/Escritorio/Computadores/5 semestre/Lenguajes/Tercera tarea/Pole Position/servidor/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/9.3.0/include"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/9.3.0/../../../../lib/../include/w32api"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/maria/OneDrive/Escritorio/Computadores/5\ semestre/Lenguajes/Tercera\ tarea/Pole\ Position/servidor/cmake-build-debug/Makefile&quot;  VERBOSE=1 servidor/fast"/>
+					<CompileFile command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/maria/OneDrive/Escritorio/Computadores/5\ semestre/Lenguajes/Tercera\ tarea/Pole\ Position/servidor/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/maria/OneDrive/Escritorio/Computadores/5\ semestre/Lenguajes/Tercera\ tarea/Pole\ Position/servidor/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/maria/OneDrive/Escritorio/Computadores/5\ semestre/Lenguajes/Tercera\ tarea/Pole\ Position/servidor/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/cygdrive/c/Users/maria/OneDrive/Escritorio/Computadores/5 semestre/Lenguajes/Tercera tarea/Pole Position/servidor/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/maria/OneDrive/Escritorio/Computadores/5\ semestre/Lenguajes/Tercera\ tarea/Pole\ Position/servidor/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/maria/OneDrive/Escritorio/Computadores/5\ semestre/Lenguajes/Tercera\ tarea/Pole\ Position/servidor/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/maria/OneDrive/Escritorio/Computadores/5\ semestre/Lenguajes/Tercera\ tarea/Pole\ Position/servidor/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make.exe -j8 -f &quot;/cygdrive/c/Users/maria/OneDrive/Escritorio/Computadores/5\ semestre/Lenguajes/Tercera\ tarea/Pole\ Position/servidor/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/cygdrive/c/Users/maria/OneDrive/Escritorio/Computadores/5 semestre/Lenguajes/Tercera tarea/Pole Position/servidor/car.c">
+			<Option target="servidor"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/maria/OneDrive/Escritorio/Computadores/5 semestre/Lenguajes/Tercera tarea/Pole Position/servidor/car.h">
+			<Option target="servidor"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/maria/OneDrive/Escritorio/Computadores/5 semestre/Lenguajes/Tercera tarea/Pole Position/servidor/game.c">
+			<Option target="servidor"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/maria/OneDrive/Escritorio/Computadores/5 semestre/Lenguajes/Tercera tarea/Pole Position/servidor/game.h">
+			<Option target="servidor"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/maria/OneDrive/Escritorio/Computadores/5 semestre/Lenguajes/Tercera tarea/Pole Position/servidor/main.c">
+			<Option target="servidor"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/maria/OneDrive/Escritorio/Computadores/5 semestre/Lenguajes/Tercera tarea/Pole Position/servidor/player.c">
+			<Option target="servidor"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/maria/OneDrive/Escritorio/Computadores/5 semestre/Lenguajes/Tercera tarea/Pole Position/servidor/player.h">
+			<Option target="servidor"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/maria/OneDrive/Escritorio/Computadores/5 semestre/Lenguajes/Tercera tarea/Pole Position/servidor/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
