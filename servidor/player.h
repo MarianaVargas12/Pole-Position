@@ -5,6 +5,7 @@
 #ifndef SERVIDOR_PLAYER_H
 #define SERVIDOR_PLAYER_H
 #include "car.h"
+#include "object.h"
 
 typedef struct Player{
     int x;

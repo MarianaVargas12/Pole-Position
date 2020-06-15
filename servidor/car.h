@@ -24,6 +24,7 @@ typedef struct Car
 void carData(Car *car);
 void carGetData(Car *car);
 void CarMove(Car *car, int x_pos, int y_pos);
+void CarTurbo(Car *car);
 
 
 #endif //SERVIDOR_CAR_H

@@ -204,6 +204,33 @@ main.c.s:
 	$(MAKE) -f CMakeFiles/servidor.dir/build.make CMakeFiles/servidor.dir/main.c.s
 .PHONY : main.c.s
 
+object.o: object.c.o
+
+.PHONY : object.o
+
+# target to build an object file
+object.c.o:
+	$(MAKE) -f CMakeFiles/servidor.dir/build.make CMakeFiles/servidor.dir/object.c.o
+.PHONY : object.c.o
+
+object.i: object.c.i
+
+.PHONY : object.i
+
+# target to preprocess a source file
+object.c.i:
+	$(MAKE) -f CMakeFiles/servidor.dir/build.make CMakeFiles/servidor.dir/object.c.i
+.PHONY : object.c.i
+
+object.s: object.c.s
+
+.PHONY : object.s
+
+# target to generate assembly for a file
+object.c.s:
+	$(MAKE) -f CMakeFiles/servidor.dir/build.make CMakeFiles/servidor.dir/object.c.s
+.PHONY : object.c.s
+
 player.o: player.c.o
 
 .PHONY : player.o
@@ -249,6 +276,9 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... object.o"
+	@echo "... object.i"
+	@echo "... object.s"
 	@echo "... player.o"
 	@echo "... player.i"
 	@echo "... player.s"
