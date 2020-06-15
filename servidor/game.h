@@ -9,6 +9,7 @@
 #include "player.h"
 #include "car.h"
 #include <stdbool.h>
+#include "constant.h"
 
 typedef  struct Game{
     int matrixGame [100][100];
