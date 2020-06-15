@@ -3,14 +3,17 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Pole_Position extends Game {
-	private SpriteBatch batch;
+	public SpriteBatch batch;
 	private GameScreen gameScreen;
+	private MenuScreen menuScreen;
+
 	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		gameScreen = new GameScreen(this,batch);
-		setScreen(gameScreen);
+		menuScreen = new MenuScreen(this);
+		setScreen(menuScreen);//cambiar por gameScreen
 	}
 
 	@Override

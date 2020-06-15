@@ -12,7 +12,6 @@ import entidades.Boost;
 import entidades.Hole;
 import entidades.Misil;
 
-
 public class GameScreen extends ScreenAdapter {
     public static final int GAME_HEIGHT = 224;
     public static final int GAME_WIDTH = 256;
@@ -46,7 +45,7 @@ public class GameScreen extends ScreenAdapter {
         camera.update();//actualiza la camara
 
         batch.begin();
-        pixmap.render(batch);//renderiza todo lo que haya en el pixmap
+        pixmap.render(batch);//renderiza lo que haya en el pixmap
         batch.end();
     }
     //manejo de teclas
@@ -88,7 +87,6 @@ public class GameScreen extends ScreenAdapter {
             pixmap.pos.y += 2 * Math.sin(pixmap.angle + 1.5);
             pixmap.objects.get(0).position.x += 2 * Math.cos(pixmap.angle + 1.5);
             pixmap.objects.get(0).position.y += 2 * Math.sin(pixmap.angle + 1.5);
-
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
@@ -105,7 +103,6 @@ public class GameScreen extends ScreenAdapter {
             if (pixmap.backgroundPos >= 0) {
                 pixmap.backgroundPos = -256;
             }
-
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.D)) {

@@ -37,6 +37,7 @@ public class PixMap3D extends Pixmap {
         horizon = 40;//distancia en pixeles a partir de la parte superior de la pantalla
         grass = new Pixmap(new FileHandle("core\\assets\\zacate.png"));
         track = new Pixmap(new FileHandle("core\\assets\\pista.png"));
+        background = new Texture("core\\assets\\fondo.png");
 
         //creacion de los carros
         carroPrincipal = new Carro(1,"Mario");
@@ -48,7 +49,6 @@ public class PixMap3D extends Pixmap {
         pos = carroPrincipal.camara;
         scale = new Vector3(300,300,0);
         angle = 4.75;//angulo en radianes
-        background = new Texture("core\\assets\\fondo.png");
         backgroundPos = -256;
         objects = new ArrayList<>();
         carros = new ArrayList<>();
@@ -78,8 +78,7 @@ public class PixMap3D extends Pixmap {
         batch.draw(background,backgroundPos,GameScreen.GAME_HEIGHT-40);//dibujar el horizonte
 
         //Escribe datos del jugador en pantalla
-        fuente.draw(batch,"Player: " + carroPrincipal.nombre+
-                                "\nSpeed: " + carroPrincipal.velocidad + " Km/h \n" +
+        fuente.draw(batch,"Speed: " + carroPrincipal.velocidad + " Km/h \n" +
                                     "Health: " + carroPrincipal.salud
                                         + "\nPoints: " + carroPrincipal.puntos,0,GameScreen.GAME_HEIGHT);
 
