@@ -10,8 +10,10 @@ typedef struct Object{
     int id;
     int x;
     int y;
+    int playerNumber;
 }Object;
 
 void Object_initialize(Object* obj, int type, int id, int x, int y, int alive);
+void bomb(Object* obj, int type, int id, int x, int y, int alive,int player);
 
 #endif //SERVIDOR_OBJECT_H

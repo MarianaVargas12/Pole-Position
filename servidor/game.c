@@ -18,6 +18,17 @@ void gameTurbo(Game *game, int x_pos, int y_pos){
     game->matrixGame[y_pos][x_pos] = 6;
     Game_add_object(game, x_pos, y_pos, 6);
 }
+//poner una bomba
+void gameBomb(Game *game, int player, int x, int y){
+    game->matrixGame[y][x] = 10;
+    for (int i = 0; i < 70; i++){
+        if (game->objects[i].alive == 0){
+            bomb(&game->objects[i],10,i,x,y,1,player);
+            break;
+        }
+    }
+
+}
 //verifica si ha chocado con algo
 void Game_collision(Game *game, int player, int id_object) {
       //turbo
@@ -26,17 +37,26 @@ void Game_collision(Game *game, int player, int id_object) {
         game->objects[id_object].alive = 0;
         CarTurbo(&game->players[player].car);
         //vida
-    }if(game->objects[id_object].type == 9 ){
+    }else if(game->objects[id_object].type == 9 ){
         game->matrixGame[game->objects[id_object].y][game->objects[id_object].y] = 4;
         game->objects[id_object].alive = 0;
         game->players[player].car.lives +=1;
         //hueco
-    }if(game->objects[id_object].type == 5){
+    }else if(game->objects[id_object].type == 5){
         game->matrixGame[game->objects[id_object].y][game->objects[id_object].y] = 4;
         game->objects[id_object].alive = 0;
         game->players[player].car.speed=0;
+    }else if(game->objects[id_object].type==10){
+        game->matrixGame[game->objects[id_object].y][game->objects[id_object].y] = 4;
+        game->objects[id_object].alive = 0;
+        game->players[player].car.lives -=1;
+        addPoints(&game->players[game->objects[id_object].playerNumber],100); //gana 100 puntos por derribar un jugador
+
     }
 }
+
+
+
 //agrega objetos a la lista
 void Game_add_object(Game *game, int x, int y, int type) {
     for (int i = 0; i < 70; i++){

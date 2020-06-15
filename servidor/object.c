@@ -1,5 +1,5 @@
 //
-// Created by maria on 6/14/2020.
+// Created by mariana on 6/14/2020.
 //
 
 #include "object.h"
@@ -11,4 +11,13 @@ void Object_initialize(Object* obj, int type, int id, int x, int y, int alive){
     obj->id = id;
     obj->x = x;
     obj->y = y;
+}
+
+void bomb(Object* obj, int type, int id, int x, int y, int alive,int player){
+    obj->alive=alive;
+    obj->type = type;
+    obj->id = id;
+    obj->x = x;
+    obj->y = y;
+    obj->playerNumber =player;
 }
