@@ -11,7 +11,6 @@ public class Pole_Position extends Game {
 		batch = new SpriteBatch();
 		gameScreen = new GameScreen(this,batch);
 		setScreen(gameScreen);
-
 	}
 
 	@Override

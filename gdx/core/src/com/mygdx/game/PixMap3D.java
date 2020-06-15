@@ -1,4 +1,7 @@
 package com.mygdx.game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import entidades.Carro;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -15,7 +18,7 @@ public class PixMap3D extends Pixmap {
     public float backgroundPos;
     private Texture pixmapTexture;
     private int horizon;
-    public double angle;//angulo de la camara inicial
+    public double angle;//angulo de la camara
     private Pixmap grass; //informacion del pasto en un arreglo 2D
     private Pixmap track;
     public Vector3 pos;
@@ -24,6 +27,7 @@ public class PixMap3D extends Pixmap {
     public ArrayList<Carro> carros;
     public Vector2 entityScale;//escala de las entidades
     public Carro carroPrincipal,carro2,carro3,carro4;
+    BitmapFont fuente;
 
     public PixMap3D (int width, int height, Format format){
         super(width,height,format);
@@ -35,10 +39,10 @@ public class PixMap3D extends Pixmap {
         track = new Pixmap(new FileHandle("core\\assets\\pista.png"));
 
         //creacion de los carros
-        carroPrincipal = new Carro(1);
-        carro2 = new Carro(2);
-        carro3 = new Carro(3);
-        carro4 = new Carro(4);
+        carroPrincipal = new Carro(1,"Mario");
+        carro2 = new Carro(2,"Carro2");
+        carro3 = new Carro(3,"Carro3");
+        carro4 = new Carro(4,"Carro4");
 
         //asigna la camara al carro principal
         pos = carroPrincipal.camara;
@@ -50,6 +54,10 @@ public class PixMap3D extends Pixmap {
         carros = new ArrayList<>();
         entityScale = new Vector2(0.05f,0.05f);
 
+        //Fuente para escribir en pantalla
+        fuente = new BitmapFont();
+        fuente.setColor(Color.WHITE);
+        fuente.getData().setScale((0.6f));
 
         //agrega los carros a la lista
         carros.add(carroPrincipal);
@@ -65,10 +73,16 @@ public class PixMap3D extends Pixmap {
     public void render(SpriteBatch batch){
         drawGround();
         drawEntities(batch);//dibuja entidades en el pixmap
-        //drawHoles(batch);;
         pixmapTexture.draw(this,0,0);//se dibuja el pixmap en la textura
         batch.draw(pixmapTexture,0,0);//se dibuja la textura en pantalla
         batch.draw(background,backgroundPos,GameScreen.GAME_HEIGHT-40);//dibujar el horizonte
+
+        //Escribe datos del jugador en pantalla
+        fuente.draw(batch,"Player: " + carroPrincipal.nombre+
+                                "\nSpeed: " + carroPrincipal.velocidad + " Km/h \n" +
+                                    "Health: " + carroPrincipal.salud
+                                        + "\nPoints: " + carroPrincipal.puntos,0,GameScreen.GAME_HEIGHT);
+
     }
 
     private void drawGround(){

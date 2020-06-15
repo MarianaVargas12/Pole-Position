@@ -32,8 +32,9 @@ public class Sprite3D implements Comparable<Sprite3D> {
         }
 
     }
-    //coloca sprite de los huecos
+    //coloca sprite de los huecos,boosts y bombas
     public Sprite3D(Pixmap pixmap,int x,int y){
+
         this.pixmap = pixmap;
         screen = new Vector2();
         size = new Vector2();

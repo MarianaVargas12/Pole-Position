@@ -8,7 +8,9 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import entidades.hole;
+import entidades.Boost;
+import entidades.Hole;
+import entidades.Misil;
 
 
 public class GameScreen extends ScreenAdapter {
@@ -121,11 +123,27 @@ public class GameScreen extends ScreenAdapter {
             }
 
         }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
+        if (Gdx.input.isKeyJustPressed(Input.Keys.H)){
             int x = (int)pixmap.objects.get(0).position.x;
             int y = (int)pixmap.objects.get(0).position.y + 100;
-            hole hueco = new hole(x ,y - 300);
+            System.out.println("x: "+ x +" y: " + y);
+            Hole hueco = new Hole(x ,y - 300);
             pixmap.objects.add(hueco.sprite);
+        }
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.B)){
+            int x = (int)pixmap.objects.get(0).position.x;
+            int y = (int)pixmap.objects.get(0).position.y + 100;
+            Boost turbo = new Boost(x ,y - 300);
+            pixmap.objects.add(turbo.sprite);
+        }
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
+            int x = (int)pixmap.objects.get(0).position.x;
+            int y = (int)pixmap.objects.get(0).position.y;
+            Misil bomb = new Misil(x ,y);
+            pixmap.objects.add(bomb.sprite);
+            pixmap.carroPrincipal.puntos += 1;
         }
     }
 

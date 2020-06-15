@@ -10,13 +10,15 @@ public class Carro {
     public int salud;
     public int puntos;
     public int velocidad;
+    public String nombre;
     public Sprite3D sprite;
     public Vector3 camara;
     public Vector2 coordenadasCarro;
 
-    public Carro(int numeroCarro){
+    public Carro(int numeroCarro,String nombre){
         this.salud = 3;
         this.puntos = 0;
+        this.nombre = nombre;
         this.velocidad = 3;
 
         if(numeroCarro == 1){
