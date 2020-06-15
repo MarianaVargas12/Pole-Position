@@ -150,6 +150,33 @@ car.c.s:
 	$(MAKE) -f CMakeFiles/servidor.dir/build.make CMakeFiles/servidor.dir/car.c.s
 .PHONY : car.c.s
 
+constant.o: constant.c.o
+
+.PHONY : constant.o
+
+# target to build an object file
+constant.c.o:
+	$(MAKE) -f CMakeFiles/servidor.dir/build.make CMakeFiles/servidor.dir/constant.c.o
+.PHONY : constant.c.o
+
+constant.i: constant.c.i
+
+.PHONY : constant.i
+
+# target to preprocess a source file
+constant.c.i:
+	$(MAKE) -f CMakeFiles/servidor.dir/build.make CMakeFiles/servidor.dir/constant.c.i
+.PHONY : constant.c.i
+
+constant.s: constant.c.s
+
+.PHONY : constant.s
+
+# target to generate assembly for a file
+constant.c.s:
+	$(MAKE) -f CMakeFiles/servidor.dir/build.make CMakeFiles/servidor.dir/constant.c.s
+.PHONY : constant.c.s
+
 game.o: game.c.o
 
 .PHONY : game.o
@@ -270,6 +297,9 @@ help:
 	@echo "... car.o"
 	@echo "... car.i"
 	@echo "... car.s"
+	@echo "... constant.o"
+	@echo "... constant.i"
+	@echo "... constant.s"
 	@echo "... game.o"
 	@echo "... game.i"
 	@echo "... game.s"

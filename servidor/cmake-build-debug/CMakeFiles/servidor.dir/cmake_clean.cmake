@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/servidor.dir/car.c.o"
+  "CMakeFiles/servidor.dir/constant.c.o"
   "CMakeFiles/servidor.dir/game.c.o"
   "CMakeFiles/servidor.dir/main.c.o"
   "CMakeFiles/servidor.dir/object.c.o"
