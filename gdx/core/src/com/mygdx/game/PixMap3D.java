@@ -40,10 +40,11 @@ public class PixMap3D extends Pixmap {
         background = new Texture("core\\assets\\fondo.png");
 
         //creacion de los carros
-        carroPrincipal = new Carro(1,"Mario");
-        carro2 = new Carro(2,"Carro2");
-        carro3 = new Carro(3,"Carro3");
-        carro4 = new Carro(4,"Carro4");
+
+        carroPrincipal = new Carro(0);
+        carro2 = new Carro(1);
+        carro3 = new Carro(2);
+        carro4 = new Carro(3);
 
         //asigna la camara al carro principal
         pos = carroPrincipal.camara;

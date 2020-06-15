@@ -3,6 +3,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import java.util.ArrayList;
 
@@ -10,7 +11,7 @@ public class MenuScreen implements Screen {
     Pole_Position game;
     Texture menu;
     ArrayList<Integer> listaCarros;
-    int carroPrincipal;
+    public int carroPrincipal;
 
     public MenuScreen(Pole_Position game){
         this.game = game;
@@ -69,6 +70,7 @@ public class MenuScreen implements Screen {
         }
         if(x > 40 && x < 240 && y > 467 && y < 536){
             if(Gdx.input.isTouched()){
+                game.setScreen(new GameScreen(game,new SpriteBatch()));
                 System.out.println("Start");
             }
         }
