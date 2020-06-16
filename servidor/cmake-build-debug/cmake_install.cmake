@@ -1,4 +1,4 @@
-# Install script for directory: /cygdrive/c/Users/maria/OneDrive/Escritorio/Computadores/5 semestre/Lenguajes/Tercera tarea/Pole Position/servidor
+# Install script for directory: /cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/servidor
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/cygdrive/c/Users/maria/OneDrive/Escritorio/Computadores/5 semestre/Lenguajes/Tercera tarea/Pole Position/servidor/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/servidor/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

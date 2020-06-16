@@ -3,6 +3,7 @@
 
 CMakeFiles/servidor.dir/car.c.o: ../car.c
 CMakeFiles/servidor.dir/car.c.o: ../car.h
+CMakeFiles/servidor.dir/car.c.o: ../constant.h
 
 CMakeFiles/servidor.dir/constant.c.o: ../constant.c
 CMakeFiles/servidor.dir/constant.c.o: ../constant.h
@@ -25,6 +26,7 @@ CMakeFiles/servidor.dir/object.c.o: ../object.c
 CMakeFiles/servidor.dir/object.c.o: ../object.h
 
 CMakeFiles/servidor.dir/player.c.o: ../car.h
+CMakeFiles/servidor.dir/player.c.o: ../constant.h
 CMakeFiles/servidor.dir/player.c.o: ../object.h
 CMakeFiles/servidor.dir/player.c.o: ../player.c
 CMakeFiles/servidor.dir/player.c.o: ../player.h

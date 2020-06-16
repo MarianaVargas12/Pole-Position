@@ -272,9 +272,9 @@ void gameAvailableColor(Game *game, int color) {
 }
 
 //inicializa la variable
-void gameStart(Game *game) {
+void gameStart(Game *game,int round) {
     game->Started = 1;
-
+    game->rounds = round;
 }
 //verifica que el color este OCUPADO
 bool color_available(Game *game, int color){

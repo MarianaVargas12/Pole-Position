@@ -30,7 +30,7 @@ void GameAssigned(Game *game, int player, int id_object);
 void gameBomb(Game *game, int player, int x, int y);
 void gameAddObject(Game *game, int x_pos,int y_pos, int type);
 void gameAvailableColor(Game *game, int color);
-void gameStart(Game* game);
+void gameStart(Game* game,int round);
 void gameInitialize(Game *game);
 void gamePrintMatrix(Game *game);
 void gameHole(Game *game, int x_pos, int y_pos);

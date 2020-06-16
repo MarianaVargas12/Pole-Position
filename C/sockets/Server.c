@@ -5,7 +5,6 @@
 #include <string.h>
 #include <unistd.h>
 #include <pthread.h>
-//#include "../json/json.h"
 #include <json-c/json.h>
 
 typedef struct Connection_handler_args {
