@@ -32,7 +32,6 @@ public class PixMap3D extends Pixmap {
     public PixMap3D (int width, int height, Format format){
         super(width,height,format);
         setFilter(Filter.NearestNeighbour);//modo en el que coloca los pixeles
-
         pixmapTexture = new Texture(this,getFormat(),true);
         horizon = 40;//distancia en pixeles a partir de la parte superior de la pantalla
         grass = new Pixmap(new FileHandle("core\\assets\\zacate.png"));
@@ -151,7 +150,7 @@ public class PixMap3D extends Pixmap {
             entitiesSorted.add(entity);//agrega la entidad a la lista de sprites que se van a dibujar
         }
 
-        //acomoda los carros segun su posY para dibujar uno detras de otro
+        //acomoda los carros segun su posicion en Y para dibujar uno detras de otro
         Collections.sort(entitiesSorted);
         for(Sprite3D Kart : entitiesSorted){
             int spriteWidth = Kart.pixmap.getWidth();

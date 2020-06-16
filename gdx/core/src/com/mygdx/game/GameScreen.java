@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import entidades.Boost;
 import entidades.Hole;
 import entidades.Misil;
+import entidades.Vida;
 
 public class GameScreen extends ScreenAdapter {
     public static final int GAME_HEIGHT = 224;
@@ -63,18 +64,7 @@ public class GameScreen extends ScreenAdapter {
             pixmap.objects.get(0).position.x -= 2 * Math.cos(pixmap.angle);
             pixmap.objects.get(0).position.y -= 2 * Math.sin(pixmap.angle);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            pixmap.objects.get(1).position.x += pixmap.carroPrincipal.velocidad * Math.cos(pixmap.angle);
-            pixmap.objects.get(1).position.y += pixmap.carroPrincipal.velocidad * Math.sin(pixmap.angle);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            pixmap.objects.get(1).position.x += 2 * Math.cos(pixmap.angle - 1.5);
-            pixmap.objects.get(1).position.y += 2 * Math.sin(pixmap.angle - 1.5);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            pixmap.objects.get(1).position.x += 2 * Math.cos(pixmap.angle + 1.5);
-            pixmap.objects.get(1).position.y += 2 * Math.sin(pixmap.angle + 1.5);
-        }
+
         if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
             pixmap.pos.x += 2 * Math.cos(pixmap.angle - 1.5);
             pixmap.pos.y += 2 * Math.sin(pixmap.angle - 1.5);
@@ -120,6 +110,7 @@ public class GameScreen extends ScreenAdapter {
             }
 
         }
+
         if (Gdx.input.isKeyJustPressed(Input.Keys.H)){
             int x = (int)pixmap.objects.get(0).position.x;
             int y = (int)pixmap.objects.get(0).position.y + 100;
@@ -140,7 +131,7 @@ public class GameScreen extends ScreenAdapter {
             int y = (int)pixmap.objects.get(0).position.y;
             Misil bomb = new Misil(x ,y);
             pixmap.objects.add(bomb.sprite);
-            pixmap.carroPrincipal.puntos += 1;
+            pixmap.carros.get(0).bombas.add(bomb);
         }
     }
 

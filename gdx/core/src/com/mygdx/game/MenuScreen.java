@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class MenuScreen implements Screen {
     Pole_Position game;
     Texture menu;
-    ArrayList<Integer> listaCarros;
+    ArrayList<Integer> listaCarros = new ArrayList<>();
     public int carroPrincipal;
 
     public MenuScreen(Pole_Position game){
@@ -31,49 +31,62 @@ public class MenuScreen implements Screen {
         game.batch.draw(menu,0,0,GameScreen.GAME_WIDTH*3,GameScreen.GAME_HEIGHT*3);
         int x = Gdx.input.getX();
         int y = Gdx.input.getY();
+
         if(x > 120 && x < 310 && y > 185 && y < 275){
             if(Gdx.input.isTouched()){
-                carroPrincipal = 0;
-                listaCarros.add(carroPrincipal);
-                listaCarros.add(1);
-                listaCarros.add(2);
-                listaCarros.add(3);
+                this.carroPrincipal = 0;
             }
-
         }
+
         if(x > 515 && x < 650 && y > 185 && y < 287){
             if(Gdx.input.isTouched()){
-                carroPrincipal = 1;
-                listaCarros.add(carroPrincipal);
-                listaCarros.add(0);
-                listaCarros.add(2);
-                listaCarros.add(3);
+                this.carroPrincipal = 1;
             }
         }
+
         if(x > 131 && x < 287 && y > 308 && y < 415){
             if(Gdx.input.isTouched()){
-                carroPrincipal = 2;
-                listaCarros.add(carroPrincipal);
-                listaCarros.add(0);
-                listaCarros.add(1);
-                listaCarros.add(3);
+                this.carroPrincipal = 2;
             }
         }
+
         if(x > 504 && x < 646 && y > 320 && y < 420){
             if(Gdx.input.isTouched()){
-                carroPrincipal = 3;
-                listaCarros.add(carroPrincipal);
-                listaCarros.add(0);
-                listaCarros.add(1);
-                listaCarros.add(2);
+                this.carroPrincipal = 3;
             }
         }
+
         if(x > 40 && x < 240 && y > 467 && y < 536){
             if(Gdx.input.isTouched()){
-                game.setScreen(new GameScreen(game,new SpriteBatch()));
-                System.out.println("Start");
+                if(this.carroPrincipal >= 0 && this.carroPrincipal <=3){
+                    listaCarros.add(carroPrincipal);
+                    if (this.carroPrincipal == 0){
+                        listaCarros.add(1);
+                        listaCarros.add(2);
+                        listaCarros.add(3);
+                    }
+                    else if(this.carroPrincipal == 1){
+                        listaCarros.add(0);
+                        listaCarros.add(2);
+                        listaCarros.add(3);
+                    }
+                    else if (this.carroPrincipal == 2){
+                        listaCarros.add(0);
+                        listaCarros.add(1);
+                        listaCarros.add(3);
+                    }
+                    else {
+                        listaCarros.add(0);
+                        listaCarros.add(1);
+                        listaCarros.add(2);
+                    }
+                    game.setScreen(new GameScreen(game,new SpriteBatch()));
+                    System.out.println("Carro Principal: " + carroPrincipal);
+                }
+
             }
         }
+
         if(x > 528 && x < 733 && y > 466 && y < 540){
             if(Gdx.input.isTouched()){
                 System.out.println("Juego Finalizado");
