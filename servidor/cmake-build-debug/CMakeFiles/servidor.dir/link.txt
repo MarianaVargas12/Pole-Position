@@ -1,0 +1,1 @@
+/usr/bin/cc -g  -Wl,--enable-auto-import CMakeFiles/servidor.dir/main.c.o CMakeFiles/servidor.dir/car.c.o CMakeFiles/servidor.dir/player.c.o CMakeFiles/servidor.dir/game.c.o CMakeFiles/servidor.dir/object.c.o CMakeFiles/servidor.dir/constant.c.o  -o servidor.exe -Wl,--out-implib,libservidor.dll.a -Wl,--major-image-version,0,--minor-image-version,0 

@@ -1,0 +1,3 @@
+/cygdrive/c/Users/maria/OneDrive/Escritorio/Computadores/5 semestre/Lenguajes/Tercera tarea/Pole Position/servidor/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/cygdrive/c/Users/maria/OneDrive/Escritorio/Computadores/5 semestre/Lenguajes/Tercera tarea/Pole Position/servidor/cmake-build-debug/CMakeFiles/servidor.dir
+/cygdrive/c/Users/maria/OneDrive/Escritorio/Computadores/5 semestre/Lenguajes/Tercera tarea/Pole Position/servidor/cmake-build-debug/CMakeFiles/edit_cache.dir
