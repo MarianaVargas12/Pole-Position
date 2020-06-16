@@ -26,10 +26,8 @@ const int HOLE;
 const int TURBO;
 const int LIVE;
 const int BOMB;
-const int PLAYER1;
-const int PLAYER2;
-const int PLAYER3;
-const int PLAYER4;
+const int START;
+const int PLAYER[4];
 
 //matrix
 const int ROW;

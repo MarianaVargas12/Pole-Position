@@ -1,46 +1,42 @@
 #include <stdio.h>
 #include<string.h>    //strlen
 #include<stdlib.h>
-#include <w32api/wsman.h>
 
 #include "player.h"
 #include "game.h"
 
 int main() {
-
-    Player* player1;
-    Player* player2;
-    playerData(&player1,1,"mariana");
-
-    playerData(&player2,2,"sarah");
-
-    playerGetData(&player1);
-    playerGetData(&player2);
+    Game game;
+    gameInitialize(&game);
+    gamePrintMatrix(&game);
     return 0;
 }
 
-//lee y escribe al dueno para agregar objetos
-void* read_console(Game* game){
+//input de consola
+void* read_console(Connection_handler_args* args){
     char *line = NULL;
     int x;
     int y;
+    int rounds;
     size_t len = 0;
     ssize_t read = 0;
     while (read > -1){
         read = getline(&line, &len, stdin);
         printf("line = %s", line);
         if (strcmp(line, "start\n")==0){
-            gameStart(game);
+            printf("vueltas = ");
+            getline(&line, &len, stdin);
+            rounds = atoi(line);
+            gameStart(args->game,rounds);
         }
         else if (strcmp(line, "life\n")==0){
             printf("x = ");
             getline(&line, &len, stdin);
-            //convierte el string a numero
             x = atoi(line);
             printf("y = ");
             getline(&line, &len, stdin);
             y = atoi(line);
-            gameLife(game, x, y);
+            gameAddObject(args->game, x, y,LIVE);
 
         }
         else if (strcmp(line, "hole\n")==0){
@@ -50,7 +46,7 @@ void* read_console(Game* game){
             printf("y = ");
             getline(&line, &len, stdin);
             y = atoi(line);
-            gameHole(game, x, y);
+            gameAddObject(args->game, x, y,HOLE);
 
         }
         else if (strcmp(line, "turbo\n")==0){
@@ -60,11 +56,11 @@ void* read_console(Game* game){
             printf("y = ");
             getline(&line, &len, stdin);
             y = atoi(line);
-            gameTurbo(game, x, y);
+            gameAddObject(args->game, x, y,TURBO);
 
         }
         else if (strcmp(line, "print\n")==0){
-            gamePrintMatrix(game);
+            Game_print_matrix(args->game);
 
 
         }

@@ -25,11 +25,11 @@ void addPoints(Player *player,const int points){
     player->points += points;
 
 }
-void playerData(Player *player, int num, int *name){
+void playerData(Player *player, int num, int *name,int rounds){
     player->number= num;
     player->points=0;
     strcpy(player->name, name);
-
+    player->rounds=rounds;
     Car car;
     carData(&car);
     player->car = car;

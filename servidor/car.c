@@ -3,8 +3,9 @@
 //
 #include "car.h"
 void carData(Car *car){
-    car->speed = 0;
+    car->speed = ROADSPEED;
     car->turbo_on = 0;
+    car->speedNext= ROADSPEED;
     car->lives = 3;
     car->tile = 0;
     car->yPosition = 0;

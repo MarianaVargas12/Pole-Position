@@ -80,10 +80,10 @@
 		<Unit filename="/cygdrive/c/Users/maria/OneDrive/Escritorio/Computadores/5 semestre/Lenguajes/Tercera tarea/Pole Position/servidor/car.h">
 			<Option target="servidor"/>
 		</Unit>
-		<Unit filename="/cygdrive/c/Users/maria/OneDrive/Escritorio/Computadores/5 semestre/Lenguajes/Tercera tarea/Pole Position/servidor/cmake-build-debug/constant.h">
+		<Unit filename="/cygdrive/c/Users/maria/OneDrive/Escritorio/Computadores/5 semestre/Lenguajes/Tercera tarea/Pole Position/servidor/constant.c">
 			<Option target="servidor"/>
 		</Unit>
-		<Unit filename="/cygdrive/c/Users/maria/OneDrive/Escritorio/Computadores/5 semestre/Lenguajes/Tercera tarea/Pole Position/servidor/constant.c">
+		<Unit filename="/cygdrive/c/Users/maria/OneDrive/Escritorio/Computadores/5 semestre/Lenguajes/Tercera tarea/Pole Position/servidor/constant.h">
 			<Option target="servidor"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/maria/OneDrive/Escritorio/Computadores/5 semestre/Lenguajes/Tercera tarea/Pole Position/servidor/game.c">

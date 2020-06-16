@@ -24,11 +24,9 @@ const int ROAD=5;
 const int HOLE=6;
 const int TURBO=7;
 const int LIVE=8;
+const int START=9;
 const int BOMB=10;
-const int PLAYER1=0;
-const int PLAYER2=1;
-const int PLAYER3=2;
-const int PLAYER4=3;
+const int PLAYER[4]={0,1,2,3};
 
 //matrix
 const int ROW=100;

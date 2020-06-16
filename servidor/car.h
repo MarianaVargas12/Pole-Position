@@ -4,6 +4,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include "constant.h"
 #ifndef SERVIDOR_CAR_H
 #define SERVIDOR_CAR_H
 
@@ -11,6 +12,7 @@ typedef struct Car
 {
     int lives;
     int speed;
+    int speedNext;
     int turbo_on;
     int xNext;
     int yNext;
