@@ -95,16 +95,19 @@ void *connection_handler(Connection_handler_args* args) {
     char enviar[2000];
     char buffer[1024] = {0};
     int valread;
-    json_object* connection_json;
+    json_object* connection_json;//Creacion del objeto json
     connection_json = json_object_new_object();
+    //Crea JSON con el mensaje a enviar
     json_object_object_add(connection_json,"command",json_object_new_string(mensaje));
     strcpy(enviar,json_object_to_json_string(connection_json));
     enviar[strlen(enviar)]='\n';
+    //Lee lo que envia el cliente
     valread = read( sock, buffer, 1024);
     connection_json = json_tokener_parse(buffer);
     char * message = (json_object_get_string(json_object_object_get(connection_json, "command")));
-    puts(message);
-    puts(buffer);
+    puts(message);//Mensaje deserealizado
+    puts(buffer);//Mensaje Original
+
     send(sock , enviar, strlen(enviar) , 0 );
     close(sock);
     return 0;
