@@ -29,7 +29,7 @@ public class PixMap3D extends Pixmap {
     public Carro carroPrincipal,carro2,carro3,carro4;
     BitmapFont fuente;
 
-    public PixMap3D (int width, int height, Format format){
+    public PixMap3D (int width, int height, Format format,ArrayList listaCarros){
         super(width,height,format);
         setFilter(Filter.NearestNeighbour);//modo en el que coloca los pixeles
         pixmapTexture = new Texture(this,getFormat(),true);
@@ -39,11 +39,11 @@ public class PixMap3D extends Pixmap {
         background = new Texture("core\\assets\\fondo.png");
 
         //creacion de los carros
-        //PASAR CARRO PRINCIPAL AQUI......................
-        carroPrincipal = new Carro(3);
+        carroPrincipal = new Carro((Integer) listaCarros.get(0));
         carro2 = new Carro(1);
         carro3 = new Carro(2);
-        carro4 = new Carro(0);
+        carro4 = new Carro(3);
+
 
         //asigna la camara al carro principal
         pos = carroPrincipal.camara;

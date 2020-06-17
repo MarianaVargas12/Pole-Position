@@ -8,10 +8,9 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import entidades.Boost;
-import entidades.Hole;
-import entidades.Misil;
-import entidades.Vida;
+import entidades.*;
+
+import java.util.ArrayList;
 
 public class GameScreen extends ScreenAdapter {
     public static final int GAME_HEIGHT = 224;
@@ -24,10 +23,14 @@ public class GameScreen extends ScreenAdapter {
     private SpriteBatch batch;
     private OrthographicCamera camera;
     private PixMap3D pixmap;
+    private ArrayList<Integer> listaCarros;
 
-    public GameScreen(Game game, SpriteBatch batch){
+
+    public GameScreen(Game game, SpriteBatch batch, ArrayList carros){
         this.game = game;
         this.batch = batch;
+        this.listaCarros = carros;
+
     }
 
     @Override
@@ -35,7 +38,7 @@ public class GameScreen extends ScreenAdapter {
         camera = new OrthographicCamera(GAME_WIDTH,GAME_HEIGHT);//tamano de la camara
         camera.position.set(GAME_WIDTH/2,GAME_HEIGHT/2,0);//posicion de la camara en la mitad de la pantalla
         camera.update();
-        pixmap = new PixMap3D(GAME_WIDTH,GAME_HEIGHT, Pixmap.Format.RGB565);//crea el efecto de baja resolucion
+        pixmap = new PixMap3D(GAME_WIDTH,GAME_HEIGHT, Pixmap.Format.RGB565,listaCarros);//crea el efecto de baja resolucion
     }
 
     @Override
@@ -51,6 +54,7 @@ public class GameScreen extends ScreenAdapter {
         pixmap.render(batch);//renderiza lo que haya en el pixmap
         batch.end();
     }
+
     //manejo de teclas
     private void handleInput(float delta) {
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
@@ -134,6 +138,8 @@ public class GameScreen extends ScreenAdapter {
             int y = (int)pixmap.objects.get(0).position.y;
             Misil bomb = new Misil(x ,y);
             pixmap.objects.add(bomb.sprite);
+
+
             //pasar x,y a la logica.......................................
             pixmap.carros.get(0).bombas.add(bomb);
         }

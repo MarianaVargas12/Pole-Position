@@ -4,12 +4,16 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import entidades.Carro;
+
+import java.util.ArrayList;
 
 
 public class MenuScreen implements Screen {
     Pole_Position game;
     Texture menu;
     public int carroPrincipal;
+    public ArrayList<Integer> listaCarros = new ArrayList<>();
 
     public MenuScreen(Pole_Position game){
         this.game = game;
@@ -23,6 +27,7 @@ public class MenuScreen implements Screen {
 
     @Override
     public void render(float delta) {
+
         Gdx.gl.glClearColor(1,1,1,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.batch.begin();
@@ -57,11 +62,10 @@ public class MenuScreen implements Screen {
         if(x > 40 && x < 240 && y > 467 && y < 536){
             if(Gdx.input.isTouched()){
                 if(this.carroPrincipal >= 0 && this.carroPrincipal <=3){
-                    //enviar carro principal a mariana
-                    game.setScreen(new GameScreen(game,new SpriteBatch()));
+                    this.listaCarros.add(carroPrincipal);
                     System.out.println("Carro Principal: " + carroPrincipal);
+                    game.setScreen(new GameScreen(game,new SpriteBatch(), listaCarros));
                 }
-
             }
         }
 
