@@ -5,12 +5,10 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import java.util.ArrayList;
 
 public class MenuScreen implements Screen {
     Pole_Position game;
     Texture menu;
-    ArrayList<Integer> listaCarros = new ArrayList<>();
     public int carroPrincipal;
 
     public MenuScreen(Pole_Position game){
@@ -59,27 +57,7 @@ public class MenuScreen implements Screen {
         if(x > 40 && x < 240 && y > 467 && y < 536){
             if(Gdx.input.isTouched()){
                 if(this.carroPrincipal >= 0 && this.carroPrincipal <=3){
-                    listaCarros.add(carroPrincipal);
-                    if (this.carroPrincipal == 0){
-                        listaCarros.add(1);
-                        listaCarros.add(2);
-                        listaCarros.add(3);
-                    }
-                    else if(this.carroPrincipal == 1){
-                        listaCarros.add(0);
-                        listaCarros.add(2);
-                        listaCarros.add(3);
-                    }
-                    else if (this.carroPrincipal == 2){
-                        listaCarros.add(0);
-                        listaCarros.add(1);
-                        listaCarros.add(3);
-                    }
-                    else {
-                        listaCarros.add(0);
-                        listaCarros.add(1);
-                        listaCarros.add(2);
-                    }
+                    //enviar carro principal a mariana
                     game.setScreen(new GameScreen(game,new SpriteBatch()));
                     System.out.println("Carro Principal: " + carroPrincipal);
                 }

@@ -113,9 +113,10 @@ public class GameScreen extends ScreenAdapter {
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.H)){
             int x = (int)pixmap.objects.get(0).position.x;
-            int y = (int)pixmap.objects.get(0).position.y + 100;
-            System.out.println("x: "+ x +" y: " + y);
-            Hole hueco = new Hole(x ,y - 300);
+            int y = (int)pixmap.objects.get(0).position.y;
+
+            //pasar coordenadas donde genero el hueco
+            Hole hueco = new Hole(x ,y);
             pixmap.objects.add(hueco.sprite);
         }
 
@@ -131,6 +132,7 @@ public class GameScreen extends ScreenAdapter {
             int y = (int)pixmap.objects.get(0).position.y;
             Misil bomb = new Misil(x ,y);
             pixmap.objects.add(bomb.sprite);
+            //pasar x,y a la logica.......................................
             pixmap.carros.get(0).bombas.add(bomb);
         }
     }

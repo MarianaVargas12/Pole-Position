@@ -39,11 +39,11 @@ public class PixMap3D extends Pixmap {
         background = new Texture("core\\assets\\fondo.png");
 
         //creacion de los carros
-
-        carroPrincipal = new Carro(0);
+        //PASAR CARRO PRINCIPAL AQUI......................
+        carroPrincipal = new Carro(3);
         carro2 = new Carro(1);
         carro3 = new Carro(2);
-        carro4 = new Carro(3);
+        carro4 = new Carro(0);
 
         //asigna la camara al carro principal
         pos = carroPrincipal.camara;
@@ -82,6 +82,12 @@ public class PixMap3D extends Pixmap {
                                     "Health: " + carroPrincipal.salud
                                         + "\nPoints: " + carroPrincipal.puntos,0,GameScreen.GAME_HEIGHT);
 
+    }
+
+    public void crearCarros(ArrayList<Integer> carros){
+        for(int car : carros){
+            Carro carro = new Carro(car);
+        }
     }
 
     private void drawGround(){

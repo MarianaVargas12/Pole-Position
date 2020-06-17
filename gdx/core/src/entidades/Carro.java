@@ -23,7 +23,7 @@ public class Carro extends entidad {
         
         if(numeroCarro == 0){
             this.sprite = new Sprite3D(new Pixmap(new FileHandle(
-                    "core\\assets\\Amarillo.png")),numeroCarro);
+                    "core\\assets\\Negro.png")),numeroCarro);
             this.camara = new Vector3(520,1150,25);
         }
         else if(numeroCarro == 1){
@@ -33,13 +33,13 @@ public class Carro extends entidad {
         }
         else if(numeroCarro == 2){
             this.sprite = new Sprite3D(new Pixmap(new FileHandle(
-                    "core\\assets\\Negro.png")),numeroCarro);
+                    "core\\assets\\Blanco.png")),numeroCarro);
             this.camara = new Vector3(520,1230,25);
         }
 
         else {
             this.sprite = new Sprite3D(new Pixmap(new FileHandle(
-                    "core\\assets\\Blanco.png")),numeroCarro);
+                    "core\\assets\\Amarillo.png")),numeroCarro);
             this.camara = new Vector3(600,1230,25);
         }
 
