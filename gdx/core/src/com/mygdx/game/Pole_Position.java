@@ -13,7 +13,7 @@ public class Pole_Position extends Game {
 		batch = new SpriteBatch();
 		menuScreen = new MenuScreen(this);
 		endScreen = new EndScreen(this);
-		setScreen(endScreen);//cambiar por gameScreen
+		setScreen(menuScreen);//cambiar por gameScreen
 	}
 
 	@Override

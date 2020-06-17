@@ -18,6 +18,8 @@ public class GameScreen extends ScreenAdapter {
     public static final int GAME_WIDTH = 256;
     public static final double TURN_ANGLE = 0.02;
 
+    public EndScreen pantFinal;
+
     private Game game;
     private SpriteBatch batch;
     private OrthographicCamera camera;
@@ -134,6 +136,10 @@ public class GameScreen extends ScreenAdapter {
             pixmap.objects.add(bomb.sprite);
             //pasar x,y a la logica.......................................
             pixmap.carros.get(0).bombas.add(bomb);
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.K)){
+            pantFinal = new EndScreen((Pole_Position) game);
+            game.setScreen(pantFinal);
         }
     }
 

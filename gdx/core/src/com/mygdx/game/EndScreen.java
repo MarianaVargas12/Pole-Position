@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
@@ -30,8 +31,8 @@ public class EndScreen implements Screen {
         tercero = new Vector2(580,400);
 
         fuente = new BitmapFont();
-        fuente.setColor(Color.WHITE);
-        fuente.getData().setScale((0.6f));
+        fuente.setColor(Color.BLACK);
+        fuente.getData().setScale((2f));
 
         ancho = 100;
         alto = 75;
@@ -56,11 +57,14 @@ public class EndScreen implements Screen {
         int x = Gdx.input.getX();
         int y = Gdx.input.getY();
 
+
         game.batch.draw(verde,primero.x,primero.y,ancho,alto);
         game.batch.draw(blanco,segundo.x,segundo.y,ancho,alto);
         game.batch.draw(amarillo,tercero.x,tercero.y,ancho,alto);
 
-        //fuente.draw(game.batch,"Primer lugar");
+        fuente.draw(game.batch,"10000pts",325,450);
+        fuente.draw(game.batch,"9000pts",100,370);
+        fuente.draw(game.batch,"3000pts",570,350);
 
         if (x > 572 && x < 754 && y > 615 && y < 667){
             if(Gdx.input.isTouched()){
