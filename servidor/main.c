@@ -179,7 +179,7 @@ void *connection_handler(Connection_handler_args* args) {
     //No permite conexión si el número de jugadores en línea es mayor al máximo
     if (players_in_game >= MAXPLAYERS){
         connection_json = json_object_new_object();
-        json_object_object_add(connection_json,"command", json_object_new_string("No hay campo en el servidor"));
+        json_object_object_add(connection_json,"command", json_object_new_string("full"));
         strcpy(message, json_object_to_json_string(connection_json));
         message[strlen(message)]='\n';
         write(sock , message , strlen(message));
@@ -190,12 +190,10 @@ void *connection_handler(Connection_handler_args* args) {
     //Si hay campo, pide el nombre y le pasa al cliente los colores disponibles
     connection_json = json_object_new_object();
     json_object_object_add(connection_json,"command", json_object_new_string("identifiquese"));
-    json_object* my_array;
-    my_array = json_object_new_array();
-
     strcpy(message, json_object_to_json_string(connection_json));
     message[strlen(message)]='\n';
-    send(sock , enviar, strlen(enviar) , 0 );
+    write(sock , message , strlen(message));
+    memset(message, 0 , 2000);
 
     //Espera mensaje del cliente
     if( (read_size = recv(sock , client_message , 2000 , 0)) > 0 ) {
@@ -236,12 +234,12 @@ void *connection_handler(Connection_handler_args* args) {
                         for (int i = 0; i < MAXPLAYERS; i++){
                             json_object_array_add(my_array, json_object_new_int(game->colors[i]));
                         }
+                        puts("al menos entro aqui");
 
                         json_object_object_add(connection_json, "available_colors", my_array);//Array con colores
                         json_object_object_add(connection_json, "player_num", json_object_new_int(number));//Numero de jugador
                         memset(message,0,2000);
                         strcpy(message, json_object_to_json_string(connection_json));
-
                         message[strlen(message)]='\n';
                         write(sock , message , strlen(message));//Envia el mensaje
                                 //Recibe la respuesta del cliente
@@ -249,14 +247,15 @@ void *connection_handler(Connection_handler_args* args) {
                         client_message[read_size] = '\0';
 
                         printf("%s\n", client_message);
-
+                        puts("put 3");
                         //Asignacion de color segun eleccion del cliente
                         connection_json = json_tokener_parse(client_message);
+                        puts("put 4");
                         Game_set_player_color(game, i, json_object_get_int(json_object_object_get(connection_json, "color")));
                         printf("%d\n", game->players[number].car.color);
                     }
                 }
-
+                puts("put 5");
                 connection_json = json_object_new_object();
                 json_object_object_add(connection_json,"command", json_object_new_string("position_yourself"));//Pide la posicion inicial
                 json_object_object_add(connection_json, "player", json_object_new_int(i)); //Envia el numero del jugador
@@ -264,6 +263,7 @@ void *connection_handler(Connection_handler_args* args) {
                 strcpy(message, json_object_to_json_string(connection_json));
                 message[strlen(message)]='\n';
                 write(sock , message , strlen(message));//envia el mensaje
+                puts("put 6");
                 break;
             }
         }

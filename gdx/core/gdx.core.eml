@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component inherit-compiler-output="true" inheritJdk="true">
+	<exclude-output/>
+	<contentEntry url="file://$MODULE_DIR$/../../../core">
+		<excludeFolder url="file://$MODULE_DIR$/../../../core/.gradle"/>
+		<excludeFolder url="file://$MODULE_DIR$/../../../core/build"/>
+	</contentEntry>
+	<lib name="json-simple-1.1.1.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/json-simple-1.1.1.jar!/"/>
+	</lib>
+	<levels>
+		<level name="json-simple-1.1.1" value="project"/>
+	</levels>
+</component>

@@ -5,15 +5,17 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import java.util.ArrayList;
 
 public class MenuScreen implements Screen {
     Pole_Position game;
     Texture menu;
-    public int carroPrincipal;
-
+    public int carroPrincipal = -1;
+    public ArrayList<Integer> CarrosDisponibles;
     public MenuScreen(Pole_Position game){
         this.game = game;
         menu = new Texture("core\\assets\\menu.png");
+        this.CarrosDisponibles = new ArrayList<>();
     }
 
     @Override
