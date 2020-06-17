@@ -234,7 +234,6 @@ void *connection_handler(Connection_handler_args* args) {
                         for (int i = 0; i < MAXPLAYERS; i++){
                             json_object_array_add(my_array, json_object_new_int(game->colors[i]));
                         }
-                        puts("al menos entro aqui");
 
                         json_object_object_add(connection_json, "available_colors", my_array);//Array con colores
                         json_object_object_add(connection_json, "player_num", json_object_new_int(number));//Numero de jugador
@@ -247,15 +246,16 @@ void *connection_handler(Connection_handler_args* args) {
                         client_message[read_size] = '\0';
 
                         printf("%s\n", client_message);
-                        puts("put 3");
                         //Asignacion de color segun eleccion del cliente
                         connection_json = json_tokener_parse(client_message);
-                        puts("put 4");
-                        Game_set_player_color(game, i, json_object_get_int(json_object_object_get(connection_json, "color")));
-                        printf("%d\n", game->players[number].car.color);
+                        puts("put 1");
+                        int color = json_object_get_int(json_object_object_get(connection_json, "color"));
+                        Game_set_player_color(game, i, color);
+                        puts("Color:");
+                        printf("%d \n",game->players[number].car.color);
                     }
                 }
-                puts("put 5");
+                puts("put 2");
                 connection_json = json_object_new_object();
                 json_object_object_add(connection_json,"command", json_object_new_string("position_yourself"));//Pide la posicion inicial
                 json_object_object_add(connection_json, "player", json_object_new_int(i)); //Envia el numero del jugador
@@ -263,7 +263,7 @@ void *connection_handler(Connection_handler_args* args) {
                 strcpy(message, json_object_to_json_string(connection_json));
                 message[strlen(message)]='\n';
                 write(sock , message , strlen(message));//envia el mensaje
-                puts("put 6");
+                puts("put 3");
                 break;
             }
         }

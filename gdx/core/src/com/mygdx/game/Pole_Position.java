@@ -24,13 +24,7 @@ public class Pole_Position extends Game {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		try {
-			server.sendMessage("conexion inicial");
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
+		server.start();
 	}
 
 	@Override

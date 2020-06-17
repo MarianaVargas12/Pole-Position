@@ -13,7 +13,7 @@ import json.parser.ParseException;
 import com.badlogic.gdx.Gdx;
 import com.mygdx.game.MenuScreen;
 
-public class Server{
+public class Server extends Thread {
 
     private Socket clientSocket;
     private PrintWriter out;
@@ -37,11 +37,11 @@ public class Server{
     }
 
     /**
-     * @param msg
+     * @param
      * @return
-     * @throws IOException
      */
-    public String sendMessage(String msg) throws IOException, ParseException {
+    public void run() {
+        String msg= "inicializacion";
         //Enviar mensaje al server Serializado
         JSONObject jsonSend = new JSONObject();
         jsonSend.put("command",msg);
@@ -49,23 +49,41 @@ public class Server{
         out.println(msg);
 
         //Recibir mensaje del Server y deserealizarlo
-        String resp = input.readLine();
+        String resp = null;
+        try {
+            resp = input.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         JSONParser parser = new JSONParser();
-        JSONObject jsonRec = (JSONObject) parser.parse(resp);
+        JSONObject jsonRec = null;
+        try {
+            jsonRec = (JSONObject) parser.parse(resp);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         String respuesta = (String) jsonRec.get("command");
         System.out.println(respuesta);
         if (respuesta.equals("full")){
             System.out.println("Entra");
             Gdx.app.exit();
-            return "0";
+            return;
         }
         else if (respuesta.equals("identifiquese")){
             jsonSend.put("command","get_colors");
             msg = jsonSend.toJSONString();
             out.println(msg);
         }
-        resp = input.readLine();
-        jsonRec = (JSONObject) parser.parse(resp);
+        try {
+            resp = input.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            jsonRec = (JSONObject) parser.parse(resp);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         respuesta = (String) jsonRec.get("command");
         if (respuesta.equals("choose_a_color")){
             JSONArray arr = (JSONArray) jsonRec.get("available_colors");
@@ -77,11 +95,16 @@ public class Server{
         }
         System.out.println(respuesta);
 
-        jsonSend.put("color",menuScreen.carroPrincipal);
+        while (menuScreen.carroPrincipal == -1){
+
+        }
+        System.out.println("Ya envio");
+        jsonSend.clear();
+        jsonSend.put("color",menuScreen.carroPrincipal + 10);
         msg = jsonSend.toJSONString();
         out.println(msg);
 
-        return "jeje";
+        return;
     }
 
     public void stopConnection() throws IOException {

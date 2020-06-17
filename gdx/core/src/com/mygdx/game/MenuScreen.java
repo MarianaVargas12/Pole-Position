@@ -34,13 +34,23 @@ public class MenuScreen implements Screen {
 
         if(x > 120 && x < 310 && y > 185 && y < 275){
             if(Gdx.input.isTouched()){
-                this.carroPrincipal = 0;
+                if(this.CarrosDisponibles.contains(0)){
+                    this.carroPrincipal = 0;
+                }
+                else{
+                    System.out.println("Error, el carro ya está elegido.");
+                }
             }
         }
 
         if(x > 515 && x < 650 && y > 185 && y < 287){
             if(Gdx.input.isTouched()){
-                this.carroPrincipal = 1;
+                if(this.CarrosDisponibles.contains(1)){
+                    this.carroPrincipal = 1;
+                }
+                else{
+                    System.out.println("Error, el carro ya está elegido.");
+                }
             }
         }
 
@@ -48,11 +58,19 @@ public class MenuScreen implements Screen {
             if(Gdx.input.isTouched()){
                 this.carroPrincipal = 2;
             }
+            else{
+                System.out.println("Error, el carro ya está elegido.");
+            }
         }
 
         if(x > 504 && x < 646 && y > 320 && y < 420){
             if(Gdx.input.isTouched()){
-                this.carroPrincipal = 3;
+                if(this.CarrosDisponibles.contains(3)){
+                    this.carroPrincipal = 3;
+                }
+                else{
+                    System.out.println("Error, el carro ya está elegido.");
+                }
             }
         }
 
