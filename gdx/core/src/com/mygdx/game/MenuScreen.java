@@ -12,6 +12,7 @@ public class MenuScreen implements Screen {
     Texture menu;
     public int carroPrincipal = -1;
     public ArrayList<Integer> CarrosDisponibles;
+    public ArrayList<Integer> listaCarros = new ArrayList<>();
     public MenuScreen(Pole_Position game){
         this.game = game;
         menu = new Texture("core\\assets\\menu.png");
@@ -78,7 +79,8 @@ public class MenuScreen implements Screen {
             if(Gdx.input.isTouched()){
                 if(this.carroPrincipal >= 0 && this.carroPrincipal <=3){
                     //enviar carro principal a mariana
-                    game.setScreen(new GameScreen(game,new SpriteBatch()));
+                    this.listaCarros.add(carroPrincipal);
+                    game.setScreen(new GameScreen(game,new SpriteBatch(),listaCarros));
                     System.out.println("Carro Principal: " + carroPrincipal);
                 }
 

@@ -13,6 +13,8 @@ import entidades.Hole;
 import entidades.Misil;
 import entidades.Vida;
 
+import java.util.ArrayList;
+
 public class GameScreen extends ScreenAdapter {
     public static final int GAME_HEIGHT = 224;
     public static final int GAME_WIDTH = 256;
@@ -22,10 +24,13 @@ public class GameScreen extends ScreenAdapter {
     private SpriteBatch batch;
     private OrthographicCamera camera;
     private PixMap3D pixmap;
+    private int carroPrincipal;
+    private ArrayList<Integer> listaCarros;
 
-    public GameScreen(Game game, SpriteBatch batch){
+    public GameScreen(Game game, SpriteBatch batch, ArrayList carros){
         this.game = game;
         this.batch = batch;
+        this.listaCarros = carros;
     }
 
     @Override
@@ -33,7 +38,7 @@ public class GameScreen extends ScreenAdapter {
         camera = new OrthographicCamera(GAME_WIDTH,GAME_HEIGHT);//tamano de la camara
         camera.position.set(GAME_WIDTH/2,GAME_HEIGHT/2,0);//posicion de la camara en la mitad de la pantalla
         camera.update();
-        pixmap = new PixMap3D(GAME_WIDTH,GAME_HEIGHT, Pixmap.Format.RGB565);//crea el efecto de baja resolucion
+        pixmap = new PixMap3D(GAME_WIDTH,GAME_HEIGHT, Pixmap.Format.RGB565,listaCarros);//crea el efecto de baja resolucion
     }
 
     @Override
