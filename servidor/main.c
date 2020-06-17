@@ -67,14 +67,14 @@ int main() {
         perror("listen");
         exit(EXIT_FAILURE);
     }
-    //Se acepttan conexiones
+    //Se aceptan conexiones
     puts("Waiting for incoming connections...");
     pthread_t thread_id;
 
 
     Connection_handler_args args = { &started, &game};
 
-    pthread_create(&thread_id, NULL, (void *(*)(void *)) connection_handler, &args);
+    pthread_create(&thread_id, NULL, (void *(*)(void *)) read_console, &args);
 
     while ((new_socket = accept(server_fd, (struct sockaddr *)&address,
                                 (socklen_t*)&addrlen)))
@@ -287,7 +287,9 @@ void *connection_handler(Connection_handler_args* args) {
             gameMovement(game,number);
 
             connection_json = json_object_new_object();
-            json_object_object_add(connection_json, "command", json_object_new_string("ok"));
+            json_object_object_add(connection_json, "command", json_object_new_string("update"));
+            json_object_object_add(connection_json, "vidas", json_object_new_int(game->players[number].car.lives));
+            json_object_object_add(connection_json, "puntos", json_object_new_int(game->players[number].points));
             connection_json = json_object_new_object();
             //Envia que esta listo para iniciar
             json_object_object_add(connection_json, "start", json_object_new_int(game->Started));
@@ -308,11 +310,22 @@ void *connection_handler(Connection_handler_args* args) {
             write(sock , message , strlen(message));
 
         }
-        else if (strcmp(json_object_get_string(json_object_object_get(connection_json, "command")), "colission") == 0){
-
-
-            GameCollision(game, number, json_object_get_string(json_object_object_get(connection_json, "object_id")));
-
+//        else if (strcmp(json_object_get_string(json_object_object_get(connection_json, "command")), "colission") == 0){
+//
+//
+//            GameCollision(game, number, json_object_get_string(json_object_object_get(connection_json, "object_id")));
+//
+//            connection_json = json_object_new_object();
+//            json_object_object_add(connection_json, "command", json_object_new_string("ok"));
+//
+//            memset(message,0,2000);
+//            strcpy(message, json_object_to_json_string(connection_json));
+//            message[strlen(message)]='\n';
+//            write(sock , message , strlen(message));
+//
+//       }
+        else if (strcmp(json_object_get_string(json_object_object_get(connection_json, "command")), "bomba") == 0){
+            gameBomb(game,json_object_get_string(json_object_object_get(connection_json, "player_num")),json_object_get_int(json_object_object_get(connection_json, "x"))/30, json_object_get_int(json_object_object_get(connection_json, "y"))/30);
             connection_json = json_object_new_object();
             json_object_object_add(connection_json, "command", json_object_new_string("ok"));
 
@@ -320,8 +333,8 @@ void *connection_handler(Connection_handler_args* args) {
             strcpy(message, json_object_to_json_string(connection_json));
             message[strlen(message)]='\n';
             write(sock , message , strlen(message));
+        }
 
-       }
 //        else if (strcmp(json_object_get_string(json_object_object_get(connection_json, "command")), "done") == 0){
 //
 //            connection_json = json_object_new_object();

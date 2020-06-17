@@ -34,13 +34,13 @@ void gameBomb(Game *game, int player, int x, int y){
 void gameAddObject(Game *game, int x_pos,int y_pos, int type){
     if(game->matrixGame[x_pos][y_pos]==ROAD){
         if(type==LIVE){
-            gameLife(&game, x_pos, y_pos);
+            gameLife(game, x_pos, y_pos);
         }
         else if(type==TURBO){
-            gameTurbo(&game, x_pos, y_pos);
+            gameTurbo(game, x_pos, y_pos);
         }
         else if(type==HOLE){
-            gameHole(&game, x_pos, y_pos);
+            gameHole(game, x_pos, y_pos);
         }
 
     }else{
@@ -54,7 +54,7 @@ void gameMovement(Game *game, int player){
     //siguiente movimiento es zacate
     if(game->matrixGame[x][y]==START){
         if(game->players[player].rounds==0){
-            Final(&game,player);
+            Final(game,player);
         }else{
             game->players[player].rounds-=1;
         }
@@ -95,7 +95,7 @@ void gameMovement(Game *game, int player){
     }
     //tiene una colision
     else{
-        GameCollision(&game, player);
+        GameCollision(game, player);
         //lugar que estaba anteriormente
         if(game->players[player].car.speed== TURBOSPEED || game->players[player].car.speed== HOLESPEED){
             game->matrixGame[game->players[player].car.xPosition][game->players[player].car.yPosition]=ROAD;
@@ -139,7 +139,7 @@ void gameMovement(Game *game, int player){
 void GameCollision(Game *game, int player) {
     for(int i=0;i<MAXOBJECTS;i++){
         if(game->players[player].car.xNext==game->objects[i].x && game->players[player].car.yNext==game->objects[i].y) {
-            GameAssigned(&game, player, i);
+            GameAssigned(game, player, i);
             break;
         }
 
@@ -183,16 +183,16 @@ void Game_add_object(Game *game, int x, int y, int type) {
 }
 //verifica quien gana
 void Final(Game *game, int player){
-    if(everyone(&game) && game->final==0){
+    if(everyone(game) && game->final==0){
         game->players[player].points+=FIRST;
         game->final=4;
-    } else if(everyone(&game) && game->final==1){
+    } else if(everyone(game) && game->final==1){
         game->players[player].points+=SECOND;
         game->final= 4;
-    }else if(everyone(&game) && game->final==2){
+    }else if(everyone(game) && game->final==2){
         game->players[player].points+=THIRD;
         game->final=4;
-    }else if(everyone(&game) && game->final==3){
+    }else if(everyone(game) && game->final==3){
         game->final=4;
     }else{
         if(game->final==0){
