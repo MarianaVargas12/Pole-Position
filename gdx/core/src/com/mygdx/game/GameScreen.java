@@ -66,6 +66,7 @@ public class GameScreen extends ScreenAdapter {
                 pixmap.pos.y += pixmap.carroPrincipal.velocidad * Math.sin(pixmap.angle);
                 pixmap.objects.get(0).position.x += pixmap.carroPrincipal.velocidad * Math.cos(pixmap.angle);
                 pixmap.objects.get(0).position.y += pixmap.carroPrincipal.velocidad * Math.sin(pixmap.angle);
+
             }
             if (Gdx.input.isKeyPressed(Input.Keys.S)) {
                 pixmap.pos.x -= 2 * Math.cos(pixmap.angle);
@@ -88,15 +89,13 @@ public class GameScreen extends ScreenAdapter {
                 pixmap.objects.get(0).position.y += 2 * Math.sin(pixmap.angle + 1.5);
             }
 
-            if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+            if (Gdx.input.isKeyPressed(Input.Keys.A) &&  Gdx.input.isKeyPressed(Input.Keys.W) ||  Gdx.input.isKeyPressed(Input.Keys.S)) {
                 pixmap.angle -= TURN_ANGLE;
                 pixmap.backgroundPos += 0.5f;
                 pixmap.objects.get(0).position.x = (float) (72 * Math.cos(pixmap.angle)) + pixmap.pos.x;
                 pixmap.objects.get(0).position.y = (float) (72 * Math.sin(pixmap.angle)) + pixmap.pos.y;
                 pixmap.pos.x += 2 * Math.cos(pixmap.angle + 1.5);
                 pixmap.pos.y += 2 * Math.sin(pixmap.angle + 1.5);
-                pixmap.objects.get(0).position.x += 2 * Math.cos(pixmap.angle + 1.5);
-                pixmap.objects.get(0).position.y += 2 * Math.sin(pixmap.angle + 1.5);
 
                 //acomoda la imagen del fondo
                 if (pixmap.backgroundPos >= 0) {
@@ -104,15 +103,13 @@ public class GameScreen extends ScreenAdapter {
                 }
             }
 
-            if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+            if (Gdx.input.isKeyPressed(Input.Keys.D) && (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.S) ) ) {
                 pixmap.angle += TURN_ANGLE;
                 pixmap.backgroundPos -= 0.5f;
                 pixmap.objects.get(0).position.x = (float) (72 * Math.cos(pixmap.angle)) + pixmap.pos.x;
                 pixmap.objects.get(0).position.y = (float) (72 * Math.sin(pixmap.angle)) + pixmap.pos.y;
                 pixmap.pos.x += 2 * Math.cos(pixmap.angle - 1.5);
                 pixmap.pos.y += 2 * Math.sin(pixmap.angle - 1.5);
-                pixmap.objects.get(0).position.x += 2 * Math.cos(pixmap.angle - 1.5);
-                pixmap.objects.get(0).position.y += 2 * Math.sin(pixmap.angle - 1.5);
 
                 if (pixmap.backgroundPos <= -512) {//acomoda la imagen del fondo
                     pixmap.backgroundPos = -256;

@@ -284,6 +284,8 @@ void *connection_handler(Connection_handler_args* args) {
         //verifica qué se debe hacer
         if (strcmp(json_object_get_string(json_object_object_get(connection_json, "command")), "update_location") == 0){ //Si el comando es update_location
             CarMove(&game->players[number].car,(int)json_object_get_double(json_object_object_get(connection_json, "x"))/30, (int)json_object_get_double(json_object_object_get(connection_json, "y"))/30);
+            game->players[number].x=(int)json_object_get_double(json_object_object_get(connection_json, "x"));
+            game->players[number].y=(int)json_object_get_double(json_object_object_get(connection_json, "y"));
             gameMovement(game,number);
             connection_json = json_object_new_object();
             json_object_object_add(connection_json, "command", json_object_new_string("update"));
@@ -432,8 +434,8 @@ void get_objects(json_object *json, Game *game, json_object* lifeArray, json_obj
     for (int i = 0; i <MAXPLAYERS; i++){
         if (i != currentPlayer && game->players[i].number != -1 && game->players->car.xPosition != 0){
             temp = json_object_new_array();
-            json_object_array_add(temp, json_object_new_int(game->players[i].car.xPosition));
-            json_object_array_add(temp, json_object_new_int(game->players[i].car.yPosition));
+            json_object_array_add(temp, json_object_new_int(game->players[i].x));
+            json_object_array_add(temp, json_object_new_int(game->players[i].y));
             json_object_array_add(temp, json_object_new_int(game->players[i].car.color));
             json_object_array_add(playerArray, temp);
         }

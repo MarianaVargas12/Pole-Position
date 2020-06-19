@@ -15,15 +15,15 @@ public class Sprite3D implements Comparable<Sprite3D> {
         screen = new Vector2();
         size = new Vector2();
 
-        if (carro == 1){
+        if (carro == 0){
             position = new Vector2(520,1075);//posicion inicial de los carro
         }
 
-        else if (carro == 2 ){
+        else if (carro == 1 ){
             position = new Vector2(600,1075);//posicion inicial de los carro
         }
 
-        else if (carro == 3){
+        else if (carro == 2){
             position = new Vector2(520,1155);//posicion inicial de los carro
         }
 

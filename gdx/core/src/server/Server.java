@@ -214,8 +214,8 @@ public class Server extends Thread {
             else{
                 jsonSend.clear();
                 jsonSend.put("command","update_location");
-                jsonSend.put("x",menuScreen.gameScreen.pixmap.pos.x);
-                jsonSend.put("y",menuScreen.gameScreen.pixmap.pos.y);
+                jsonSend.put("x",menuScreen.gameScreen.pixmap.carroPrincipal.coordenadas.x);
+                jsonSend.put("y",menuScreen.gameScreen.pixmap.carroPrincipal.coordenadas.y);
                 msg = jsonSend.toJSONString();
                 out.println(msg);
                 jsonSend.clear();
@@ -261,7 +261,7 @@ public class Server extends Thread {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        System.out.println(jsonRec);
+        //System.out.println(jsonRec);
         JSONArray players = (JSONArray) jsonRec.get("players");
         JSONArray vidas = (JSONArray) jsonRec.get("lives");
         JSONArray turbos = (JSONArray) jsonRec.get("turbos");
@@ -286,8 +286,9 @@ public class Server extends Thread {
         }
         for(int i =0; i<players.size(); i++){
             ArrayList <Long> pos = (ArrayList<Long>) players.get(i);
-            menuScreen.gameScreen.pixmap.carros.get(i+1).coordenadas.x=pos.get(1).intValue()*30;
-            menuScreen.gameScreen.pixmap.carros.get(i+1).coordenadas.y=pos.get(0).intValue()*30;
+            menuScreen.gameScreen.pixmap.objects.get(i+1).position.x=pos.get(0).intValue();
+            menuScreen.gameScreen.pixmap.objects.get(i+1).position.y=pos.get(1).intValue() - 75;
+
         }
     }
 }
