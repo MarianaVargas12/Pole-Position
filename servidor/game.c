@@ -104,6 +104,7 @@ void gameMovement(Game *game, int player){
             //se fija si la colision fue con un hueco o con un turbo
             if(game->players[player].car.speedNext== TURBOSPEED ){
                 game->players[player].car.speed= TURBOSPEED;
+                game->players[player].car.speed= TURBOSPEED;
             }
             else if(game->players[player].car.speedNext==HOLESPEED){
                 game->players[player].car.speed= HOLESPEED;
@@ -216,7 +217,12 @@ bool everyone(Game* game){
     }
     return true;
 }
-
+void gamerounds(Game *game, int rounds){
+    game->rounds=rounds;
+    for(int i=0; i<MAXPLAYERS;i++){
+        game->players[i].rounds= rounds;
+    }
+}
 
 //*****************************Inicio de juego******************************************************************
 //crea la matriz
@@ -228,17 +234,20 @@ void gameInitialize(Game *game){
     game->Started = 0;
 
     //crea la matriz
-    for(int i =0; i<ROW; i++){//filas
-        for(int j =0; j<COLUMN; j++){//columnas
-            if(16<=i && i<=21 && 38<=j){
+    for(int j =0; j<ROW; j++){//filas
+        for(int i =0; i<COLUMN; i++){//columnas
+            if(j == 37 && (i> 16 && i < 22)){
                 game->matrixGame[i][j] = START;
             }
+            else if(j == 79 && (i> 44 && i < 75)){
+                game->matrixGame[i][j] = WALL;
+            }
             else if( 17<=i && i<=35 && 10<=j && j<=21 || 20<=i && i<=35 && 21<=j && j<=25 || 20<=i && i<=72 && 25<=j && j<=27 || 22<=i && i<=77 && 27<=j && j<=40
-            || 24<=i && i<=77 && 40<=j && j<=45 || 24<=i && i<=53 && 45<=j && j<=48 || 24<=i && i<=45 && 48<=j && j<=78 ){
+                || 24<=i && i<=77 && 40<=j && j<=45 || 24<=i && i<=53 && 45<=j && j<=48 || 24<=i && i<=45 && 48<=j && j<=78 ){
                 game->matrixGame[i][j] = GRASS;
-            }else if(0<=i && i<=11 && 0<=j && j<=23 || 0<=i && i<=16 && 30<=j && j<=43 || 0<=i && i<=18 && 43<=j && j<=84 || 0<=i && i<=100 && 84<=j && j<=100
-                     || 85<=i && i<=100 && 72<=j && j<=84 || 51<=i && i<=100 && 54<=j && j<=72 || 56<=i && i<=100 && 51<=j && j<=54
-                     || 83<=i && i<=100 && 21<=j && j<=51 || 75<=i && i<=100 && 0<=j && j<=21 || 42<=i && i<=100 && 0<=j && j<=18 || 11<=i && i<=42 && 0<=j && j<=3){
+            }else if((0<=i && i<=11 && 3<=j && j<=24 || 0<=i && i<=100 && 0<=j && j<=3 || 42<=i && i<=100 && 3<=j && j<=18 || 75<=i && i<=100 && 18<=j && j<=21
+                      || 83<=i && i<=100 && 21<=j && j<=51 || 56<=i && i<=100 && 51<=j && j<=54 || 51<=i && i<=100 && 54<=j && j<=72 || 0<=i && i<=13 && 24<=j && j<=31
+                      || 86<=i && i<=100 && 72<=j && j<=84 || 0<=i && i<=100 && 85<=j && j<=100 || 0<=i && i<=18 && 42<=j && j<=85 || 0<=i && i<=16 && 31<=j && j<=42)){
                 game->matrixGame[i][j] = GRASS;
             }
             else{
@@ -296,9 +305,9 @@ void blockColor(Game *game, int color){
 //******************************Informacion***********************************************
 //imprime en la consola para que el dueno vea lo que esta pasando
 void gamePrintMatrix(Game *game){
-    for(int i =0;i<ROW;i++){
+    for(int j =0;j<ROW;j++){
         printf("[");
-        for(int j=0;j<COLUMN;j++){
+        for(int i=0;i<COLUMN;i++){
             printf("%d, ", game->matrixGame[i][j]);
         }
         printf("]\n");

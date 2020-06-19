@@ -27,6 +27,7 @@ const int TURBO;
 const int LIVE;
 const int BOMB;
 const int START;
+const int WALL;
 const int PLAYER[4];
 
 //matrix

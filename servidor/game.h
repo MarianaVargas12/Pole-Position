@@ -21,6 +21,7 @@ typedef  struct Game{
     int final;
 }Game;
 
+void gamerounds(Game *game, int rounds);
 bool everyone(Game* game);
 void Final(Game *game,int player);
 void Game_add_object(Game *game, int x, int y, int type);

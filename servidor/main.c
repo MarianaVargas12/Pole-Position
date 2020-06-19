@@ -116,6 +116,7 @@ void* read_console(Connection_handler_args* args){
             getline(&line, &len, stdin);
             rounds = atoi(line);
             gameStart(args->game,rounds);
+            gamerounds(args->game,rounds);
         }
         else if (strcmp(line, "life\n")==0){
             printf("x = ");
@@ -210,6 +211,7 @@ void *connection_handler(Connection_handler_args* args) {
             if (game->players[i].number == -1){
                 game->players[i].number = i;
                 number = i;
+                playerData(&game->players[i],i);
                 //
 
                 if ( (read_size = recv(sock , client_message , 2000 , 0)) > 0 ){
@@ -277,21 +279,17 @@ void *connection_handler(Connection_handler_args* args) {
     {
         client_message[read_size] = '\0';
 
-
-
         connection_json = json_tokener_parse(client_message);
 
         //verifica qué se debe hacer
         if (strcmp(json_object_get_string(json_object_object_get(connection_json, "command")), "update_location") == 0){ //Si el comando es update_location
-            CarMove(&game->players[number].car,json_object_get_int(json_object_object_get(connection_json, "x"))/30, json_object_get_int(json_object_object_get(connection_json, "y"))/30);
+            CarMove(&game->players[number].car,(int)json_object_get_double(json_object_object_get(connection_json, "x"))/30, (int)json_object_get_double(json_object_object_get(connection_json, "y"))/30);
             gameMovement(game,number);
-
             connection_json = json_object_new_object();
             json_object_object_add(connection_json, "command", json_object_new_string("update"));
             json_object_object_add(connection_json, "vidas", json_object_new_int(game->players[number].car.lives));
             json_object_object_add(connection_json, "puntos", json_object_new_int(game->players[number].points));
-            connection_json = json_object_new_object();
-            //Envia que esta listo para iniciar
+            //Envia si se puede iniciar
             json_object_object_add(connection_json, "start", json_object_new_int(game->Started));
             memset(message,0,2000);
             strcpy(message, json_object_to_json_string(connection_json));

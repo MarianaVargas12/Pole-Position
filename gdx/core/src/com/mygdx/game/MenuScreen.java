@@ -13,11 +13,13 @@ public class MenuScreen implements Screen {
     public int carroPrincipal = -1;
     public ArrayList<Integer> CarrosDisponibles;
     public ArrayList<Integer> listaCarros = new ArrayList<>();
+    public boolean start = false;
     public MenuScreen(Pole_Position game){
         this.game = game;
         menu = new Texture("core\\assets\\menu.png");
         this.CarrosDisponibles = new ArrayList<>();
     }
+    public GameScreen gameScreen;
 
     @Override
     public void show() {
@@ -80,8 +82,10 @@ public class MenuScreen implements Screen {
                 if(this.carroPrincipal >= 0 && this.carroPrincipal <=3){
                     //enviar carro principal a mariana
                     this.listaCarros.add(carroPrincipal);
-                    game.setScreen(new GameScreen(game,new SpriteBatch(),listaCarros));
+                    gameScreen = new GameScreen(game,new SpriteBatch(),listaCarros);
+                    game.setScreen(gameScreen);
                     System.out.println("Carro Principal: " + carroPrincipal);
+                    start = true;
                 }
 
             }

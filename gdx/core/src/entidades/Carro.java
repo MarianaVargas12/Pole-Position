@@ -14,6 +14,7 @@ public class Carro extends entidad {
     public int velocidad;
     public Vector3 camara;
     public ArrayList<Misil> bombas;
+    public int id;
 
     public Carro(int numeroCarro){
         this.salud = 3;
@@ -25,6 +26,7 @@ public class Carro extends entidad {
             this.sprite = new Sprite3D(new Pixmap(new FileHandle(
                     "core\\assets\\Negro.png")),numeroCarro);
             this.camara = new Vector3(520,1150,25);
+
         }
         else if(numeroCarro == 1){
             this.sprite = new Sprite3D(new Pixmap(new FileHandle(
@@ -42,7 +44,7 @@ public class Carro extends entidad {
                     "core\\assets\\Amarillo.png")),numeroCarro);
             this.camara = new Vector3(600,1230,25);
         }
-
+        this.id=numeroCarro;
         this.coordenadas = new Vector2(sprite.position.x,sprite.position.y);
     }
 }

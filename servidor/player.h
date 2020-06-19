@@ -20,6 +20,6 @@ typedef struct Player{
 void updateLocation(Player *player,int x,int y);
 void playerGetData(Player *player);
 void addPoints(Player *player,const int points);
-void playerData(Player *player, int number,int *name, int rounds);
+void playerData(Player *player, int number);
 
 #endif //SERVIDOR_PLAYER_H

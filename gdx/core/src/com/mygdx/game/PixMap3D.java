@@ -26,7 +26,7 @@ public class PixMap3D extends Pixmap {
     public ArrayList<Sprite3D> objects;
     public ArrayList<Carro> carros;
     public Vector2 entityScale;//escala de las entidades
-    public Carro carroPrincipal,carro2,carro3,carro4;
+    public Carro carroPrincipal,carroSecundario;
     BitmapFont fuente;
 
     public PixMap3D (int width, int height, Format format, ArrayList listaCarros){
@@ -38,12 +38,9 @@ public class PixMap3D extends Pixmap {
         track = new Pixmap(new FileHandle("core\\assets\\pista.png"));
         background = new Texture("core\\assets\\fondo.png");
 
-        //creacion de los carros
-        //PASAR CARRO PRINCIPAL AQUI......................
+        //creacion del carro principal
         carroPrincipal = new Carro((Integer) listaCarros.get(0));
-        carro2 = new Carro(1);
-        carro3 = new Carro(2);
-        carro4 = new Carro(0);
+
 
         //asigna la camara al carro principal
         pos = carroPrincipal.camara;
@@ -59,15 +56,15 @@ public class PixMap3D extends Pixmap {
         fuente.setColor(Color.WHITE);
         fuente.getData().setScale((0.6f));
 
-        //agrega los carros a la lista
+        //agrega el carro principal a la cabeza de la lista
         carros.add(carroPrincipal);
-        carros.add(carro2);
-        carros.add(carro3);
-        carros.add(carro4);
-        //agrega las sprites de los carros a una lista
-        for(Carro auto : carros){
-            objects.add(auto.sprite);
-        }
+        objects.add(carroPrincipal.sprite);
+
+    }
+    public void agregarCarrosSecundarios(int numeroCarro){
+        this.carroSecundario = new Carro(numeroCarro);
+        carros.add(carroSecundario);
+        objects.add(carroSecundario.sprite);
     }
 
     public void render(SpriteBatch batch){
@@ -84,11 +81,6 @@ public class PixMap3D extends Pixmap {
 
     }
 
-    public void crearCarros(ArrayList<Integer> carros){
-        for(int car : carros){
-            Carro carro = new Carro(car);
-        }
-    }
 
     private void drawGround(){
         //direccion en x,y

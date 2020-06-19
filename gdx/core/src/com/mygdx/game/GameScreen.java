@@ -23,7 +23,8 @@ public class GameScreen extends ScreenAdapter {
     private Game game;
     private SpriteBatch batch;
     private OrthographicCamera camera;
-    private PixMap3D pixmap;
+    public PixMap3D pixmap;
+    public boolean gameStart = false;
     private int carroPrincipal;
     private ArrayList<Integer> listaCarros;
 
@@ -56,89 +57,93 @@ public class GameScreen extends ScreenAdapter {
     }
     //manejo de teclas
     private void handleInput(float delta) {
-        if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-            //llamar al servidor para la velocidad
-            pixmap.pos.x += pixmap.carroPrincipal.velocidad * Math.cos(pixmap.angle);
-            pixmap.pos.y += pixmap.carroPrincipal.velocidad * Math.sin(pixmap.angle);
-            pixmap.objects.get(0).position.x += pixmap.carroPrincipal.velocidad * Math.cos(pixmap.angle);
-            pixmap.objects.get(0).position.y += pixmap.carroPrincipal.velocidad * Math.sin(pixmap.angle);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-            pixmap.pos.x -= 2 * Math.cos(pixmap.angle);
-            pixmap.pos.y -= 2 * Math.sin(pixmap.angle);
-            pixmap.objects.get(0).position.x -= 2 * Math.cos(pixmap.angle);
-            pixmap.objects.get(0).position.y -= 2 * Math.sin(pixmap.angle);
-        }
+        if(gameStart) {
 
-        if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
-            pixmap.pos.x += 2 * Math.cos(pixmap.angle - 1.5);
-            pixmap.pos.y += 2 * Math.sin(pixmap.angle - 1.5);
-            pixmap.objects.get(0).position.x += 2 * Math.cos(pixmap.angle - 1.5);
-            pixmap.objects.get(0).position.y += 2 * Math.sin(pixmap.angle - 1.5);
 
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.E)) {
-            pixmap.pos.x += 2 * Math.cos(pixmap.angle + 1.5);
-            pixmap.pos.y += 2 * Math.sin(pixmap.angle + 1.5);
-            pixmap.objects.get(0).position.x += 2 * Math.cos(pixmap.angle + 1.5);
-            pixmap.objects.get(0).position.y += 2 * Math.sin(pixmap.angle + 1.5);
-        }
-
-        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-            pixmap.angle -= TURN_ANGLE;
-            pixmap.backgroundPos += 0.5f;
-            pixmap.objects.get(0).position.x = (float)(72*Math.cos(pixmap.angle)) + pixmap.pos.x;
-            pixmap.objects.get(0).position.y = (float)(72*Math.sin(pixmap.angle)) + pixmap.pos.y;
-            pixmap.pos.x += 2 * Math.cos(pixmap.angle + 1.5);
-            pixmap.pos.y += 2 * Math.sin(pixmap.angle + 1.5);
-            pixmap.objects.get(0).position.x += 2 * Math.cos(pixmap.angle + 1.5);
-            pixmap.objects.get(0).position.y += 2 * Math.sin(pixmap.angle + 1.5);
-
-            //acomoda la imagen del fondo
-            if (pixmap.backgroundPos >= 0) {
-                pixmap.backgroundPos = -256;
+            if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+                //llamar al servidor para la velocidad
+                pixmap.pos.x += pixmap.carroPrincipal.velocidad * Math.cos(pixmap.angle);
+                pixmap.pos.y += pixmap.carroPrincipal.velocidad * Math.sin(pixmap.angle);
+                pixmap.objects.get(0).position.x += pixmap.carroPrincipal.velocidad * Math.cos(pixmap.angle);
+                pixmap.objects.get(0).position.y += pixmap.carroPrincipal.velocidad * Math.sin(pixmap.angle);
             }
-        }
-
-        if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-            pixmap.angle += TURN_ANGLE;
-            pixmap.backgroundPos -= 0.5f;
-            pixmap.objects.get(0).position.x = (float) (72*Math.cos(pixmap.angle))+pixmap.pos.x;
-            pixmap.objects.get(0).position.y = (float)(72*Math.sin(pixmap.angle))+pixmap.pos.y;
-            pixmap.pos.x += 2 * Math.cos(pixmap.angle - 1.5);
-            pixmap.pos.y += 2 * Math.sin(pixmap.angle - 1.5);
-            pixmap.objects.get(0).position.x += 2 * Math.cos(pixmap.angle - 1.5);
-            pixmap.objects.get(0).position.y += 2 * Math.sin(pixmap.angle - 1.5);
-
-            if (pixmap.backgroundPos <= -512) {//acomoda la imagen del fondo
-                pixmap.backgroundPos = -256;
+            if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+                pixmap.pos.x -= 2 * Math.cos(pixmap.angle);
+                pixmap.pos.y -= 2 * Math.sin(pixmap.angle);
+                pixmap.objects.get(0).position.x -= 2 * Math.cos(pixmap.angle);
+                pixmap.objects.get(0).position.y -= 2 * Math.sin(pixmap.angle);
             }
 
-        }
+            if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
+                pixmap.pos.x += 2 * Math.cos(pixmap.angle - 1.5);
+                pixmap.pos.y += 2 * Math.sin(pixmap.angle - 1.5);
+                pixmap.objects.get(0).position.x += 2 * Math.cos(pixmap.angle - 1.5);
+                pixmap.objects.get(0).position.y += 2 * Math.sin(pixmap.angle - 1.5);
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.H)){
-            int x = (int)pixmap.objects.get(0).position.x;
-            int y = (int)pixmap.objects.get(0).position.y;
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.E)) {
+                pixmap.pos.x += 2 * Math.cos(pixmap.angle + 1.5);
+                pixmap.pos.y += 2 * Math.sin(pixmap.angle + 1.5);
+                pixmap.objects.get(0).position.x += 2 * Math.cos(pixmap.angle + 1.5);
+                pixmap.objects.get(0).position.y += 2 * Math.sin(pixmap.angle + 1.5);
+            }
 
-            //pasar coordenadas donde genero el hueco
-            Hole hueco = new Hole(x ,y);
-            pixmap.objects.add(hueco.sprite);
-        }
+            if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+                pixmap.angle -= TURN_ANGLE;
+                pixmap.backgroundPos += 0.5f;
+                pixmap.objects.get(0).position.x = (float) (72 * Math.cos(pixmap.angle)) + pixmap.pos.x;
+                pixmap.objects.get(0).position.y = (float) (72 * Math.sin(pixmap.angle)) + pixmap.pos.y;
+                pixmap.pos.x += 2 * Math.cos(pixmap.angle + 1.5);
+                pixmap.pos.y += 2 * Math.sin(pixmap.angle + 1.5);
+                pixmap.objects.get(0).position.x += 2 * Math.cos(pixmap.angle + 1.5);
+                pixmap.objects.get(0).position.y += 2 * Math.sin(pixmap.angle + 1.5);
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.B)){
-            int x = (int)pixmap.objects.get(0).position.x;
-            int y = (int)pixmap.objects.get(0).position.y + 100;
-            Boost turbo = new Boost(x ,y - 300);
-            pixmap.objects.add(turbo.sprite);
-        }
+                //acomoda la imagen del fondo
+                if (pixmap.backgroundPos >= 0) {
+                    pixmap.backgroundPos = -256;
+                }
+            }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
-            int x = (int)pixmap.objects.get(0).position.x;
-            int y = (int)pixmap.objects.get(0).position.y;
-            Misil bomb = new Misil(x ,y);
-            pixmap.objects.add(bomb.sprite);
-            //pasar x,y a la logica.......................................
-            pixmap.carros.get(0).bombas.add(bomb);
+            if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+                pixmap.angle += TURN_ANGLE;
+                pixmap.backgroundPos -= 0.5f;
+                pixmap.objects.get(0).position.x = (float) (72 * Math.cos(pixmap.angle)) + pixmap.pos.x;
+                pixmap.objects.get(0).position.y = (float) (72 * Math.sin(pixmap.angle)) + pixmap.pos.y;
+                pixmap.pos.x += 2 * Math.cos(pixmap.angle - 1.5);
+                pixmap.pos.y += 2 * Math.sin(pixmap.angle - 1.5);
+                pixmap.objects.get(0).position.x += 2 * Math.cos(pixmap.angle - 1.5);
+                pixmap.objects.get(0).position.y += 2 * Math.sin(pixmap.angle - 1.5);
+
+                if (pixmap.backgroundPos <= -512) {//acomoda la imagen del fondo
+                    pixmap.backgroundPos = -256;
+                }
+
+            }
+
+            if (Gdx.input.isKeyJustPressed(Input.Keys.H)) {
+                int x = (int) pixmap.objects.get(0).position.x;
+                int y = (int) pixmap.objects.get(0).position.y;
+
+                //pasar coordenadas donde genero el hueco
+                Hole hueco = new Hole(x, y);
+                pixmap.objects.add(hueco.sprite);
+            }
+
+            if (Gdx.input.isKeyJustPressed(Input.Keys.B)) {
+                int x = (int) pixmap.objects.get(0).position.x;
+                int y = (int) pixmap.objects.get(0).position.y + 100;
+                Boost turbo = new Boost(x, y - 300);
+                pixmap.objects.add(turbo.sprite);
+            }
+
+            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+                int x = (int) pixmap.objects.get(0).position.x;
+                int y = (int) pixmap.objects.get(0).position.y;
+                Misil bomb = new Misil(x, y);
+                pixmap.objects.add(bomb.sprite);
+                //pasar x,y a la logica.......................................
+                pixmap.carros.get(0).bombas.add(bomb);
+            }
         }
     }
 
