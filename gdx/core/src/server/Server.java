@@ -6,8 +6,11 @@ import java.lang.reflect.Array;
 import java.net.*;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CountDownLatch;
 
+import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.EndScreen;
 import entidades.Boost;
 import entidades.Hole;
 import entidades.Misil;
@@ -26,6 +29,7 @@ public class Server extends Thread {
     private BufferedReader input;
     private MenuScreen menuScreen;
     private boolean otherPlayers = true;
+    private int cantidadHuecos, cantidadVidas,cantidadTurbos;
     public Server(MenuScreen menuScreen){
         this.menuScreen = menuScreen;
     }
@@ -72,7 +76,7 @@ public class Server extends Thread {
         String respuesta = (String) jsonRec.get("command");
         System.out.println(respuesta);
         if (respuesta.equals("full")){
-            System.out.println("Entra");
+            System.out.println("Error, la sala está llena");
             Gdx.app.exit();
             return;
         }
@@ -134,7 +138,6 @@ public class Server extends Thread {
         while (true){
             getObjects();
             updateLocation();
-            System.out.println(menuScreen.gameScreen.pixmap.carros.size());
         }
 
 
@@ -159,8 +162,8 @@ public class Server extends Thread {
         //Enviar x,y
         jsonSend.clear();
         jsonSend.put("command","update_location");
-        jsonSend.put("x",menuScreen.gameScreen.pixmap.pos.x);
-        jsonSend.put("y",menuScreen.gameScreen.pixmap.pos.y);
+        jsonSend.put("x",menuScreen.gameScreen.pixmap.carroPrincipal.sprite.position.x);
+        jsonSend.put("y",menuScreen.gameScreen.pixmap.carroPrincipal.sprite.position.y);
         msg = jsonSend.toJSONString();
         out.println(msg);
         //System.out.println(msg);
@@ -182,10 +185,28 @@ public class Server extends Thread {
         if (respuesta.equals("update")){
             Long vidas = (Long) jsonRec.get("vidas");
             Long puntos = (Long) jsonRec.get("puntos");
+            Long velocidad = (Long) jsonRec.get("velocidad");
             menuScreen.gameScreen.pixmap.carroPrincipal.salud = vidas.intValue();
             menuScreen.gameScreen.pixmap.carroPrincipal.puntos = puntos.intValue();
+            menuScreen.gameScreen.pixmap.carroPrincipal.velocidad = (0.0204*velocidad.intValue() + 0.3536);
+            menuScreen.gameScreen.pixmap.carroPrincipal.velocidadReal = velocidad.intValue();
             menuScreen.gameScreen.gameStart = ((Long) jsonRec.get("start") != 0);
         }
+
+        if (respuesta.equals("GameOver")) {
+            JSONArray puntos = (JSONArray) jsonRec.get("puntos");
+            JSONArray colores = (JSONArray) jsonRec.get("players");
+            ArrayList<Vector2> puntosPorJugador = new ArrayList<>();
+
+            for (int i =0; i<puntos.size();i++){
+                int punto = Integer.parseInt(puntos.get(i).toString());
+                int color = Integer.parseInt(colores.get(i).toString());
+                Vector2 vector = new Vector2(punto,color);
+                puntosPorJugador.add(vector);
+            }
+            EndScreen endScreen = new EndScreen(menuScreen.game,puntosPorJugador);
+        }
+
         while(menuScreen.gameScreen.gameStart != true || otherPlayers){
             if(menuScreen.gameScreen.gameStart){
                 jsonSend.clear();
@@ -267,23 +288,42 @@ public class Server extends Thread {
         JSONArray turbos = (JSONArray) jsonRec.get("turbos");
         JSONArray huecos = (JSONArray) jsonRec.get("holes");
 
+        //Huecos
+        CopyOnWriteArrayList<Vector2> listaVectores = new CopyOnWriteArrayList<>();
         for(int i =0; i<huecos.size(); i++){
             ArrayList <Long> pos = (ArrayList<Long>) huecos.get(i);
-            Hole hole = new Hole(pos.get(1).intValue()*30,pos.get(0).intValue()*30);
-            menuScreen.gameScreen.pixmap.objects.add(hole.sprite);
+            Vector2 vector = new Vector2(pos.get(1).intValue()*30,pos.get(0).intValue()*30);
+            listaVectores.add(vector);
+            }
+        if (cantidadHuecos != huecos.size()){
+            menuScreen.gameScreen.pixmap.actualizarSprite(listaVectores,2);
+            cantidadHuecos = huecos.size();
         }
 
+        //Vidas
+        listaVectores.clear();
         for(int i =0; i<vidas.size(); i++){
             ArrayList <Long> pos = (ArrayList<Long>) vidas.get(i);
-            Vida vida = new Vida(pos.get(1).intValue()*30,pos.get(0).intValue()*30);
-            menuScreen.gameScreen.pixmap.objects.add(vida.sprite);
+            Vector2 vector = new Vector2(pos.get(1).intValue()*30,pos.get(0).intValue()*30);
+            listaVectores.add(vector);
+        }
+        if (cantidadVidas != vidas.size()){
+            menuScreen.gameScreen.pixmap.actualizarSprite(listaVectores,4);
+            cantidadVidas = vidas.size();
         }
 
+        //Turbos
+        listaVectores.clear();
         for(int i =0; i<turbos.size(); i++){
             ArrayList <Long> pos = (ArrayList<Long>) turbos.get(i);
-            Boost boost = new Boost(pos.get(1).intValue()*30,pos.get(0).intValue()*30);
-            menuScreen.gameScreen.pixmap.objects.add(boost.sprite);
+            Vector2 vector = new Vector2(pos.get(1).intValue()*30,pos.get(0).intValue()*30);
+            listaVectores.add(vector);
         }
+        if (cantidadTurbos != turbos.size()){
+            menuScreen.gameScreen.pixmap.actualizarSprite(listaVectores,1);
+            cantidadTurbos = turbos.size();
+        }
+
         for(int i =0; i<players.size(); i++){
             ArrayList <Long> pos = (ArrayList<Long>) players.get(i);
             menuScreen.gameScreen.pixmap.objects.get(i+1).position.x=pos.get(0).intValue();

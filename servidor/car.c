@@ -5,6 +5,7 @@
 void carData(Car *car){
     car->speed = ROADSPEED;
     car->turbo_on = 0;
+    car->hole_on = 0;
     car->speedNext= ROADSPEED;
     car->lives = 3;
     car->tile = 0;
@@ -24,14 +25,25 @@ void CarMove(Car *car, int x_pos, int y_pos){
 }
 
 void CarTurbo(Car *car) {
-
     if (car->turbo_on == 0) {
         car->turbo_on = 1;
-        car->speed = 180;
+        car->speed = TURBOSPEED;
     } else if (car->turbo_on == 1) {
         car->turbo_on = 0;
-        car->speed = 100;
+        car->speed = ROADSPEED;
 
         printf("Turbo: %d, Speed: %d\n", car->turbo_on, car->speed);
+    }
+}
+
+void CarHole(Car *car){
+    if (car->hole_on == 0) {
+        car->hole_on = 1;
+        car->speed = HOLESPEED;
+    } else if (car->hole_on == 1) {
+        car->hole_on = 0;
+        car->speed = ROADSPEED;
+
+        printf("Hole: %d, Speed: %d\n", car->hole_on, car->speed);
     }
 }

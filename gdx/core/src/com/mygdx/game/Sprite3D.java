@@ -9,6 +9,7 @@ public class Sprite3D implements Comparable<Sprite3D> {
     public Vector2 screen;//posicion en la pantalla
     public Vector2 size;//tamano en el juego
     public Vector2 position;//posicion en el juego
+    public int tipo;
 
     public Sprite3D(Pixmap pixmap, int carro){
         this.pixmap = pixmap;
@@ -34,7 +35,6 @@ public class Sprite3D implements Comparable<Sprite3D> {
     }
     //coloca sprite de los huecos,boosts y bombas
     public Sprite3D(Pixmap pixmap,int x,int y){
-
         this.pixmap = pixmap;
         screen = new Vector2();
         size = new Vector2();

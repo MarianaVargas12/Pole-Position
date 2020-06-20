@@ -9,5 +9,6 @@ public class Misil extends entidad{
     public Misil(int x, int y){
         this.coordenadas = new Vector2(x,y);
         this.sprite = new Sprite3D(new Pixmap(new FileHandle("core\\assets\\bomb.png")),x,y);
+        this.sprite.tipo = 3;
     }
 }

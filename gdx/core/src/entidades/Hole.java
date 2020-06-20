@@ -8,5 +8,6 @@ public class Hole extends entidad{
     public Hole(int x, int y){
         this.coordenadas = new Vector2(x,y);
         this.sprite = new Sprite3D(new Pixmap(new FileHandle("core\\assets\\tierra.png")),x,y);
+        this.sprite.tipo = 2;
     }
 }

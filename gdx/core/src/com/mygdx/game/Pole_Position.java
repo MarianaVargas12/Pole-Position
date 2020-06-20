@@ -16,7 +16,6 @@ public class Pole_Position extends Game {
 	public void create () {
 		batch = new SpriteBatch();
 		menuScreen = new MenuScreen(this);
-		endScreen = new EndScreen(this);
 		setScreen(menuScreen);//cambiar por gameScreen
 		Server server = new Server(menuScreen);
 		try {

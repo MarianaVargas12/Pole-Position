@@ -27,6 +27,8 @@ car.h
 /cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/servidor/car.h
 stdbool.h
 -
+time.h
+-
 constant.h
 /cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/servidor/constant.h
 
@@ -46,6 +48,8 @@ unistd.h
 pthread.h
 -
 json-c/json.h
+-
+time.h
 -
 player.h
 /cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/servidor/player.h

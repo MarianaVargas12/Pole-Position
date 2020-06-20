@@ -9,6 +9,7 @@
 #include "player.h"
 #include "car.h"
 #include <stdbool.h>
+#include <time.h>
 #include "constant.h"
 
 typedef  struct Game{
@@ -19,6 +20,8 @@ typedef  struct Game{
     Object objects[70];
     int rounds;
     int final;
+    clock_t tr;
+    clock_t th;
 }Game;
 
 void gamerounds(Game *game, int rounds);
@@ -42,5 +45,4 @@ bool color_available(Game *game, int color);
 void blockColor(Game *game, int color);
 void Game_get_players_data(Game *game);
 void gameMovement(Game *game, int player);
-
 #endif //SERVIDOR_GAME_H

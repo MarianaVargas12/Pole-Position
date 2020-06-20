@@ -2,15 +2,18 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import entidades.Carro;
+import entidades.*;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class PixMap3D extends Pixmap {
 
@@ -75,11 +78,42 @@ public class PixMap3D extends Pixmap {
         batch.draw(background,backgroundPos,GameScreen.GAME_HEIGHT-40);//dibujar el horizonte
 
         //Escribe datos del jugador en pantalla
-        fuente.draw(batch,"Speed: " + carroPrincipal.velocidad + " Km/h \n" +
+        fuente.draw(batch,"Speed: " + carroPrincipal.velocidadReal + " Km/h \n" +
                                     "Health: " + carroPrincipal.salud
                                         + "\nPoints: " + carroPrincipal.puntos,0,GameScreen.GAME_HEIGHT);
 
     }
+    public void actualizarSprite(CopyOnWriteArrayList<Vector2> listaSprites, int tipoSprites) {
+        for(Iterator<Sprite3D> it = objects.iterator(); it.hasNext();){
+            Sprite3D spriteElim = it.next();
+            if(spriteElim.tipo == tipoSprites){
+                it.remove();
+            }
+        }
+        for (Vector2 sprite : listaSprites){
+            switch (tipoSprites){
+                case 1:
+                    Boost turbo = new Boost((int)sprite.x,(int)sprite.y);
+                    objects.add(turbo.sprite);
+                    break;
+                case 2:
+                    Hole hueco = new Hole((int)sprite.x,(int)sprite.y);
+                    objects.add(hueco.sprite);
+                    break;
+                case 3:
+                    Misil bomba = new Misil((int)sprite.x,(int)sprite.y);
+                    objects.add(bomba.sprite);
+                    break;
+                case 4 :
+                    Vida health = new Vida((int)sprite.x,(int)sprite.y);
+                    objects.add(health.sprite);
+                    break;
+            }
+
+        }
+    }
+
+
 
 
     private void drawGround(){
@@ -148,17 +182,17 @@ public class PixMap3D extends Pixmap {
             entitiesSorted.add(entity);//agrega la entidad a la lista de sprites que se van a dibujar
         }
 
-        //acomoda los carros segun su posicion en Y para dibujar uno detras de otro
+        //Ordena las sprites segun su posicion en Y para dibujar uno detras de otro
         Collections.sort(entitiesSorted);
-        for(Sprite3D Kart : entitiesSorted){
-            int spriteWidth = Kart.pixmap.getWidth();
-            int spriteHeight = Kart.pixmap.getHeight();
-            int x = (int) Kart.screen.x;
-            int y = (int) Kart.screen.y;
-            int w = (int) Kart.size.x;
-            int h = (int) Kart.size.y;
+        for(Sprite3D entidad : entitiesSorted){
+            int spriteWidth = entidad.pixmap.getWidth();
+            int spriteHeight = entidad.pixmap.getHeight();
+            int x = (int) entidad.screen.x;
+            int y = (int) entidad.screen.y;
+            int w = (int) entidad.size.x;
+            int h = (int) entidad.size.y;
 
-            drawPixmap(Kart.pixmap,0,0,spriteWidth,spriteHeight,x,y,w,h);
+            drawPixmap(entidad.pixmap,0,0,spriteWidth,spriteHeight,x,y,w,h);
 
         }
     }

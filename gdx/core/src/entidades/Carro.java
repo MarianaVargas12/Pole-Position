@@ -11,7 +11,8 @@ import java.util.ArrayList;
 public class Carro extends entidad {
     public int salud;
     public int puntos;
-    public int velocidad;
+    public double velocidad;
+    public int velocidadReal;
     public Vector3 camara;
     public ArrayList<Misil> bombas;
     public int id;
@@ -45,6 +46,7 @@ public class Carro extends entidad {
             this.camara = new Vector3(600,1230,25);
         }
         this.id=numeroCarro;
+        this.sprite.tipo = 0;
         this.coordenadas = new Vector2(sprite.position.x,sprite.position.y);
     }
 }

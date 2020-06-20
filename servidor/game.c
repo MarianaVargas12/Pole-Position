@@ -2,7 +2,6 @@
 // Created by mariana on 6/14/2020.
 //
 #include "game.h"
-
 //crea un hueco
 void gameHole(Game *game, int x_pos, int y_pos){
     game->matrixGame[x_pos][y_pos] = HOLE;
@@ -47,91 +46,102 @@ void gameAddObject(Game *game, int x_pos,int y_pos, int type){
         printf("debe de ser en la carretera");
     }
 }
-//verifica el movimiento del carro para asignarle todo
+//verifica el movimiento del carro para asignarle todos
 void gameMovement(Game *game, int player){
     int x = game->players[player].car.xNext;
     int y= game->players[player].car.yNext;
     //siguiente movimiento es zacate
     if(game->matrixGame[x][y]==START){
+        game->players[player].rounds-=1;
         if(game->players[player].rounds==0){
             Final(game,player);
         }else{
-            game->players[player].rounds-=1;
+            if(game->players[player].car.tile==GRASS){
+                game->matrixGame[game->players[player].car.xPosition][game->players[player].car.yPosition]=GRASS;
+            }else if(game->players[player].car.tile==START){
+                game->matrixGame[game->players[player].car.xPosition][game->players[player].car.yPosition]=START;
+            }
+            else{
+                game->matrixGame[game->players[player].car.xPosition][game->players[player].car.yPosition]=ROAD;
+            }
+            game->players[player].car.tile=START;
+            game->matrixGame[x][y]=PLAYER[player];
+            game->players[player].car.speed= GRASSSPEED;
         }
+    }
+    if(game->players[player].car.turbo_on){
+        if((clock() - game->tr)/CLOCKS_PER_SEC >= 5){
+            game->tr = clock();
+            puts("ENTRA AL RELOJ");
+            CarTurbo(&game->players[player].car);
+        }if(game->players[player].car.tile==GRASS){
+            game->matrixGame[game->players[player].car.xPosition][game->players[player].car.yPosition]=GRASS;
+        }else if(game->players[player].car.tile==START){
+            game->matrixGame[game->players[player].car.xPosition][game->players[player].car.yPosition]=START;
+        }else{
+            game->matrixGame[game->players[player].car.xPosition][game->players[player].car.yPosition]=ROAD;
+        }
+        game->players[player].car.tile= game->matrixGame[x][y];
+        game->matrixGame[x][y]=PLAYER[player];
+    }if(game->players[player].car.hole_on){
+        if((clock() - game->th)/CLOCKS_PER_SEC >= 2){
+            game->th = clock();
+            puts("ENTRA AL RELOJ");
+            CarHole(&game->players[player].car);
+        }if(game->players[player].car.tile==GRASS){
+            game->matrixGame[game->players[player].car.xPosition][game->players[player].car.yPosition]=GRASS;
+        }else if(game->players[player].car.tile==START){
+            game->matrixGame[game->players[player].car.xPosition][game->players[player].car.yPosition]=START;
+        }else{
+            game->matrixGame[game->players[player].car.xPosition][game->players[player].car.yPosition]=ROAD;
+        }
+        game->players[player].car.tile= game->matrixGame[x][y];
+        game->matrixGame[x][y]=PLAYER[player];
     }
     else if(game->matrixGame[x][y]==GRASS){
-        //busca que era el lugar anterior en el que estaba
-        if(game->players[player].car.speed== TURBOSPEED || game->players[player].car.speed== HOLESPEED){
-            game->matrixGame[game->players[player].car.xPosition][game->players[player].car.yPosition]=ROAD;
-            game->matrixGame[x][y]=PLAYER[player];
-        }
-        else if(game->players[player].car.speed==ROADSPEED){
-            game->matrixGame[game->players[player].car.xPosition][game->players[player].car.yPosition]=ROAD;
-            game->matrixGame[x][y]=PLAYER[player];
-        }
-        else{
+        if(game->players[player].car.tile==GRASS){
             game->matrixGame[game->players[player].car.xPosition][game->players[player].car.yPosition]=GRASS;
-            game->matrixGame[x][y]=PLAYER[player];
+        }else if(game->players[player].car.tile==START){
+            game->matrixGame[game->players[player].car.xPosition][game->players[player].car.yPosition]=START;
+        }else{
+            game->matrixGame[game->players[player].car.xPosition][game->players[player].car.yPosition]=ROAD;
         }
+        game->players[player].car.tile=GRASS;
+        game->matrixGame[x][y]=PLAYER[player];
         game->players[player].car.speed= GRASSSPEED;
+        printf("%d\n", game->players[player].car.speed);
     }
     //siguiente movimiento es carretera
-    else if(game->matrixGame[x][y]=ROAD){
-        //cual fue el lugar que estaba anteriormente
-        if(game->players[player].car.speed== TURBOSPEED || game->players[player].car.speed== HOLESPEED){
-            game->matrixGame[game->players[player].car.xPosition][game->players[player].car.yPosition]=ROAD;
-            game->matrixGame[x][y]=PLAYER[player];
-        }
-        else if(game->players[player].car.speed==ROADSPEED){
-            game->matrixGame[game->players[player].car.xPosition][game->players[player].car.yPosition]=ROAD;
-            game->matrixGame[x][y]=PLAYER[player];
-        }
-        else{
+    else if(game->matrixGame[x][y]==ROAD){
+        if(game->players[player].car.tile==GRASS){
             game->matrixGame[game->players[player].car.xPosition][game->players[player].car.yPosition]=GRASS;
-            game->matrixGame[x][y]=PLAYER[player];
+        }else if(game->players[player].car.tile==START){
+            game->matrixGame[game->players[player].car.xPosition][game->players[player].car.yPosition]=START;
+        }else{
+            game->matrixGame[game->players[player].car.xPosition][game->players[player].car.yPosition]=ROAD;
         }
+        game->players[player].car.tile=ROAD;
+        game->matrixGame[x][y]=PLAYER[player];
         game->players[player].car.speed= ROADSPEED;
 
     }
     //tiene una colision
-    else{
+    else if(game->matrixGame[x][y] != game->players[player].number){
+//        if (game->Started){
+//            puts("else");
+//        }
+        game->players[player].car.speed= ROADSPEED;
         GameCollision(game, player);
         //lugar que estaba anteriormente
-        if(game->players[player].car.speed== TURBOSPEED || game->players[player].car.speed== HOLESPEED){
-            game->matrixGame[game->players[player].car.xPosition][game->players[player].car.yPosition]=ROAD;
-            game->matrixGame[x][y]=PLAYER[player];
-            game->players[player].car.speed= ROADSPEED;
-            //se fija si la colision fue con un hueco o con un turbo
-            if(game->players[player].car.speedNext== TURBOSPEED ){
-                game->players[player].car.speed= TURBOSPEED;
-                game->players[player].car.speed= TURBOSPEED;
-            }
-            else if(game->players[player].car.speedNext==HOLESPEED){
-                game->players[player].car.speed= HOLESPEED;
-            }
-        }
-        else if(game->players[player].car.speed==ROADSPEED){
-            game->matrixGame[game->players[player].car.xPosition][game->players[player].car.yPosition]=ROAD;
-            game->matrixGame[x][y]=PLAYER[player];
-            game->players[player].car.speed=ROADSPEED;
-            if(game->players[player].car.speedNext== TURBOSPEED){
-                game->players[player].car.speed= TURBOSPEED;
-            }
-            else if(game->players[player].car.speedNext==HOLESPEED){
-                game->players[player].car.speed= HOLESPEED;
-            }
-        }
-        else{
+        if(game->players[player].car.tile==GRASS){
             game->matrixGame[game->players[player].car.xPosition][game->players[player].car.yPosition]=GRASS;
-            game->matrixGame[x][y]=PLAYER[player];
-            game->players[player].car.speed=ROADSPEED;
-            if(game->players[player].car.speedNext== TURBOSPEED){
-                game->players[player].car.speed= TURBOSPEED;
-            }
-            else if(game->players[player].car.speedNext==HOLESPEED){
-                game->players[player].car.speed= HOLESPEED;
-            }
+        }else if(game->players[player].car.tile==START){
+            game->matrixGame[game->players[player].car.xPosition][game->players[player].car.yPosition]=START;
+        }else{
+            game->matrixGame[game->players[player].car.xPosition][game->players[player].car.yPosition]=ROAD;
         }
+        game->players[player].car.tile=ROAD;
+        game->matrixGame[x][y]=PLAYER[player];
     }
     game->players[player].car.xPosition = game->players[player].car.xNext;
     game->players[player].car.yPosition = game->players[player].car.yNext;
@@ -139,7 +149,7 @@ void gameMovement(Game *game, int player){
 //verifica si ha chocado con algo
 void GameCollision(Game *game, int player) {
     for(int i=0;i<MAXOBJECTS;i++){
-        if(game->players[player].car.xNext==game->objects[i].x && game->players[player].car.yNext==game->objects[i].y) {
+        if(game->players[player].car.xNext==game->objects[i].x && game->players[player].car.yNext==game->objects[i].y && game->objects[i].alive == 1) {
             GameAssigned(game, player, i);
             break;
         }
@@ -153,17 +163,21 @@ void GameAssigned(Game *game, int player, int id_object) {
     if (game->objects[id_object].type == TURBO){
         game->matrixGame[game->objects[id_object].y][game->objects[id_object].y] = ROAD;
         game->objects[id_object].alive = 0;
-        game->players[player].car.speedNext=TURBOSPEED;
+        game->players[player].points+=2;
+        CarTurbo(&game->players[player].car);
+        game->tr = clock();
         //vida
     }else if(game->objects[id_object].type == LIVE ){
         game->matrixGame[game->objects[id_object].y][game->objects[id_object].y] = ROAD;
         game->objects[id_object].alive = 0;
         game->players[player].car.lives +=1;
+        game->players[player].points+=3;
         //hueco
     }else if(game->objects[id_object].type == HOLE){
         game->matrixGame[game->objects[id_object].y][game->objects[id_object].y] = ROAD;
         game->objects[id_object].alive = 0;
-        game->players[player].car.speedNext=HOLESPEED;
+        CarHole(&game->players[player].car);
+        game->th = clock();
         //bomba
     }else if(game->objects[id_object].type==BOMB){
         game->matrixGame[game->objects[id_object].y][game->objects[id_object].y] = ROAD;
@@ -236,7 +250,7 @@ void gameInitialize(Game *game){
     //crea la matriz
     for(int j =0; j<ROW; j++){//filas
         for(int i =0; i<COLUMN; i++){//columnas
-            if(j == 37 && (i> 16 && i < 22)){
+            if(j == 40 && (i> 16 && i < 22)){
                 game->matrixGame[i][j] = START;
             }
             else if(j == 79 && (i> 44 && i < 75)){

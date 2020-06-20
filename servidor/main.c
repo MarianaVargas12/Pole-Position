@@ -6,6 +6,7 @@
 #include <unistd.h>
 #include <pthread.h>
 #include <json-c/json.h>
+#include <time.h>
 
 #include "player.h"
 #include "game.h"
@@ -22,6 +23,7 @@ void get_objects(json_object *json, Game *game, json_object* lifeArray, json_obj
 void* read_console(Connection_handler_args*);
 
 int get_id(Game* game, int i, int j);
+clock_t t;
 int main() {
     Game game;
     gameInitialize(&game);
@@ -117,6 +119,7 @@ void* read_console(Connection_handler_args* args){
             rounds = atoi(line);
             gameStart(args->game,rounds);
             gamerounds(args->game,rounds);
+            t = clock();
         }
         else if (strcmp(line, "life\n")==0){
             printf("x = ");
@@ -165,6 +168,7 @@ void *connection_handler(Connection_handler_args* args) {
     int valread, read_size;
     char message[2000], client_message[2000];
     Game* game = args->game;
+    game->rounds = 1;
 
     json_object* connection_json;//Creacion del objeto json
     connection_json = json_object_new_object();
@@ -250,14 +254,19 @@ void *connection_handler(Connection_handler_args* args) {
                         printf("%s\n", client_message);
                         //Asignacion de color segun eleccion del cliente
                         connection_json = json_tokener_parse(client_message);
-                        puts("put 1");
                         int color = json_object_get_int(json_object_object_get(connection_json, "color"));
-                        Game_set_player_color(game, i, color);
+                        if ( color >= 0){
+                            Game_set_player_color(game, i, color);
+                            game->players[i].car.tile=ROAD;
+                        }
+                        else{
+                            Game_set_player_color(game, i, game->colors[0]);
+                            game->players[i].car.tile=ROAD;
+                        }
                         puts("Color:");
                         printf("%d \n",game->players[number].car.color);
                     }
                 }
-                puts("put 2");
                 connection_json = json_object_new_object();
                 json_object_object_add(connection_json,"command", json_object_new_string("position_yourself"));//Pide la posicion inicial
                 json_object_object_add(connection_json, "player", json_object_new_int(i)); //Envia el numero del jugador
@@ -265,7 +274,6 @@ void *connection_handler(Connection_handler_args* args) {
                 strcpy(message, json_object_to_json_string(connection_json));
                 message[strlen(message)]='\n';
                 write(sock , message , strlen(message));//envia el mensaje
-                puts("put 3");
                 break;
             }
         }
@@ -281,6 +289,11 @@ void *connection_handler(Connection_handler_args* args) {
 
         connection_json = json_tokener_parse(client_message);
 
+        if((clock() - t)/CLOCKS_PER_SEC >= 10){
+            t=clock();
+            game->players[number].points += 1;
+        }
+
         //verifica qué se debe hacer
         if (strcmp(json_object_get_string(json_object_object_get(connection_json, "command")), "update_location") == 0){ //Si el comando es update_location
             CarMove(&game->players[number].car,(int)json_object_get_double(json_object_object_get(connection_json, "x"))/30, (int)json_object_get_double(json_object_object_get(connection_json, "y"))/30);
@@ -291,6 +304,7 @@ void *connection_handler(Connection_handler_args* args) {
             json_object_object_add(connection_json, "command", json_object_new_string("update"));
             json_object_object_add(connection_json, "vidas", json_object_new_int(game->players[number].car.lives));
             json_object_object_add(connection_json, "puntos", json_object_new_int(game->players[number].points));
+            json_object_object_add(connection_json, "velocidad", json_object_new_int(game->players[number].car.speed));
             //Envia si se puede iniciar
             json_object_object_add(connection_json, "start", json_object_new_int(game->Started));
             memset(message,0,2000);
@@ -360,6 +374,24 @@ void *connection_handler(Connection_handler_args* args) {
 
         }
 
+        if(game->rounds == 0){
+            json_object* my_array;
+            json_object* arrColor;
+            connection_json = json_object_new_object();
+            json_object_object_add(connection_json, "command", json_object_new_string("GameOver"));
+            for (int i = 0; i < MAXPLAYERS; i++){
+                json_object_array_add(my_array, json_object_new_int(game->players[i].points));
+                json_object_array_add(arrColor, json_object_new_int(game->players[i].car.color -10 ));
+            }
+            json_object_object_add(connection_json, "puntos", my_array);//Array con los puntos de todos
+            json_object_object_add(connection_json, "players", arrColor);//Array con los colores de todos
+
+            memset(message,0,2000);
+            strcpy(message, json_object_to_json_string(connection_json));
+            message[strlen(message)]='\n';
+            write(sock , message , strlen(message));
+            break;
+        }
 
 
         //clear the message buffer
