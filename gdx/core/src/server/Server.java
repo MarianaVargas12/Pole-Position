@@ -48,6 +48,7 @@ public class Server extends Thread {
     }
 
     /**
+     * Funcion principal que maneja la conexión con el servidor
      * @param
      * @return
      */
@@ -75,11 +76,13 @@ public class Server extends Thread {
         }
         String respuesta = (String) jsonRec.get("command");
         System.out.println(respuesta);
+        //Si ya no hay campo para jugar
         if (respuesta.equals("full")){
             System.out.println("Error, la sala está llena");
             Gdx.app.exit();
             return;
         }
+        //Si el server le pide el color elegido
         else if (respuesta.equals("identifiquese")){
             jsonSend.put("command","get_colors");
             msg = jsonSend.toJSONString();
@@ -106,10 +109,12 @@ public class Server extends Thread {
         }
         System.out.println(respuesta);
 
+        //Este while espera hasta que se haya elegido un carro
         while (menuScreen.carroPrincipal == -1){
 
         }
-        System.out.println("Ya envio");
+        //Envia el carro elegido
+        System.out.println("Carro elegido: " + menuScreen.carroPrincipal);
         jsonSend.clear();
         jsonSend.put("color",menuScreen.carroPrincipal + 10);
         msg = jsonSend.toJSONString();
@@ -126,6 +131,8 @@ public class Server extends Thread {
             e.printStackTrace();
         }
         respuesta = (String) jsonRec.get("command");
+
+        //Envia la posición inicial
         if (respuesta.equals("position_yourself")){
             while (true){ //Despues de este loop el usuario ya le dio a "Start"
                 if(menuScreen.start){
@@ -135,6 +142,7 @@ public class Server extends Thread {
             }
 
         }
+        //Loop que maneja la rutina con el server
         while (true){
             getObjects();
             updateLocation();
@@ -150,6 +158,11 @@ public class Server extends Thread {
         clientSocket.close();
     }
 
+    /**
+     * Funcion que envia la ubicacion y recibe los puntajes
+     * @param
+     * @return
+     */
     public void updateLocation(){
         String msg, respuesta;
         String resp = null;
@@ -192,7 +205,7 @@ public class Server extends Thread {
             menuScreen.gameScreen.pixmap.carroPrincipal.velocidadReal = velocidad.intValue();
             menuScreen.gameScreen.gameStart = ((Long) jsonRec.get("start") != 0);
         }
-
+        //Si el juego terminó pasar a la ventana del final
         if (respuesta.equals("GameOver")) {
             JSONArray puntos = (JSONArray) jsonRec.get("puntos");
             JSONArray colores = (JSONArray) jsonRec.get("players");
@@ -207,8 +220,9 @@ public class Server extends Thread {
             EndScreen endScreen = new EndScreen(menuScreen.game,puntosPorJugador);
         }
 
+        //Si no se ha iniciado el juego
         while(menuScreen.gameScreen.gameStart != true || otherPlayers){
-            if(menuScreen.gameScreen.gameStart){
+            if(menuScreen.gameScreen.gameStart){ //Si se inicia el juego dibuja los jugadores
                 jsonSend.clear();
                 jsonSend.put("command","get_objects");
                 msg = jsonSend.toJSONString();
@@ -232,7 +246,7 @@ public class Server extends Thread {
                 }
                 otherPlayers = false;
             }
-            else{
+            else{ //Si no ha iniciado actualiza la vaiable de inicio para verificar cambios
                 jsonSend.clear();
                 jsonSend.put("command","update_location");
                 jsonSend.put("x",menuScreen.gameScreen.pixmap.carroPrincipal.coordenadas.x);
@@ -259,7 +273,11 @@ public class Server extends Thread {
         }
 
     }
-
+    /**
+     * Funcion que recibe los objetos
+     * @param
+     * @return
+     */
     public void getObjects() {
         String msg, respuesta;
         String resp = null;
@@ -283,6 +301,8 @@ public class Server extends Thread {
             e.printStackTrace();
         }
         //System.out.println(jsonRec);
+
+        //Recibe ubicacion de jugadores, vidas, turbos y huecos
         JSONArray players = (JSONArray) jsonRec.get("players");
         JSONArray vidas = (JSONArray) jsonRec.get("lives");
         JSONArray turbos = (JSONArray) jsonRec.get("turbos");
