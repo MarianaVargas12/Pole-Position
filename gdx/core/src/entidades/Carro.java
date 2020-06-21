@@ -16,6 +16,7 @@ public class Carro extends entidad {
     public Vector3 camara;
     public ArrayList<Misil> bombas;
     public int id;
+    public boolean bomb = false;
 
     public Carro(int numeroCarro){
         this.salud = 3;

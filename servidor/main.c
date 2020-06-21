@@ -8,6 +8,7 @@
 #include <json-c/json.h>
 #include <time.h>
 
+#include <math.h>
 #include "player.h"
 #include "game.h"
 #include "constant.h"
@@ -19,7 +20,7 @@ typedef struct Connection_handler_args {
 
 void* connection_handler(Connection_handler_args*);
 //Funcion para obtener en un json_object, las posiciones de todos los objetos del mapa
-void get_objects(json_object *json, Game *game, json_object* lifeArray, json_object* holeArray, json_object* turboArray, json_object* playerArray, int currentPlayer);
+void get_objects(json_object *json, Game *game, json_object* lifeArray, json_object* holeArray, json_object* turboArray, json_object* bombArray,json_object* playerArray, int currentPlayer);
 void* read_console(Connection_handler_args*);
 
 int get_id(Game* game, int i, int j);
@@ -212,10 +213,11 @@ void *connection_handler(Connection_handler_args* args) {
         for (int i = 0; i < MAXPLAYERS; ++i) {
             if (game->players[i].number == -1){
                 game->players[i].number = i;
+                game->jugadores += 1;
                 number = i;
                 playerData(&game->players[i],i);
                 //
-
+                game->players[number].rounds=1;
                 if ( (read_size = recv(sock , client_message , 2000 , 0)) > 0 ){
                     client_message[read_size] = '\0';
 
@@ -288,7 +290,7 @@ void *connection_handler(Connection_handler_args* args) {
 
         connection_json = json_tokener_parse(client_message);
         //Le suma 1 al puntaje del jugador cada 10 segundos
-        if(((clock() - t)/CLOCKS_PER_SEC >= 10) && game->players[number].car.lives > 0){
+        if(((clock() - t)/CLOCKS_PER_SEC >= 10) && game->players[number].car.lives > 0 && game->players[number].rounds > 0 ){
             t=clock();
             game->players[number].points += 1;
         }
@@ -297,29 +299,56 @@ void *connection_handler(Connection_handler_args* args) {
 
         //Si el cliente le envia su nueva ubicacion
         if (strcmp(json_object_get_string(json_object_object_get(connection_json, "command")), "update_location") == 0){ //Si el comando es update_location
-            CarMove(&game->players[number].car,(int)json_object_get_double(json_object_object_get(connection_json, "x"))/30, (int)json_object_get_double(json_object_object_get(connection_json, "y"))/30);
-            game->players[number].x=(int)json_object_get_double(json_object_object_get(connection_json, "x"));
-            game->players[number].y=(int)json_object_get_double(json_object_object_get(connection_json, "y"));
-            gameMovement(game,number);
-            connection_json = json_object_new_object();
-            //Le envia las vidas, puntos y velocidad correspondiente
-            json_object_object_add(connection_json, "command", json_object_new_string("update"));
-            json_object_object_add(connection_json, "vidas", json_object_new_int(game->players[number].car.lives));
-            json_object_object_add(connection_json, "puntos", json_object_new_int(game->players[number].points));
-            json_object_object_add(connection_json, "velocidad", json_object_new_int(game->players[number].car.speed));
-            //Envia si el juego esta iniciado
-            json_object_object_add(connection_json, "start", json_object_new_int(game->Started));
-            memset(message,0,2000);
-            strcpy(message, json_object_to_json_string(connection_json));
-            message[strlen(message)]='\n';
-            write(sock , message , strlen(message));
+            if(game->rounds == 0){
+                puts("GAME OVER");
+                json_object* my_array = json_object_new_array();
+                json_object* arrColor = json_object_new_array();
+                connection_json = json_object_new_object();
+                json_object_object_add(connection_json, "command", json_object_new_string("GameOver"));
+                for (int i = 0; i < game->jugadores; i++){
+                    json_object_array_add(my_array, json_object_new_int(game->players[i].points));
+                    json_object_array_add(arrColor, json_object_new_int(game->players[i].car.color -10 ));
+                }
+                json_object_object_add(connection_json, "puntos", my_array);//Array con los puntos de todos
+                json_object_object_add(connection_json, "players", arrColor);//Array con los colores de todos
+                memset(message,0,2000);
+                strcpy(message, json_object_to_json_string(connection_json));
+                message[strlen(message)]='\n';
+                write(sock , message , strlen(message));
+                puts(message);
+            }
+            else{
+                CarMove(&game->players[number].car,round(json_object_get_double(json_object_object_get(connection_json, "x"))/30), round(((int)json_object_get_double(json_object_object_get(connection_json, "y")))/30));
+                game->players[number].x=(int)json_object_get_double(json_object_object_get(connection_json, "x"));
+                game->players[number].y=(int)json_object_get_double(json_object_object_get(connection_json, "y"));
+                gameMovement(game,number);
+                connection_json = json_object_new_object();
+                //Le envia las vidas, puntos y velocidad correspondiente
+                json_object_object_add(connection_json, "command", json_object_new_string("update"));
+                json_object_object_add(connection_json, "vidas", json_object_new_int(game->players[number].car.lives));
+                json_object_object_add(connection_json, "puntos", json_object_new_int(game->players[number].points));
+                json_object_object_add(connection_json, "velocidad", json_object_new_int(game->players[number].car.speed));
 
+
+                //Envia si el juego esta iniciado
+                if(game->players[number].rounds == 0){
+                    json_object_object_add(connection_json, "start", json_object_new_int(0));
+                }
+                else{
+                    json_object_object_add(connection_json, "start", json_object_new_int(game->Started));
+                }
+
+                memset(message,0,2000);
+                strcpy(message, json_object_to_json_string(connection_json));
+                message[strlen(message)]='\n';
+                write(sock , message , strlen(message));
+            }
         }
         //Si el cliente le pide los objetos
         else if (strcmp(json_object_get_string(json_object_object_get(connection_json, "command")), "get_objects") == 0){
 
             connection_json = json_object_new_object();
-            get_objects(connection_json,game,json_object_new_array(), json_object_new_array(),json_object_new_array(), json_object_new_array(),number);
+            get_objects(connection_json,game,json_object_new_array(), json_object_new_array(),json_object_new_array(), json_object_new_array(),json_object_new_array(),number);
             json_object_object_add(connection_json, "command", json_object_new_string("place_objects"));
             memset(message,0,2000);
             strcpy(message, json_object_to_json_string(connection_json));
@@ -330,14 +359,9 @@ void *connection_handler(Connection_handler_args* args) {
 
         //Si el cliente le envia que agrego una bomba
         else if (strcmp(json_object_get_string(json_object_object_get(connection_json, "command")), "bomba") == 0){
-            gameBomb(game,json_object_get_string(json_object_object_get(connection_json, "player_num")),json_object_get_int(json_object_object_get(connection_json, "x"))/30, json_object_get_int(json_object_object_get(connection_json, "y"))/30);
-            connection_json = json_object_new_object();
-            json_object_object_add(connection_json, "command", json_object_new_string("ok"));
-
-            memset(message,0,2000);
-            strcpy(message, json_object_to_json_string(connection_json));
-            message[strlen(message)]='\n';
-            write(sock , message , strlen(message));
+            gameBomb(game,number,json_object_get_int(json_object_object_get(connection_json, "x"))/30, json_object_get_int(json_object_object_get(connection_json, "y"))/30 + 1);
+            printf("%d\n",json_object_get_int(json_object_object_get(connection_json, "x"))/30);
+            printf("%d\n",json_object_get_int(json_object_object_get(connection_json, "y"))/30);
         }
 
         //Cualquier otra cosa
@@ -351,25 +375,6 @@ void *connection_handler(Connection_handler_args* args) {
             message[strlen(message)]='\n';
             write(sock , message , strlen(message));
 
-        }
-        //Si el juego acaba
-        if(game->rounds == 0){
-            json_object* my_array;
-            json_object* arrColor;
-            connection_json = json_object_new_object();
-            json_object_object_add(connection_json, "command", json_object_new_string("GameOver"));
-            for (int i = 0; i < MAXPLAYERS; i++){
-                json_object_array_add(my_array, json_object_new_int(game->players[i].points));
-                json_object_array_add(arrColor, json_object_new_int(game->players[i].car.color -10 ));
-            }
-            json_object_object_add(connection_json, "puntos", my_array);//Array con los puntos de todos
-            json_object_object_add(connection_json, "players", arrColor);//Array con los colores de todos
-
-            memset(message,0,2000);
-            strcpy(message, json_object_to_json_string(connection_json));
-            message[strlen(message)]='\n';
-            write(sock , message , strlen(message));
-            break;
         }
 
 
@@ -399,7 +404,7 @@ void *connection_handler(Connection_handler_args* args) {
 }
 
 // Modifica el json que se introduce para que contenga a todos los objetos en pantalla
-void get_objects(json_object *json, Game *game, json_object* lifeArray, json_object* holeArray, json_object* turboArray, json_object* playerArray, int currentPlayer){
+void get_objects(json_object *json, Game *game, json_object* lifeArray, json_object* holeArray, json_object* turboArray, json_object* bombArray, json_object* playerArray, int currentPlayer){
     json_object* temp;
     for (int i = 0; i < ROW; i++){
         for (int j = 0; j < COLUMN; j++){
@@ -422,6 +427,12 @@ void get_objects(json_object *json, Game *game, json_object* lifeArray, json_obj
                 json_object_array_add(temp, json_object_new_int(i));
                 json_object_array_add(temp, json_object_new_int(get_id(game, i, j)));
                 json_object_array_add(turboArray, temp);
+            }else if (game->matrixGame[i][j] == BOMB){
+                temp = json_object_new_array();
+                json_object_array_add(temp, json_object_new_int(j));
+                json_object_array_add(temp, json_object_new_int(i));
+                json_object_array_add(temp, json_object_new_int(get_id(game, i, j)));
+                json_object_array_add(bombArray, temp);
             }
         }
     }
@@ -441,6 +452,7 @@ void get_objects(json_object *json, Game *game, json_object* lifeArray, json_obj
     json_object_object_add(json, "lives", lifeArray);
     json_object_object_add(json, "holes", holeArray);
     json_object_object_add(json, "turbos", turboArray);
+    json_object_object_add(json, "bombs", bombArray);
     json_object_object_add(json, "players", playerArray);
 }
 

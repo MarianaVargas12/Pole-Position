@@ -26,31 +26,33 @@ public class EndScreen implements Screen {
         this.pos3 = new Vector2();
         this.posiciones = new ArrayList<>();
         this.coordenadas = new ArrayList<>();
+        this.fuente = new BitmapFont();
         int mayor = 0;
         int medio = 0;
         int menor = 0;
 
         for(Vector2 carro : carros){
            if (carro.x > mayor){
-               mayor = (int) carros.get(0).x;
+               mayor = (int) carro.x;
                pos1.x = mayor;
-               pos1.y = (int) carros.get(1).x;
+               pos1.y = (int) carro.y;
            }
         }
         for(Vector2 carro : carros){
             if (carro.x < mayor && carros.get(0).x > medio){
-                medio = (int) carros.get(0).x;
-                pos2.x = mayor;
-                pos2.y = (int) carros.get(1).x;
+                medio = (int) carro.x;
+                pos2.x = medio;
+                pos2.y = (int) carro.y;
             }
         }
         for(Vector2 carro : carros){
             if (carro.x < medio && carros.get(0).x > menor){
-                menor = (int) carros.get(0).x;
-                pos3.x = mayor;
-                pos3.y = (int) carros.get(1).x;
+                menor = (int) carro.x;
+                pos3.x = menor;
+                pos3.y = (int) carro.y;
             }
         }
+
         posiciones.add(pos1);
         posiciones.add(pos2);
         posiciones.add(pos3);
@@ -63,9 +65,9 @@ public class EndScreen implements Screen {
         coordenadas.add(segundo);
         coordenadas.add(tercero);
 
-        fuente = new BitmapFont();
-        fuente.setColor(Color.WHITE);
-        fuente.getData().setScale((0.6f));
+
+        fuente.setColor(Color.BLACK);
+        fuente.getData().setScale((2f));
 
         ancho = 100;
         alto = 75;
@@ -107,11 +109,10 @@ public class EndScreen implements Screen {
         for(int i = 0; i<this.carros.size(); i++){
             game.batch.draw(dibujar((int) posiciones.get(i).y),coordenadas.get(i).x,coordenadas.get(i).y,ancho,alto);
         }
-//        game.batch.draw(verde,primero.x,primero.y,ancho,alto);
-//        game.batch.draw(blanco,segundo.x,segundo.y,ancho,alto);
-//        game.batch.draw(amarillo,tercero.x,tercero.y,ancho,alto);
 
-        //fuente.draw(game.batch,"Primer lugar");
+        fuente.draw(game.batch, pos1.x + "pts",325,450);
+        fuente.draw(game.batch,pos2.x + "pts",100,370);
+        fuente.draw(game.batch,pos3.x + "pts",570,350);
 
         if (x > 572 && x < 754 && y > 615 && y < 667){
             if(Gdx.input.isTouched()){

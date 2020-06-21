@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import entidades.Boost;
 import entidades.Hole;
 import entidades.Misil;
@@ -25,8 +26,10 @@ public class GameScreen extends ScreenAdapter {
     private OrthographicCamera camera;
     public PixMap3D pixmap;
     public boolean gameStart = false;
-    private int carroPrincipal;
+    public boolean end = false;
     private ArrayList<Integer> listaCarros;
+    public ArrayList<Vector2> podio;
+    public EndScreen endScreen;
 
     public GameScreen(Game game, SpriteBatch batch, ArrayList carros){
         this.game = game;
@@ -44,16 +47,21 @@ public class GameScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta){
-        //limpia la pantalla con el color negro
-        dispose();
+            //limpia la pantalla con el color negro
+            dispose();
 
-        batch.setProjectionMatrix(camera.combined);
-        handleInput(delta);//maneja los botones presionados
-        camera.update();//actualiza la camara
+            batch.setProjectionMatrix(camera.combined);
+            handleInput(delta);//maneja los botones presionados
+            camera.update();//actualiza la camara
 
-        batch.begin();
-        pixmap.render(batch);//renderiza lo que haya en el pixmap
-        batch.end();
+            batch.begin();
+            pixmap.render(batch);//renderiza lo que haya en el pixmap
+            batch.end();
+            if (end == true){
+                endScreen = new EndScreen((Pole_Position) game,podio);
+                game.setScreen(endScreen);
+            }
+
     }
     //manejo de teclas
     private void handleInput(float delta) {
@@ -125,8 +133,8 @@ public class GameScreen extends ScreenAdapter {
                 int y = (int) pixmap.objects.get(0).position.y;
                 Misil bomb = new Misil(x, y);
                 pixmap.objects.add(bomb.sprite);
-                //pasar x,y a la logica.......................................
                 pixmap.carros.get(0).bombas.add(bomb);
+                pixmap.carros.get(0).bomb = true;
             }
         }
     }

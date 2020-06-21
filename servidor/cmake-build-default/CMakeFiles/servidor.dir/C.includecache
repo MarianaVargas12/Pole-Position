@@ -14,10 +14,6 @@ string.h
 constant.h
 /cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/servidor/constant.h
 
-/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/servidor/constant.c
-constant.h
-/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/servidor/constant.h
-
 /cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/servidor/constant.h
 
 /cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/servidor/game.h
@@ -54,6 +50,8 @@ pthread.h
 json-c/json.h
 -
 time.h
+-
+math.h
 -
 player.h
 /cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/servidor/player.h

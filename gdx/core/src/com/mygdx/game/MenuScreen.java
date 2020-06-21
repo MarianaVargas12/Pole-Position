@@ -16,12 +16,14 @@ public class MenuScreen implements Screen {
     public ArrayList<Integer> listaCarros = new ArrayList<>();
     public boolean start = false;
     private boolean carroSelec = true;
+    public GameScreen gameScreen;
+
     public MenuScreen(Pole_Position game){
         this.game = game;
         menu = new Texture("core\\assets\\menu.png");
         this.CarrosDisponibles = new ArrayList<>();
     }
-    public GameScreen gameScreen;
+
 
     @Override
     public void show() {

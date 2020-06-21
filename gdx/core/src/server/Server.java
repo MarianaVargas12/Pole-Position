@@ -11,6 +11,7 @@ import java.util.concurrent.CountDownLatch;
 
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.EndScreen;
+import com.mygdx.game.Pole_Position;
 import entidades.Boost;
 import entidades.Hole;
 import entidades.Misil;
@@ -29,7 +30,7 @@ public class Server extends Thread {
     private BufferedReader input;
     private MenuScreen menuScreen;
     private boolean otherPlayers = true;
-    private int cantidadHuecos, cantidadVidas,cantidadTurbos;
+    private int cantidadHuecos, cantidadVidas,cantidadTurbos, cantidadBombas;
     public Server(MenuScreen menuScreen){
         this.menuScreen = menuScreen;
     }
@@ -75,7 +76,7 @@ public class Server extends Thread {
             e.printStackTrace();
         }
         String respuesta = (String) jsonRec.get("command");
-        System.out.println(respuesta);
+        //System.out.println(respuesta);
         //Si ya no hay campo para jugar
         if (respuesta.equals("full")){
             System.out.println("Error, la sala está llena");
@@ -107,7 +108,7 @@ public class Server extends Thread {
                 System.out.println(menuScreen.CarrosDisponibles.get(i));
             }
         }
-        System.out.println(respuesta);
+        //System.out.println(respuesta);
 
         //Este while espera hasta que se haya elegido un carro
         while (menuScreen.carroPrincipal == -1){
@@ -146,6 +147,9 @@ public class Server extends Thread {
         while (true){
             getObjects();
             updateLocation();
+            if (menuScreen.gameScreen.pixmap.carros.get(0).bomb){
+                enviarBomba();
+            }
         }
 
 
@@ -176,8 +180,9 @@ public class Server extends Thread {
         jsonSend.clear();
         jsonSend.put("command","update_location");
         jsonSend.put("x",menuScreen.gameScreen.pixmap.carroPrincipal.sprite.position.x);
-        jsonSend.put("y",menuScreen.gameScreen.pixmap.carroPrincipal.sprite.position.y);
+        jsonSend.put("y",menuScreen.gameScreen.pixmap.pos.y);
         msg = jsonSend.toJSONString();
+        System.out.println(msg);
         out.println(msg);
         //System.out.println(msg);
         jsonSend.clear();
@@ -195,6 +200,7 @@ public class Server extends Thread {
         }
 
         respuesta = (String) jsonRec.get("command");
+        //System.out.println(jsonRec);
         if (respuesta.equals("update")){
             Long vidas = (Long) jsonRec.get("vidas");
             Long puntos = (Long) jsonRec.get("puntos");
@@ -205,7 +211,7 @@ public class Server extends Thread {
             menuScreen.gameScreen.pixmap.carroPrincipal.velocidadReal = velocidad.intValue();
             menuScreen.gameScreen.gameStart = ((Long) jsonRec.get("start") != 0);
         }
-        //Si el juego terminó pasar a la ventana del final
+        //Si el juego terminó, pasar a la ventana del final
         if (respuesta.equals("GameOver")) {
             JSONArray puntos = (JSONArray) jsonRec.get("puntos");
             JSONArray colores = (JSONArray) jsonRec.get("players");
@@ -217,7 +223,10 @@ public class Server extends Thread {
                 Vector2 vector = new Vector2(punto,color);
                 puntosPorJugador.add(vector);
             }
-            EndScreen endScreen = new EndScreen(menuScreen.game,puntosPorJugador);
+            menuScreen.gameScreen.podio = puntosPorJugador;
+            menuScreen.gameScreen.end = true;
+
+
         }
 
         //Si no se ha iniciado el juego
@@ -239,18 +248,17 @@ public class Server extends Thread {
                 }
                 System.out.println(jsonRec);
                 JSONArray players = (JSONArray) jsonRec.get("players");
-                System.out.println("jsonRec");
                 for (int i=0; i<players.size();i++){
                     ArrayList <Long> pos = (ArrayList<Long>) players.get(i);
                     menuScreen.gameScreen.pixmap.agregarCarrosSecundarios(pos.get(2).intValue() -10 );
                 }
                 otherPlayers = false;
             }
-            else{ //Si no ha iniciado actualiza la vaiable de inicio para verificar cambios
+            else{ //Si no ha iniciado actualiza la variable de inicio para verificar cambios
                 jsonSend.clear();
                 jsonSend.put("command","update_location");
-                jsonSend.put("x",menuScreen.gameScreen.pixmap.carroPrincipal.coordenadas.x);
-                jsonSend.put("y",menuScreen.gameScreen.pixmap.carroPrincipal.coordenadas.y);
+                jsonSend.put("x",menuScreen.gameScreen.pixmap.pos.x);
+                jsonSend.put("y",menuScreen.gameScreen.pixmap.pos.y);
                 msg = jsonSend.toJSONString();
                 out.println(msg);
                 jsonSend.clear();
@@ -300,13 +308,13 @@ public class Server extends Thread {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        //System.out.println(jsonRec);
 
         //Recibe ubicacion de jugadores, vidas, turbos y huecos
         JSONArray players = (JSONArray) jsonRec.get("players");
         JSONArray vidas = (JSONArray) jsonRec.get("lives");
         JSONArray turbos = (JSONArray) jsonRec.get("turbos");
         JSONArray huecos = (JSONArray) jsonRec.get("holes");
+        JSONArray bombas = (JSONArray) jsonRec.get("bombs");
 
         //Huecos
         CopyOnWriteArrayList<Vector2> listaVectores = new CopyOnWriteArrayList<>();
@@ -344,12 +352,38 @@ public class Server extends Thread {
             cantidadTurbos = turbos.size();
         }
 
+        //Bombas
+        listaVectores.clear();
+        for(int i =0; i<bombas.size(); i++){
+            ArrayList <Long> pos = (ArrayList<Long>) bombas.get(i);
+            Vector2 vector = new Vector2(pos.get(1).intValue()*30,pos.get(0).intValue()*30);
+            listaVectores.add(vector);
+        }
+        if (cantidadBombas != bombas.size()){
+            menuScreen.gameScreen.pixmap.actualizarSprite(listaVectores,3);
+            cantidadBombas = bombas.size();
+        }
+
         for(int i =0; i<players.size(); i++){
             ArrayList <Long> pos = (ArrayList<Long>) players.get(i);
             menuScreen.gameScreen.pixmap.objects.get(i+1).position.x=pos.get(0).intValue();
-            menuScreen.gameScreen.pixmap.objects.get(i+1).position.y=pos.get(1).intValue() - 75;
+            menuScreen.gameScreen.pixmap.objects.get(i+1).position.y=pos.get(1).intValue();
 
         }
+    }
+    void enviarBomba(){
+        String msg;
+        JSONObject jsonSend = new JSONObject();
+        //Enviar x,y de las bombas
+        jsonSend.clear();
+        jsonSend.put("command","bomba");
+        Misil bomba = menuScreen.gameScreen.pixmap.carros.get(0).bombas.get(menuScreen.gameScreen.pixmap.carros.get(0).bombas.size()-1);
+        jsonSend.put("x",(int) bomba.sprite.position.x);
+        jsonSend.put("y",(int) bomba.sprite.position.y);
+        msg = jsonSend.toJSONString();
+        out.println(msg);
+        System.out.println(msg);
+        menuScreen.gameScreen.pixmap.carros.get(0).bomb = false;
     }
 }
 

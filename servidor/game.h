@@ -19,7 +19,7 @@ typedef  struct Game{
     Player players[4];
     Object objects[70];
     int rounds;
-    int final;
+    int final,jugadores;
     clock_t tr;
     clock_t th;
 }Game;

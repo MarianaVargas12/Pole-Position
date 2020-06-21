@@ -198,17 +198,22 @@ void Game_add_object(Game *game, int x, int y, int type) {
 }
 //verifica quien gana
 void Final(Game *game, int player){
+    game->players->rounds = 0;
     if(everyone(game) && game->final==0){
         game->players[player].points+=FIRST;
         game->final=4;
+        game->rounds =0;
     } else if(everyone(game) && game->final==1){
         game->players[player].points+=SECOND;
         game->final= 4;
+        game->rounds =0;
     }else if(everyone(game) && game->final==2){
         game->players[player].points+=THIRD;
         game->final=4;
+        game->rounds =0;
     }else if(everyone(game) && game->final==3){
         game->final=4;
+        game->rounds =0;
     }else{
         if(game->final==0){
             game->players[player].points+=FIRST;
@@ -225,7 +230,7 @@ void Final(Game *game, int player){
 }
 bool everyone(Game* game){
     for(int i=0; i<MAXPLAYERS; i++){
-        if(game->players[i].rounds!=0  || game->players[i].car.lives != 0){
+        if(game->players[i].rounds!=0  || game->players[i].car.lives != 0 || game->players[i].number != -1){
             return false;
         }
     }
@@ -250,7 +255,7 @@ void gameInitialize(Game *game){
     //crea la matriz
     for(int j =0; j<ROW; j++){//filas
         for(int i =0; i<COLUMN; i++){//columnas
-            if(j == 40 && (i> 16 && i < 22)){
+            if(j == 41 && (i> 16 && i < 24)){
                 game->matrixGame[i][j] = START;
             }
             else if(j == 79 && (i> 44 && i < 75)){
@@ -328,7 +333,7 @@ void gamePrintMatrix(Game *game){
     }
     printf("\n\n");
 }
-//imprime los datos de los jugadores
+//Devuelve los datos de los jugadores
 void Game_get_players_data(Game *game){
     for(int i =0; i<MAXPLAYERS; i++){
         playerGetData(&game->players[i]);
