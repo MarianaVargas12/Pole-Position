@@ -1,0 +1,3 @@
+/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/servidor/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/servidor/cmake-build-debug/CMakeFiles/servidor.dir
+/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/servidor/cmake-build-debug/CMakeFiles/edit_cache.dir

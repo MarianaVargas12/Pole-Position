@@ -1,0 +1,86 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/servidor/car.c
+car.h
+/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/servidor/car.h
+
+/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/servidor/car.h
+stdio.h
+-
+string.h
+-
+constant.h
+/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/servidor/constant.h
+
+/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/servidor/constant.c
+constant.h
+/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/servidor/constant.h
+
+/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/servidor/constant.h
+
+/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/servidor/game.c
+game.h
+/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/servidor/game.h
+
+/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/servidor/game.h
+car.h
+/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/servidor/car.h
+stdio.h
+-
+player.h
+/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/servidor/player.h
+car.h
+/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/servidor/car.h
+stdbool.h
+-
+constant.h
+/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/servidor/constant.h
+
+/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/servidor/main.c
+stdio.h
+-
+sys/socket.h
+-
+stdlib.h
+-
+netinet/in.h
+-
+string.h
+-
+unistd.h
+-
+pthread.h
+-
+json-c/json.h
+-
+player.h
+/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/servidor/player.h
+game.h
+/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/servidor/game.h
+constant.h
+/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/servidor/constant.h
+
+/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/servidor/object.c
+object.h
+/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/servidor/object.h
+
+/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/servidor/object.h
+
+/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/servidor/player.c
+stdbool.h
+-
+player.h
+/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/servidor/player.h
+
+/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/servidor/player.h
+car.h
+/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/servidor/car.h
+object.h
+/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/servidor/object.h
+

@@ -1,0 +1,1 @@
+/usr/bin/cc -g  -Wl,--enable-auto-import CMakeFiles/Cpole.dir/main.c.o CMakeFiles/Cpole.dir/sockets/Server.c.o CMakeFiles/Cpole.dir/json/cJson.c.o  -o Cpole.exe -Wl,--out-implib,libCpole.dll.a -Wl,--major-image-version,0,--minor-image-version,0  -lC -ljson-c 

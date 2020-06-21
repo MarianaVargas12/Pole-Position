@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="Cpole"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/C/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make.exe -j12 -f &quot;/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020\ I\ Semestre/Lenguajes/Cpole/git/Pole-Position/C/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make.exe -j12 -f &quot;/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020\ I\ Semestre/Lenguajes/Cpole/git/Pole-Position/C/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make.exe -j12 -f &quot;/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020\ I\ Semestre/Lenguajes/Cpole/git/Pole-Position/C/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make.exe -j12 -f &quot;/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020\ I\ Semestre/Lenguajes/Cpole/git/Pole-Position/C/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/C/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make.exe -j12 -f &quot;/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020\ I\ Semestre/Lenguajes/Cpole/git/Pole-Position/C/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make.exe -j12 -f &quot;/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020\ I\ Semestre/Lenguajes/Cpole/git/Pole-Position/C/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make.exe -j12 -f &quot;/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020\ I\ Semestre/Lenguajes/Cpole/git/Pole-Position/C/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make.exe -j12 -f &quot;/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020\ I\ Semestre/Lenguajes/Cpole/git/Pole-Position/C/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Cpole">
+				<Option output="/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/C/cmake-build-debug/Cpole.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/C/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/9.3.0/include"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/9.3.0/../../../../lib/../include/w32api"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make.exe -j12 -f &quot;/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020\ I\ Semestre/Lenguajes/Cpole/git/Pole-Position/C/cmake-build-debug/Makefile&quot;  VERBOSE=1 Cpole"/>
+					<CompileFile command="/usr/bin/make.exe -j12 -f &quot;/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020\ I\ Semestre/Lenguajes/Cpole/git/Pole-Position/C/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make.exe -j12 -f &quot;/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020\ I\ Semestre/Lenguajes/Cpole/git/Pole-Position/C/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make.exe -j12 -f &quot;/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020\ I\ Semestre/Lenguajes/Cpole/git/Pole-Position/C/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Cpole/fast">
+				<Option output="/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/C/cmake-build-debug/Cpole.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/C/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/9.3.0/include"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-cygwin/9.3.0/../../../../lib/../include/w32api"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make.exe -j12 -f &quot;/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020\ I\ Semestre/Lenguajes/Cpole/git/Pole-Position/C/cmake-build-debug/Makefile&quot;  VERBOSE=1 Cpole/fast"/>
+					<CompileFile command="/usr/bin/make.exe -j12 -f &quot;/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020\ I\ Semestre/Lenguajes/Cpole/git/Pole-Position/C/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make.exe -j12 -f &quot;/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020\ I\ Semestre/Lenguajes/Cpole/git/Pole-Position/C/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make.exe -j12 -f &quot;/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020\ I\ Semestre/Lenguajes/Cpole/git/Pole-Position/C/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/C/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make.exe -j12 -f &quot;/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020\ I\ Semestre/Lenguajes/Cpole/git/Pole-Position/C/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make.exe -j12 -f &quot;/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020\ I\ Semestre/Lenguajes/Cpole/git/Pole-Position/C/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make.exe -j12 -f &quot;/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020\ I\ Semestre/Lenguajes/Cpole/git/Pole-Position/C/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make.exe -j12 -f &quot;/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020\ I\ Semestre/Lenguajes/Cpole/git/Pole-Position/C/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/C/json/arraylist.h">
+			<Option target="Cpole"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/C/json/bits.h">
+			<Option target="Cpole"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/C/json/cJson.c">
+			<Option target="Cpole"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/C/json/cJson.h">
+			<Option target="Cpole"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/C/json/debug.h">
+			<Option target="Cpole"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/C/json/json.h">
+			<Option target="Cpole"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/C/json/json_c_version.h">
+			<Option target="Cpole"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/C/json/json_config.h">
+			<Option target="Cpole"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/C/json/json_inttypes.h">
+			<Option target="Cpole"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/C/json/json_object.h">
+			<Option target="Cpole"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/C/json/json_object_iterator.h">
+			<Option target="Cpole"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/C/json/json_object_private.h">
+			<Option target="Cpole"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/C/json/json_tokener.h">
+			<Option target="Cpole"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/C/json/json_util.h">
+			<Option target="Cpole"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/C/json/linkhash.h">
+			<Option target="Cpole"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/C/json/printbuf.h">
+			<Option target="Cpole"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/C/json/random_seed.h">
+			<Option target="Cpole"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/C/main.c">
+			<Option target="Cpole"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/C/sockets/Server.c">
+			<Option target="Cpole"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/C/sockets/Server.h">
+			<Option target="Cpole"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/wajib/OneDrive/Documentos/TEC/2020 I Semestre/Lenguajes/Cpole/git/Pole-Position/C/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
