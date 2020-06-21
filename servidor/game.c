@@ -231,19 +231,14 @@ void Final(Game *game, int player){
 bool everyone(Game* game){
     bool every=false;
     for(int i=0; i<MAXPLAYERS; i++){
-        printf("%d\n",i);
         if(game->players[i].number == -1){
             every=true;
-            puts("Not player");
         }
         else if(game->players[i].rounds==0 ){
             every=true;
-            puts("Rondas");
         }else if(game->players[i].car.lives==0){
             every=true;
-            puts("Vidas");
         }else{
-            puts("No ha terminado");
             return false;
         }
 

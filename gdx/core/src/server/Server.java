@@ -212,25 +212,6 @@ public class Server extends Thread {
             menuScreen.gameScreen.pixmap.carroPrincipal.velocidadReal = velocidad.intValue();
             menuScreen.gameScreen.gameStart = ((Long) jsonRec.get("start") != 0);
         }
-        //Si el juego terminó, pasar a la ventana del final
-        if (respuesta.equals("GameOver")) {
-            System.out.println("FIN DEL JUEGO");
-            JSONArray puntos = (JSONArray) jsonRec.get("puntos");
-            JSONArray colores = (JSONArray) jsonRec.get("players");
-            ArrayList<Vector2> puntosPorJugador = new ArrayList<>();
-
-            for (int i =0; i<puntos.size();i++){
-                int punto = Integer.parseInt(puntos.get(i).toString());
-                int color = Integer.parseInt(colores.get(i).toString());
-                Vector2 vector = new Vector2(punto,color);
-                puntosPorJugador.add(vector);
-            }
-            menuScreen.gameScreen.podio = puntosPorJugador;
-            menuScreen.gameScreen.end = true;
-
-
-
-        }
 
         //Si no se ha iniciado el juego
         while(menuScreen.gameScreen.gameStart != true || otherPlayers){
@@ -279,6 +260,24 @@ public class Server extends Thread {
                 respuesta = (String) jsonRec.get("command");
                 if (respuesta.equals("update")){
                     menuScreen.gameScreen.gameStart = ((Long) jsonRec.get("start") != 0);
+                }
+
+                //Si el juego terminó, pasar a la ventana del final
+                if (respuesta.equals("GameOver")) {
+                    System.out.println("FIN DEL JUEGO");
+                    JSONArray puntos = (JSONArray) jsonRec.get("puntos");
+                    JSONArray colores = (JSONArray) jsonRec.get("players");
+                    ArrayList<Vector2> puntosPorJugador = new ArrayList<>();
+
+                    for (int i =0; i<puntos.size();i++){
+                        int punto = Integer.parseInt(puntos.get(i).toString());
+                        int color = Integer.parseInt(colores.get(i).toString());
+                        Vector2 vector = new Vector2(punto,color);
+                        puntosPorJugador.add(vector);
+                    }
+                    menuScreen.gameScreen.podio = puntosPorJugador;
+                    menuScreen.gameScreen.end = true;
+
                 }
             }
         }
