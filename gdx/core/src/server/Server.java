@@ -146,7 +146,9 @@ public class Server extends Thread {
         //Loop que maneja la rutina con el server
         while (true){
             getObjects();
+            System.out.println("paso objects");
             updateLocation();
+            System.out.println("update location");
             if (menuScreen.gameScreen.pixmap.carros.get(0).bomb){
                 enviarBomba();
             }
@@ -182,7 +184,6 @@ public class Server extends Thread {
         jsonSend.put("x",menuScreen.gameScreen.pixmap.carroPrincipal.sprite.position.x);
         jsonSend.put("y",menuScreen.gameScreen.pixmap.pos.y);
         msg = jsonSend.toJSONString();
-        System.out.println(msg);
         out.println(msg);
         //System.out.println(msg);
         jsonSend.clear();
@@ -200,7 +201,7 @@ public class Server extends Thread {
         }
 
         respuesta = (String) jsonRec.get("command");
-        //System.out.println(jsonRec);
+        System.out.println(jsonRec);
         if (respuesta.equals("update")){
             Long vidas = (Long) jsonRec.get("vidas");
             Long puntos = (Long) jsonRec.get("puntos");
@@ -213,6 +214,7 @@ public class Server extends Thread {
         }
         //Si el juego terminó, pasar a la ventana del final
         if (respuesta.equals("GameOver")) {
+            System.out.println("FIN DEL JUEGO");
             JSONArray puntos = (JSONArray) jsonRec.get("puntos");
             JSONArray colores = (JSONArray) jsonRec.get("players");
             ArrayList<Vector2> puntosPorJugador = new ArrayList<>();
@@ -225,6 +227,7 @@ public class Server extends Thread {
             }
             menuScreen.gameScreen.podio = puntosPorJugador;
             menuScreen.gameScreen.end = true;
+
 
 
         }
@@ -370,6 +373,7 @@ public class Server extends Thread {
             menuScreen.gameScreen.pixmap.objects.get(i+1).position.y=pos.get(1).intValue();
 
         }
+
     }
     void enviarBomba(){
         String msg;

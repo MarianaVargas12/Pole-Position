@@ -300,7 +300,7 @@ void *connection_handler(Connection_handler_args* args) {
         //Si el cliente le envia su nueva ubicacion
         if (strcmp(json_object_get_string(json_object_object_get(connection_json, "command")), "update_location") == 0){ //Si el comando es update_location
             if(game->rounds == 0){
-                puts("GAME OVER");
+                puts("GameOver");
                 json_object* my_array = json_object_new_array();
                 json_object* arrColor = json_object_new_array();
                 connection_json = json_object_new_object();
@@ -315,7 +315,7 @@ void *connection_handler(Connection_handler_args* args) {
                 strcpy(message, json_object_to_json_string(connection_json));
                 message[strlen(message)]='\n';
                 write(sock , message , strlen(message));
-                puts(message);
+               // puts((read_size = recv(sock , client_message , 2000 , 0)));
             }
             else{
                 CarMove(&game->players[number].car,round(json_object_get_double(json_object_object_get(connection_json, "x"))/30), round(((int)json_object_get_double(json_object_object_get(connection_json, "y")))/30));

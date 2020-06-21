@@ -198,7 +198,7 @@ void Game_add_object(Game *game, int x, int y, int type) {
 }
 //verifica quien gana
 void Final(Game *game, int player){
-    game->players->rounds = 0;
+//    game->players->rounds = 0;
     if(everyone(game) && game->final==0){
         game->players[player].points+=FIRST;
         game->final=4;
@@ -229,12 +229,26 @@ void Final(Game *game, int player){
 
 }
 bool everyone(Game* game){
+    bool every=false;
     for(int i=0; i<MAXPLAYERS; i++){
-        if(game->players[i].rounds!=0  || game->players[i].car.lives != 0 || game->players[i].number != -1){
+        printf("%d\n",i);
+        if(game->players[i].number == -1){
+            every=true;
+            puts("Not player");
+        }
+        else if(game->players[i].rounds==0 ){
+            every=true;
+            puts("Rondas");
+        }else if(game->players[i].car.lives==0){
+            every=true;
+            puts("Vidas");
+        }else{
+            puts("No ha terminado");
             return false;
         }
+
     }
-    return true;
+    return every;
 }
 void gamerounds(Game *game, int rounds){
     game->rounds=rounds;
