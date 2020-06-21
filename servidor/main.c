@@ -331,7 +331,7 @@ void *connection_handler(Connection_handler_args* args) {
 
 
                 //Envia si el juego esta iniciado
-                if(game->players[number].rounds == 0){
+                if(game->players[number].rounds == 0 || game->players[number].car.lives ==0){
                     json_object_object_add(connection_json, "start", json_object_new_int(0));
                 }
                 else{
